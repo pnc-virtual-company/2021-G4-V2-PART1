@@ -15,3 +15,15 @@
 
 ---
 <i>@Student Name: <b> Rady Y</b></i>
+
+
+### Updated Signin_Signup_Signout ROUTES
+
+| HTTP REQUEST| ROUTES              | DESCRIPTION |
+| :---        | :----               |:--- |
+| POST        | /signin             |The route for login current account    |
+| POST        | /signup             |The route for register new account   |
+| POST        | /signout            |The route for signout account from event   |
+
+
+<i>@Student Name: <b> Meng Hour</b></i>
