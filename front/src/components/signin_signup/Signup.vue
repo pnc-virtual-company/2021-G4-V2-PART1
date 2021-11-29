@@ -14,25 +14,33 @@
             <hr id="hr" />
         </div>
         <div class="devide">
-            <input type="text" id="left" placeholder="Firstname" />
-            <input type="text" id="right" placeholder="Lastname" />
+            <input type="text" id="left" placeholder="Firstname" v-model="firstname" />
+            <input type="text" id="right" placeholder="Lastname" v-model="lastname" />
+        </div>
+        <small v-show="mss_username!=''" class='mss'>{{mss_username}}</small>
+        <div>
+            <input type="email" placeholder="Email" v-model="email" />
+        </div>
+        <small v-show="mss_email!=''" class='mss'>{{mss_email}}</small>
+        <div>
+            <input type="password" placeholder="Password" v-model="password" />
         </div>
         <div>
-            <input type="email" placeholder="Email" />
+            <input id='mb-0' type="password" placeholder="Confirm Password" v-model="confirmpassword" />
         </div>
         <div>
-            <input type="password" placeholder="Password" />
+            <small v-show="mss_pass!=''" class='mss'>{{mss_pass}}</small>
         </div>
         <div>
-            <input type="password" placeholder="Confirm Password" />
+            <router-link to="/menu"><button class='button'>Sign In</button></router-link>
         </div>
-        <button id="sign-in-btn">Sign up</button>
         </form>
     </div>
 </template>
 
 <script>
-export default {};
+export default {
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -47,7 +55,7 @@ export default {};
         border-radius: 10px;
         font-family: 'Arial';
         margin: auto;
-         margin-top:100px;
+        margin-top:100px;
     }
     #intro-text{
         margin-left: 10px;
@@ -95,6 +103,7 @@ export default {};
         background: #3d7575;
         color: white;
     }
+
     #hr{
         background: #000;
         height: 1px;
@@ -109,6 +118,11 @@ export default {};
         width: 40px;
         padding: 8px;
         background: #ffffff;
+    }
+    .mss{
+        color:red;
+        margin-left: 20px;
+        font-weight: bold;
     }
 </style>
 

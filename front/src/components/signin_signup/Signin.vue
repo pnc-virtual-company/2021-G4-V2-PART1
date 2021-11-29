@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="form-group">
-            <button>Go without account?</button>
+            <button class="button">Go without account?</button>
             <div id="text"><b> or</b></div>
             <hr id="hr" />
         </div>
@@ -18,7 +18,7 @@
             <input type="text" placeholder="Username" />
             <input type="password" placeholder="Password" />
         </div>
-        <button id="sign-in-btn">Sign In</button>
+        <router-link to="/menu"><button class='button'>Sign In</button></router-link>
         </form>
     </div>
 </template>
@@ -50,27 +50,30 @@ export default {};
         color: rgb(201, 110, 7);
         font-weight: bold;
     }
-    input,button{
+    input,.button{
         background: rgb(255, 239, 239);
         width:100%;
         margin: 5px 0px;
         padding: 7px;
         border-radius: 50px;
         border: 1px solid black;
+        color:black;
     }
+    
     input:hover{
         background: white;
     }
     ::placeholder{
         text-align: center;
     }
-    button{
+    .button,#sign-in-btn{
         width:100%;
+        background: #5fb6b6;
     }
-    button{
-    background: #5fb6b6;
+    #sign-in-btn:hover{
+        width: 200px;
     }
-    button:hover{
+    .button:hover,#sign-in-btn:hover{
         background: #3d7575;
         color: white;
     }
