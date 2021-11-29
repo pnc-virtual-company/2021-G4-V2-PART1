@@ -15,16 +15,21 @@
             </div>
             <div class="devide">
                 <input type="text" id="left" placeholder="Firstname" v-model="firstname"/>
+                <span class="text-danger" v-if="error.firstnameError !== 'undefined' "> {{error.firstnameError}} </span>
                 <input type="text" id="right" placeholder="Lastname" v-model="lastname"/>
+                <span class="text-danger" v-if="error.lastnameError !== 'undefined' "> {{error.lastnameError}} </span>
             </div>
             <div>
                 <input type="email" placeholder="Email" v-model="email"/>
+                <span class="text-danger" v-if="error.emailError !== 'undefined' "> {{error.emailError}} </span>
             </div>
             <div>
                 <input type="password" placeholder="Password" v-model="password"/>
+                <span class="text-danger" v-if="error.passwordError !== 'undefined' "> {{error.passwordError}} </span>
             </div>
             <div>
                 <input type="password" placeholder="Confirm Password" v-model="confirm_password"/>
+                <span class="text-danger" v-if="error.confirm_passwordError !== 'undefined' "> {{error.confirm_passwordError}} </span>
             </div>
             <button id="sign-in-btn" @click.prevent="signUp">Sign up</button>
         </form>
@@ -34,6 +39,7 @@
 <script>
 export default {
     emits: ['signup'],
+    inject: ['error'],
     data(){
         return {
             firstname: '',
@@ -46,8 +52,8 @@ export default {
     methods: {
         signUp(){
             this.$emit('signup', this.firstname, this.lastname, this.email, this.password, this.confirm_password);
-        }
-    }
+        },
+    },
 };
 </script>
 

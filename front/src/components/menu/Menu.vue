@@ -4,24 +4,17 @@
             <h1>Username</h1>
         </div>
         <ul class="nav justify-content-end w-75 p-3 ">
-            <li class="nav-item mr-3 ml-2">
-                <a class="nav-link active text-dark font-weight-bold" href="#">My events</a>
+            <li>
+                <router-link class='nav-link active text-dark font-weight-bold' to="/myevent">My events</router-link>
             </li>
             <li class="nav-item mr-2 ml-2">
-                <a class="nav-link text-dark font-weight-bold" href="#">Find Event</a>
+                <router-link class='nav-link active text-dark font-weight-bold' to="/findevent">Find Event</router-link>
             </li>
             <li class="nav-item dropdown font-weight-bold">
-                <a class="nav-link dropdown-toggle text-dark " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Categories</a>
-                <div class="dropdown-menu mt-4">
-                    <a class="dropdown-item " href="#">#</a>
-                    <a class="dropdown-item" href="#">#</a>
-                    <a class="dropdown-item" href="#">#</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">#</a>
-                </div>
+                <router-link class='nav-link active text-dark font-weight-bold' to="/categories">Categories</router-link>
             </li>
             <li>
-                <button type="button" class="btn btn-info border border-dark">Sign Out</button>
+                <router-link class="button btn btn-info border border-dark" to="/signin">Sign Out</router-link>
             </li>
         </ul>
     </nav>

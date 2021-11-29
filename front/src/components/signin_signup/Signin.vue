@@ -17,7 +17,7 @@
             <input type="text" placeholder="Username" />
             <input type="password" placeholder="Password" />
         </div>
-        <button id="sign-in-btn">Sign In</button>
+        <button id="sign-in-btn"><router-link to="/menu" class="sign-in-btn"> Sign In </router-link></button>
         </form>
     </div>
 </template>
@@ -48,6 +48,10 @@ export default {};
         text-decoration: none;
         color: rgb(201, 110, 7);
         font-weight: bold;
+    }
+    .sign-in-btn{
+        color: black;
+        text-decoration: none;
     }
     input,button{
         background: rgb(255, 239, 239);
