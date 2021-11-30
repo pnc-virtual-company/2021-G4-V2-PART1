@@ -32,6 +32,7 @@ export default {
         password: password,
         password_confirmation: confirm_password
       }
+      console.log(data);
       axios.post('http://eventme.com:3000/api/signup', data)
         .then((res) => {
           console.log(res.data);
