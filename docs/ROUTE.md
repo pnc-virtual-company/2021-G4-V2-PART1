@@ -27,5 +27,5 @@
 | POST         | /signup  | The route for register new account       |
 | POST         | /signout | The route for signout account from event |
 
-`<i>`@Student Name: `<b>` Meng Hour `</b></i``
-===========================
+=======
+<i>@Student Name: <b> Meng Hour</b></i>
