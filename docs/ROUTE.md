@@ -27,3 +27,17 @@
 
 
 <i>@Student Name: <b> Meng Hour</b></i>
+
+
+### Updated Category ROUTES "Back"
+
+| HTTP REQUEST     | ROUTES                    | DESCRIPTION |
+| :---             | :----                     |:--- |
+| GET              | /categories               |The route for get all categories    |
+| POST             | /categories               |The route to create new category   |
+| GET              | /categories/{id}          |The route to get a category   |
+| PUT              | /categories/{id}          |The route to update category   |
+| DELETE           | /categories/{id}          |The route to remove category   |
+
+
+<i>@Student Name: <b> Sara Vey</b></i>
