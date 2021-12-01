@@ -14,24 +14,24 @@
                 <hr id="hr" />
             </div>
             <div class="devide">
-                <input type="text" id="left" placeholder="Firstname" v-model="firstname"/>
-                <span class="text-danger" v-if="error.firstnameError !== 'undefined' "> {{error.firstnameError}} </span>
+                <input type="text" id="left" placeholder="Firstname" required v-model="firstname"/>
+                <strong class="text-danger" v-if="error.firstnameError"> {{error.firstnameError[0]}} </strong>
                 <input type="text" id="right" placeholder="Lastname" v-model="lastname"/>
-                <span class="text-danger" v-if="error.lastnameError !== 'undefined' "> {{error.lastnameError}} </span>
+                <strong class="text-danger" v-if="error.lastnameError"> {{error.lastnameError[0]}} </strong>
             </div>
             <div>
-                <input type="email" placeholder="Email" v-model="email"/>
-                <span class="text-danger" v-if="error.emailError !== 'undefined' "> {{error.emailError}} </span>
+                <input type="email" placeholder="Email" required v-model="email"/>
+                <strong class="text-danger" v-if="error.emailError"> {{error.emailError[0]}} </strong>
             </div>
             <div>
-                <input type="password" placeholder="Password" v-model="password"/>
-                <span class="text-danger" v-if="error.passwordError !== 'undefined' "> {{error.passwordError}} </span>
+                <input type="password" placeholder="Password" required v-model="password"/>
+                <strong class="text-danger" v-if="error.passwordError"> {{error.passwordError[0]}} </strong>
             </div>
             <div>
-                <input type="password" placeholder="Confirm Password" v-model="confirm_password"/>
-                <span class="text-danger" v-if="error.confirm_passwordError !== 'undefined' "> {{error.confirm_passwordError}} </span>
+                <input type="password" placeholder="Confirm Password" required v-model="confirm_password"/>
+                <strong class="text-danger" v-if="error.confirm_passwordError"> {{error.confirm_passwordError[1]}} </strong>
             </div>
-            <button id="sign-in-btn" @click.prevent="signUp">Sign up</button>
+            <button id="sign-in-btn" @click.prevent="signUp"><router-link to="/menu" class="sign-up-btn"> Sign up </router-link></button>
         </form>
     </div>
 </template>
@@ -79,6 +79,10 @@ export default {
         text-decoration: none;
         color: rgb(201, 110, 7);
         font-weight: bolder;
+    }
+    .sign-up-btn{
+        color: black;
+        text-decoration: none;
     }
     input,button{
         background: rgb(211, 211, 211);

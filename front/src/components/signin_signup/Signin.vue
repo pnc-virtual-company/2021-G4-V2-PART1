@@ -1,29 +1,56 @@
 <template>
     <div class="login-form">
         <form class="sign-in-form">
-        <div>
-            <h1>Sign In</h1>
-            <div id="intro-text">
-            <span>Don't have an account yet?</span>
-                <router-link class="link" to="/signup">Sign up</router-link>
+            <div>
+                <h1>Sign In</h1>
+                <div id="intro-text">
+                <span>Don't have an account yet?</span>
+                    <router-link class="link" to="/signup">Sign up</router-link>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <button>Go without account?</button>
-            <div id="text"><b> or</b></div>
-            <hr id="hr" />
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
-        </div>
-        <button id="sign-in-btn"><router-link to="/menu" class="sign-in-btn"> Sign In </router-link></button>
+            <div class="form-group">
+                <button>Go without account?</button>
+                <div id="text"><b> or</b></div>
+                <hr id="hr" />
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Email" v-model="email" required/>
+                <input type="password" placeholder="Password" v-model="password" required/>
+                <strong class="text-danger"> {{message_error}} </strong>
+            </div>
+            <button id="sign-in-btn"><router-link to="/" class="sign-in-btn" @click="signIn"> Sign In </router-link></button>
         </form>
     </div>
 </template>
 
 <script>
-export default {};
+import axios from 'axios';
+export default {
+    data(){
+        return{
+            email: '',
+            password: '',
+            message_error: ''
+        }
+    },
+    methods: {
+        signIn(e){
+            e.preventDefault();
+            let users = {
+                email: this.email,
+                password: this.password
+            }
+            axios.post('http://eventme.com:3000/api/signin', users)
+                .then((res) => {
+                    console.log(res.data);
+                    this.$router.push('/menu');
+                })
+                .catch(error => {
+                    this.message_error = error.response.data.message;
+                });
+        }   
+    }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

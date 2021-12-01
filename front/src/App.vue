@@ -37,11 +37,13 @@ export default {
           console.log(res.data);
         })
         .catch(error => {
-          this.error.firstnameError = error.response.data.errors.firstname;
-          this.error.lastnameError = error.response.data.errors.lastname;
-          this.error.emailError = error.response.data.errors.email;
-          this.error.passwordError = error.response.data.errors.password;
-          this.error.confirm_passwordError = error.response.data.errors;
+          if (error.response.status === 422) {
+            this.error.firstnameError = error.response.data.errors.firstname;
+            this.error.lastnameError = error.response.data.errors.lastname;
+            this.error.emailError = error.response.data.errors.email;
+            this.error.passwordError = error.response.data.errors.password;
+            this.error.confirm_passwordError = error.response.data.errors.password;
+          }
         });
     },
   }
@@ -54,5 +56,4 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 </style>
