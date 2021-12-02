@@ -1,43 +1,78 @@
 <template>
-    <div class="login-form">
-        <form class="sign-in-form">
-        <div>
-            <h1>Sign In</h1>
-            <div id="intro-text">
-            <span>Don't have an account yet?</span>
-                <router-link class="link" to="/signup">Sign up</router-link>
+    <div class="signin-form">
+        <form >
+            <div>
+                <h1>Sign In</h1>
+                <div id="intro-text">
+                <span>Don't have an account yet?</span>
+                    <router-link class="link" to="/signup">Sign up</router-link>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <button>Go without account?</button>
-            <div id="text"><b> or</b></div>
-            <hr id="hr" />
-        </div>
-        <div class="form-group">
-            <input type="text" placeholder="Username" />
-            <input type="password" placeholder="Password" />
-        </div>
-        <button id="sign-in-btn"><router-link to="/menu" class="sign-in-btn"> Sign In </router-link></button>
+            <div class="form-group">
+                <button>Go without account?</button>
+                <div id="text"><b> or</b></div>
+                <hr id="hr" />
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Email" v-model="email" required/>
+                <input type="password" placeholder="Password" v-model="password" required/>
+                <strong class="text-danger"> {{message_error}} </strong>
+            </div>
+            <button id='signin-btn'><router-link to="/" @click="signIn" id="sign-in-btn"> Sign In </router-link></button>
         </form>
     </div>
 </template>
 
 <script>
-export default {};
+import axios from 'axios';
+export default {
+    data(){
+        return{
+            username: '',
+            userid: '',
+            email: '',
+            password: '',
+            message_error: '',
+        }
+    },
+    methods: {
+        signIn(e){
+            e.preventDefault();
+            let users = {
+                email: this.email,
+                password: this.password
+            }
+            axios.post('http://eventme.com:3000/api/signin', users)
+                .then((res) => {
+                    console.log(res.data.user);
+                    localStorage.setItem('id', res.data.user.id);
+                    localStorage.setItem('username', res.data.user.firstname);
+                    this.$router.push('/menu');
+                })
+                .catch(error => {
+                    this.message_error = error.response.data.message;
+                });
+        },
+    }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .login-form{
+    .signin-form{
         border: 1px solid black;
-        background: #B0F0EC;
+        background: #313736c0;
         width: 300px;
         height: 100%;
         padding: 20px;
         border-radius: 10px;
         margin: auto;
-        margin-top: 100px;
+        margin-top: 130px;
         font-family: 'Arial';
+    }
+    .signin-form h1{
+        font-weight: bold;
+        color: white;
     }
     #intro-text{
         margin-left: 10px;
@@ -46,49 +81,55 @@ export default {};
     }
     .link{
         text-decoration: none;
-        color: rgb(201, 110, 7);
+        color: orange;
+        margin-left: 5px;
         font-weight: bold;
     }
-    .sign-in-btn{
-        color: black;
-        text-decoration: none;
+    .link:hover{
+        border-bottom: 1.5px solid rgb(0, 0, 0);
+        margin-left: 7px;
     }
+    
     input,button{
-        background: rgb(255, 239, 239);
+        background: rgba(255, 255, 255, 0.349);
         width:100%;
         margin: 5px 0px;
         padding: 7px;
         border-radius: 50px;
         border: 1px solid black;
     }
-    input:hover{
-        background: white;
-    }
+    
     ::placeholder{
+        color: rgba(0, 0, 0, 0.664);
         text-align: center;
     }
-    button{
-        width:100%;
+
+    button:hover,  input:hover{
+        box-shadow: 0px 0px 16px -5px rgba(0,0,0,1);
+        -webkit-box-shadow: 0px 0px -5px 0px rgba(0,0,0,1);
+        -moz-box-shadow: 0px 0px 16px -5px rgba(0,0,0,1);
+        background: rgba(255, 255, 255, 0.123);
     }
-    button{
-    background: #5fb6b6;
-    }
-    button:hover{
-        background: #3d7575;
-        color: white;
+    #sign-in-btn{
+        color: black;
+        text-decoration: none;
     }
     #hr{
-        background: #000;
-        height: 1px;
+        color: white;
+        height: 2px;
         border: none;
-        margin:18px 0px;
+        margin:18px 5px;
     }
     #text{
         margin-left:110px;
         position: absolute;
         border-radius: 40px;
         width: 38px;
-        padding: 8px;
-        background: white;
+        padding:7px 8px;
+        background: rgb(255, 255, 255);
+        color:black
+    }
+    #signin-btn{
+        background:#FFA800;
     }
 </style>
