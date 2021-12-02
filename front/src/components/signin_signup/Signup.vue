@@ -39,7 +39,7 @@
 <script>
 export default {
     emits: ['signup'],
-    inject: ['error'],
+    inject: ['error', 'isSignup'],
     data(){
         return {
             firstname: '',
@@ -59,10 +59,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .link:hover{
-        border-bottom: 1.5px solid rgb(0, 0, 0);
-        margin-left: 7px;
-    }
+    
     .signup-form{
         border: 1px solid black;
         background: #313736c0;
@@ -88,6 +85,10 @@ export default {
         color: orange;
         font-weight: bolder;
         font-weight: bold;
+    }
+    .link:hover{
+        border-bottom: 1.5px solid rgb(0, 0, 0);
+        margin-left: 7px;
     }
     .sign-up-btn{
         color: black;
