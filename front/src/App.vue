@@ -1,9 +1,9 @@
 <template>
     <section>
         <router-view @signup="addUser"></router-view>
+
     </section>
 </template>
-
 <script>
 import axios from 'axios';
 export default {
@@ -49,6 +49,9 @@ export default {
 </script>
 
 <style>
+body{
+  background: #313736;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
