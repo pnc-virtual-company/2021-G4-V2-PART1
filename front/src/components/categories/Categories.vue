@@ -8,12 +8,14 @@
     </div>
     <div class="category_title">
           <h1>CATEGORY</h1>
-    </div>  
+    </div>
+    <category-form></category-form> 
     <category-card></category-card>
     <category-card></category-card>
     <category-card></category-card>
     <category-card></category-card>
   </div>
+
   
 </template>
 

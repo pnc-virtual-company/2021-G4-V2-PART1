@@ -1,9 +1,9 @@
 <template>
     <section>
         <router-view @signup="addUser"></router-view>
-
     </section>
 </template>
+
 <script>
 import axios from 'axios';
 export default {
