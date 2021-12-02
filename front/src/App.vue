@@ -35,6 +35,8 @@ export default {
       axios.post('http://eventme.com:3000/api/signup', data)
         .then((res) => {
           console.log(res.data);
+          localStorage.setItem('username', firstname);
+          localStorage.setItem('id', res.data.user.id);
         })
         .catch(error => {
           if (error.response.status === 422) {

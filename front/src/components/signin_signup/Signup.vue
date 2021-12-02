@@ -31,7 +31,7 @@
                 <input type="password" placeholder="Confirm Password" required v-model="confirm_password"/>
                 <strong class="text-danger" v-if="error.confirm_passwordError"> {{error.confirm_passwordError[1]}} </strong>
             </div>
-            <button id="sign-in-btn" @click.prevent="signUp"><router-link to="/menu" class="sign-up-btn"> Sign up </router-link></button>
+            <button id="sign-in-btn" @click.prevent="signUp"><router-link to="/" class="sign-up-btn"> Sign up </router-link></button>
         </form>
     </div>
 </template>
@@ -48,11 +48,11 @@ export default {
             password: '',
             confirm_password: '',
         }
-    },    
+    },
     methods: {
         signUp(){
             this.$emit('signup', this.firstname, this.lastname, this.email, this.password, this.confirm_password);
-        },
+        }
     },
 };
 </script>

@@ -28,9 +28,11 @@ import axios from 'axios';
 export default {
     data(){
         return{
+            username: '',
+            userid: '',
             email: '',
             password: '',
-            message_error: ''
+            message_error: '',
         }
     },
     methods: {
@@ -42,13 +44,15 @@ export default {
             }
             axios.post('http://eventme.com:3000/api/signin', users)
                 .then((res) => {
-                    console.log(res.data);
+                    console.log(res.data.user);
+                    localStorage.setItem('id', res.data.user.id);
+                    localStorage.setItem('username', res.data.user.firstname);
                     this.$router.push('/menu');
                 })
                 .catch(error => {
                     this.message_error = error.response.data.message;
                 });
-        }   
+        },
     }
 };
 </script>
