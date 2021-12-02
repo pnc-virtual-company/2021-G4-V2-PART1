@@ -1,13 +1,15 @@
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import { createRouter, createWebHistory } from "vue-router";
-import App from './App.vue'
+import App from './App.vue';
 
+import Menu from './components/menu/Menu.vue'
 import Signin from './components/signin_signup/Signin.vue';
 import Signup from './components/signin_signup/Signup.vue';
-// import Menu from './components/menu/Menu.vue';
 import Myevent from './components/myevent/Myevent.vue';
 import Findevent from './components/findevent/Findevent.vue';
 import Categories from './components/categories/Categories.vue';
+import Category_Card from './components/categories/Category_Card.vue'
+import Categoriesform from './components/categories/Categoriesform.vue'
 
 const router = createRouter({
     history:createWebHistory(),
@@ -26,7 +28,7 @@ const router = createRouter({
             },
             {
                 path:"/menu",
-                component:Myevent,
+                component:Menu,
             },
             {
                 path:"/myevent",
@@ -45,5 +47,8 @@ const router = createRouter({
 
 const app = createApp(App)
 app.use(router);
+app.component('category-card',Category_Card);
+app.component('category-form',Categoriesform);
 app.mount('#app');
+
 
