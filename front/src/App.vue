@@ -15,12 +15,14 @@ export default {
         emailError: '',
         passwordError: '',
         confirm_passwordError: ''
-      }
+      },
+      isSignup: ''
     }
   },
   provide(){
     return {
-      error: this.error
+      error: this.error,
+      isSignup: this.isSignup
     }
   },
   methods: {
@@ -37,6 +39,7 @@ export default {
           console.log(res.data);
           localStorage.setItem('username', firstname);
           localStorage.setItem('id', res.data.user.id);
+          this.isSignup = this.$router.push('/');
         })
         .catch(error => {
           if (error.response.status === 422) {
@@ -45,6 +48,7 @@ export default {
             this.error.emailError = error.response.data.errors.email;
             this.error.passwordError = error.response.data.errors.password;
             this.error.confirm_passwordError = error.response.data.errors.password;
+            this.isSignup = this.$router.push('/signup');
           }
         });
     },
