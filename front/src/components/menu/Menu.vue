@@ -26,12 +26,12 @@
 export default {
     data(){
         return {
-            username: 'dfghjk',
+            username: '',
             userid: ''
         }
     },
     mounted() {
-        // this.username = localStorage.getItem('username');
+        this.username = localStorage.getItem('username');
         this.userid = localStorage.getItem('id');
     },
     methods: {

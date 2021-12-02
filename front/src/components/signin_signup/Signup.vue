@@ -141,8 +141,8 @@ export default {
         color: white;
     }
     #hr{
-        background: #000;
-        height: 1px;
+        background: white;
+        height: 2px;
         border: none;
         margin-top: 27px;
         margin-bottom: 15px;
