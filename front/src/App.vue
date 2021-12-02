@@ -39,6 +39,7 @@ export default {
           localStorage.setItem('id', res.data.user.id);
         })
         .catch(error => {
+          console.log(error.response.status)
           if (error.response.status === 422) {
             this.error.firstnameError = error.response.data.errors.firstname;
             this.error.lastnameError = error.response.data.errors.lastname;

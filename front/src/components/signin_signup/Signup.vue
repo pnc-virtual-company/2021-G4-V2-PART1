@@ -1,5 +1,5 @@
 <template>
-    <div class="login-form">
+    <div class="signup-form">
         <form class="sign-in-form" action="#">
             <div>
                 <h1>Sign Up</h1>
@@ -31,7 +31,7 @@
                 <input type="password" placeholder="Confirm Password" required v-model="confirm_password"/>
                 <strong class="text-danger" v-if="error.confirm_passwordError"> {{error.confirm_passwordError[1]}} </strong>
             </div>
-            <button id="sign-in-btn" @click.prevent="signUp"><router-link to="/" class="sign-up-btn"> Sign up </router-link></button>
+            <button id="signup-btn" @click.prevent="signUp"><router-link to="/" class="sign-up-btn"> Sign up </router-link></button>
         </form>
     </div>
 </template>
@@ -59,16 +59,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .login-form{
+    .link:hover{
+        border-bottom: 1.5px solid rgb(0, 0, 0);
+        margin-left: 7px;
+    }
+    .signup-form{
         border: 1px solid black;
-        background: #B0F0EC;
+        background: #313736c0;
         width: 350px;
         height: 100%;
         padding: 20px;
         border-radius: 10px;
-        font-family: 'Arial';
         margin: auto;
-        margin-top:100px;
+        margin-top: 130px;
+        font-family: 'Arial';
+    }
+    .signup-form h1{
+        font-weight: bold;
+        color: white;
     }
     #intro-text{
         margin-left: 10px;
@@ -77,20 +85,27 @@ export default {
     }
     .link{
         text-decoration: none;
-        color: rgb(201, 110, 7);
+        color: orange;
         font-weight: bolder;
+        font-weight: bold;
     }
     .sign-up-btn{
         color: black;
         text-decoration: none;
     }
     input,button{
-        background: rgb(211, 211, 211);
+        background: rgba(255, 255, 255, 0.349);
         width:100%;
         margin: 5px 0px;
         padding: 7px;
         border-radius: 50px;
         border: 1px solid black;
+    }
+    button:hover,  input:hover{
+        box-shadow: 0px 0px 16px -5px rgba(0,0,0,1);
+        -webkit-box-shadow: 0px 0px -5px 0px rgba(0,0,0,1);
+        -moz-box-shadow: 0px 0px 16px -5px rgba(0,0,0,1);
+        background: rgba(255, 255, 255, 0.123);
     }
     .devide{
         display: flex;
@@ -104,20 +119,24 @@ export default {
         margin-right: 0;
         margin-left: 5px;
     }
-    input:hover{
-        background: white;
+    button:hover,  input:hover{
+        box-shadow: 0px 0px 16px -5px rgba(0,0,0,1);
+        -webkit-box-shadow: 0px 0px -5px 0px rgba(0,0,0,1);
+        -moz-box-shadow: 0px 0px 16px -5px rgba(0,0,0,1);
+        background: rgba(255, 255, 255, 0.123);
     }
     ::placeholder{
+        color: black;
         text-align: center;
     }
     button{
         width:100%;
     }
     button{
-    background: #5fb6b6;
+    background: orange;
     }
     button:hover{
-        background: #3d7575;
+        background: rgb(185, 122, 4);
         color: white;
     }
     #hr{
@@ -134,5 +153,8 @@ export default {
         width: 40px;
         padding: 8px;
         background: #ffffff;
+    }
+    #signup-btn{
+        background:#FFA800;
     }
 </style>
