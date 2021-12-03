@@ -16,10 +16,8 @@
             return {
                 title:"hello"
             }
-        },
-        
+        },  
     }
-
 </script>
 
 <style scoped>
