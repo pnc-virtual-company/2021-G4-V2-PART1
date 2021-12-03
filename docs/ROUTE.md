@@ -13,11 +13,6 @@
 | DELETE       | /books/{id} | The route to delete a book             |
 |              |             |                                        |
 
-### 2. Route Updated By:
-
-
-
-`<i>`@Student Name: `<b>` Rady Y`</b></i>`
 
 ### Updated Signin_Signup_Signout ROUTES
 
@@ -27,8 +22,17 @@
 | POST         | /signup  | The route for register new account       |
 | POST         | /signout | The route for signout account from event |
 
-=======
-<i>@Student Name: <b> Meng Hour</b></i>
+
+### Updated Category ROUTES "Back"
+
+| HTTP REQUEST     | ROUTES                    | DESCRIPTION |
+| :---             | :----                     |:--- |
+| GET              | /categories               |The route for get all categories    |
+| POST             | /categories               |The route to create new category   |
+| GET              | /categories/{id}          |The route to get a category   |
+| PUT              | /categories/{id}          |The route to update category   |
+| DELETE           | /categories/{id}          |The route to remove category   |
+
 
 ### Update Event ROUTE
 
