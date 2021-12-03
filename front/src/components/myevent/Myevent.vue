@@ -1,6 +1,7 @@
 <template>
   <div>
     <Menu></Menu>
+    <!-- <router-view></router-view> -->
   <h1>My Event</h1>
   </div>
 </template>

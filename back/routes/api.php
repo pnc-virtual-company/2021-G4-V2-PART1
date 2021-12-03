@@ -4,10 +4,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 <<<<<<< HEAD
+<<<<<<< HEAD
 use App\Http\Controllers\CategoryController;
 =======
 
 >>>>>>> main
+=======
+use App\Http\Controllers\CategoryController;
+>>>>>>> 3d5ee007f2f05d56424b7fcd0db7ac723a6de4cb
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,8 +33,8 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/signout', [UserController::class, 'signout']);
 });
 
-Route::get('/categorys',[CategoryController::class, 'index']);
-Route::post('/categorys',[CategoryController::class, 'store']);
-Route::get('/categorys/{id}',[CategoryController::class, 'show']);
-Route::put('/categorys/{id}',[CategoryController::class, 'update']);
-Route::delete('/categorys/{id}',[CategoryController::class, 'destroy']);
+Route::get('/categories',[CategoryController::class, 'index']);
+Route::post('/categories',[CategoryController::class, 'store']);
+Route::get('/categories/{id}',[CategoryController::class, 'show']);
+Route::put('/categories/{id}',[CategoryController::class, 'update']);
+Route::delete('/categories/{id}',[CategoryController::class, 'destroy']);
