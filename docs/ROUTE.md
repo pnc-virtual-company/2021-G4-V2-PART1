@@ -29,3 +29,13 @@
 
 =======
 <i>@Student Name: <b> Meng Hour</b></i>
+
+### Update Event ROUTE
+
+| HTTP REQUEST  | ROUTES       | DESCRIPTION                   |
+| :-------------| :------------| :-----------------------------|
+| GET           | /events      | The route for get all events  |
+| POST          | /events      | The route to create new event |
+| GET           | /events/{id} | The route to get a event      |
+| PUT           | /events/{id} | The route to update event     |
+| DELETE        | /events/{id} | The route to delete event     | 
