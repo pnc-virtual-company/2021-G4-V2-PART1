@@ -13,7 +13,7 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        return Category::get();
+        return Category::join('users', 'categories.user_id', '=', 'users.id')->orderBy('categories.id', 'desc')->get(['users.firstname', 'categories.name', 'categories.user_id', 'categories.id']);
     }
 
     /**
@@ -31,10 +31,10 @@ class CategoryController extends Controller
 
         $category=new Category();
         $category->name=$request->name;
+        $category->user_id=$request->user_id;
         $category->save();
 
-        return response()->json("Category Create");
-        return response()->json(["message"=> "Category created"], 201);
+        return response()->json(["message"=> "Category created", "data"=> $category], 201);
     }
 
     /**
@@ -60,6 +60,7 @@ class CategoryController extends Controller
     {
         //
         $category=Category::findOrFail($id);
+        $category->user_id=$request->user_id;
         $category->name=$request->name;
         $category->save();
         if($category){
@@ -86,4 +87,12 @@ class CategoryController extends Controller
             return response()->json(['message' => 'ID NOT FOUND'],404);
         }
     }
+
+    // ___________________Join users and categories___________________ //
+
+    // public function getUsername()
+    // {
+    //     $username = Category::join('users', 'categories.user_id', '=', 'users.id')->get(['users.firstname', 'categories.name', 'categories.id']);
+    //     return $username;
+    // }
 }

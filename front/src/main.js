@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import { createRouter, createWebHistory } from "vue-router";
 import App from './App.vue';
 
-import Menu from './components/menu/Menu.vue'
+// import Menu from './components/menu/Menu.vue'
 import Signin from './components/signin_signup/Signin.vue';
 import Signup from './components/signin_signup/Signup.vue';
 import Myevent from './components/myevent/Myevent.vue';
@@ -28,7 +28,7 @@ const router = createRouter({
             },
             {
                 path:"/menu",
-                component:Menu,
+                component:Myevent,
             },
             {
                 path:"/myevent",

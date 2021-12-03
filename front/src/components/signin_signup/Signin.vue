@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <button>Go without account?</button>
+                <button><router-link class="sign_in_as_guest" to="/myevent" @click="signInAsGuest"> without account? </router-link></button>
                 <div id="text"><b> or</b></div>
                 <hr id="hr" />
             </div>
@@ -53,6 +53,9 @@ export default {
                     this.message_error = error.response.data.message;
                 });
         },
+        signInAsGuest(){
+            localStorage.setItem('username', 'Guest');
+        }
     }
 };
 </script>
@@ -72,6 +75,9 @@ export default {
     }
     .signin-form h1{
         font-weight: bold;
+        color: white;
+    }
+    span{
         color: white;
     }
     #intro-text{
@@ -98,12 +104,13 @@ export default {
         border-radius: 50px;
         border: 1px solid black;
     }
-    
+    .sign_in_as_guest{
+        color: black;
+    }
     ::placeholder{
         color: rgba(0, 0, 0, 0.664);
         text-align: center;
     }
-
     button:hover,  input:hover{
         box-shadow: 0px 0px 16px -5px rgba(0,0,0,1);
         -webkit-box-shadow: 0px 0px -5px 0px rgba(0,0,0,1);

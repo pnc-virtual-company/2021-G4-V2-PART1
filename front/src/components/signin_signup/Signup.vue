@@ -59,7 +59,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    
     .signup-form{
         border: 1px solid black;
         background: #313736c0;
@@ -73,6 +72,9 @@ export default {
     }
     .signup-form h1{
         font-weight: bold;
+        color: white;
+    }
+    span{
         color: white;
     }
     #intro-text{

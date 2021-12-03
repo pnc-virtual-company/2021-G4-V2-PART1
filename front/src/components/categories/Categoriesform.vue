@@ -1,53 +1,38 @@
 <template>
-  <header>     
-    <div class="wrapper">
+  <header>
+    <div class="wrapper" v-if="username != 'Guest'">
         <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+Add Categories</button>
         <div class="modal fade" id="staticBackdrop">
           <div class="modal-dialog">
             <div class="modal-content"> 
               <div class="modal-body">
                 <input type="text" placeholder="Name" v-model="categoryName"/>
-                <button class="buttonadd" role="button" data-bs-dismiss="modal" @click.prevent="addCategory">+Add</button>
+                <strong class="text-danger"> {{ errorAlert }} </strong>
+                <button class="buttonadd" role="button" data-bs-dismiss="modal" @click.prevent="emitCategories">+Add</button>
               </div>
             </div>
           </div>
-        </div>  
+        </div>
     </div>
   </header>
 </template>
 
 <script>
-const URL = "http://eventme.com:3000/api/";
-import axios from 'axios';
 export default {
+    emits: ['categoryName'],
+    props: ['errorAlert'],
     data(){
-        return {
-            categoryName: '',
-            // error: ''
-        }
+      return {
+        categoryName: '',
+        userid: localStorage.getItem('id'),
+        username: localStorage.getItem('username')
+      }
     },
     methods: {
-        addCategory(categoryName){
-            axios.post(URL + 'categorys', categoryName)
-                .then(res => {
-                    console.log(res.data);
-                })
-                .catch(error => {
-                    if (error.response.status === 422){
-                        console.log(error.response.data.message);
-                    }
-                });
-        },
-        getCategory(){
-            axios.get(URL + 'categorys')
-                .then(res => {
-                    console.log(res.data);
-                });
-        }
+      emitCategories() {
+        this.$emit("categoryName", this.categoryName, this.userid);
+      },
     },
-    mounted(){
-        this.getCategory();
-    }
 }
 </script>
 
@@ -73,7 +58,7 @@ export default {
   }
   .buttonadd {
     background: #f7a223;
-    margin-top: 25px;
+    margin-top: 10px;
     margin-left: 47px;
     margin-bottom: 0;
     padding: 4px 40px;
@@ -93,5 +78,9 @@ export default {
   }
   ::placeholder {
     color: black;
+  }
+  strong{
+    font-size: 10px;
+    text-align: center;
   }
 </style>

@@ -25,8 +25,8 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/signout', [UserController::class, 'signout']);
 });
 
-Route::get('/categorys',[CategoryController::class, 'index']);
-Route::post('/categorys',[CategoryController::class, 'store']);
-Route::get('/categorys/{id}',[CategoryController::class, 'show']);
-Route::put('/categorys/{id}',[CategoryController::class, 'update']);
-Route::delete('/categorys/{id}',[CategoryController::class, 'destroy']);
+Route::get('/categories',[CategoryController::class, 'index']);
+Route::post('/categories',[CategoryController::class, 'store']);
+Route::get('/categories/{id}',[CategoryController::class, 'show']);
+Route::put('/categories/{id}',[CategoryController::class, 'update']);
+Route::delete('/categories/{id}',[CategoryController::class, 'destroy']);
