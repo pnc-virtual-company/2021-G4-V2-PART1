@@ -1,14 +1,16 @@
 <template>
     <section>
-        <router-view @signup="addUser"></router-view>
+        <router-view @categories='Categories' @signup="addUser"></router-view>
     </section>
 </template>
 
 <script>
 import axios from 'axios';
+const URL = "http://127.0.0.1:8000/api/";
 export default {
   data(){
     return {
+        categories:[],
       error: {
         firstnameError: '',
         lastnameError: '',
@@ -21,6 +23,7 @@ export default {
   },
   provide(){
     return {
+      list_category:this.categories,
       error: this.error,
       isSignup: this.isSignup
     }
@@ -34,7 +37,7 @@ export default {
         password: password,
         password_confirmation: confirm_password
       }
-      axios.post('http://eventme.com:3000/api/signup', data)
+      axios.post(URL+'signup', data)
         .then((res) => {
           console.log(res.data);
           localStorage.setItem('username', firstname);
@@ -53,6 +56,11 @@ export default {
           }
         });
     },
+    Categories(Categories){
+      console.log(Categories);
+      this.categories = Categories;
+    }
+
   }
 }
 </script>

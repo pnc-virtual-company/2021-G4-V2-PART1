@@ -15,7 +15,8 @@
 </template>
 
 <script>
-const URL = "http://eventme.com:3000/api/";
+// const URL = "http://eventme.com:3000/api/";
+const URL = "http://127.0.0.1:8000/api/";
 import axios from 'axios';
 import Menu from '../menu/Menu.vue';
 export default {
@@ -28,6 +29,7 @@ export default {
   },
   methods: {
     addCategory(name, id){
+      console.log('yes')
       let data = {
         name: name,
         user_id: id
@@ -48,8 +50,8 @@ export default {
     getCategory(){
       axios.get(URL + 'categories')
         .then(res => {
-            console.log(res.data);
             this.categoryData = res.data;
+            this.$emit('categories',this.categoryData)
         });
     },
     getUsername(){
