@@ -10,6 +10,7 @@ import Findevent from './components/findevent/Findevent.vue';
 import Categories from './components/categories/Categories.vue';
 import Category_Card from './components/categories/Category_Card.vue'
 import Categoriesform from './components/categories/Categoriesform.vue'
+import Dialog from './components/dialog/Dialog.vue'
 
 const router = createRouter({
     history:createWebHistory(),
@@ -49,6 +50,7 @@ const app = createApp(App)
 app.use(router);
 app.component('category-card',Category_Card);
 app.component('category-form',Categoriesform);
+app.component('dialog', Dialog);
 app.mount('#app');
 
 

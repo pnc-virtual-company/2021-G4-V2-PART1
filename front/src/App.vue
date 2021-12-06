@@ -16,7 +16,7 @@ export default {
         passwordError: '',
         confirm_passwordError: ''
       },
-      isSignup: ''
+      isSignup: '',
     }
   },
   provide(){
