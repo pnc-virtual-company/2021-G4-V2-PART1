@@ -3,7 +3,15 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+<<<<<<< HEAD
+<<<<<<< HEAD
 use App\Http\Controllers\CategoryController;
+=======
+
+>>>>>>> main
+=======
+use App\Http\Controllers\CategoryController;
+>>>>>>> 3d5ee007f2f05d56424b7fcd0db7ac723a6de4cb
 /*
 |--------------------------------------------------------------------------
 | API Routes
