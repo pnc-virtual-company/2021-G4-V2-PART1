@@ -8,8 +8,12 @@ import Signup from './components/signin_signup/Signup.vue';
 import Myevent from './components/myevent/Myevent.vue';
 import Findevent from './components/findevent/Findevent.vue';
 import Categories from './components/categories/Categories.vue';
+<<<<<<< HEAD
+import Eventform from './components/myevent/Eventform.vue';
+=======
 import Category_Card from './components/categories/Category_Card.vue'
 import Categoriesform from './components/categories/Categoriesform.vue'
+>>>>>>> 8817f7fc403646128da44112c15fdbbe458f06e8
 
 const router = createRouter({
     history:createWebHistory(),
@@ -41,14 +45,19 @@ const router = createRouter({
             {
                 path:"/categories",
                 component:Categories
-            }
+            },
         ],
     });
 
 const app = createApp(App)
+app.component('event-form',Eventform),
 app.use(router);
 app.component('category-card',Category_Card);
 app.component('category-form',Categoriesform);
 app.mount('#app');
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 8817f7fc403646128da44112c15fdbbe458f06e8

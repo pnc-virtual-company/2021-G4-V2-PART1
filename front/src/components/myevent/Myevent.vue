@@ -1,8 +1,7 @@
 <template>
   <div>
     <Menu></Menu>
-    <!-- <router-view></router-view> -->
-  <h1>My Event</h1>
+  <event-form></event-form>
   </div>
 </template>
 
