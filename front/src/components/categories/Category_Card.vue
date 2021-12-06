@@ -56,7 +56,6 @@
                 category:'',
                 username: localStorage.getItem('username'),
                 userid: localStorage.getItem('id'),
-                showDialog: false,
                 delete_id: null,
             }
         },
