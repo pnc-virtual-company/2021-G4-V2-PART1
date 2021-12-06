@@ -2,7 +2,6 @@
 
 ### 1. Book Routes
 
----
 
 | HTTP REQUEST | ROUTES      | DESCRIPTION                            |
 | :----------- | :---------- | :------------------------------------- |
@@ -12,6 +11,17 @@
 | PUT          | /books/{id} | The route to update a book by given id |
 | DELETE       | /books/{id} | The route to delete a book             |
 |              |             |                                        |
+
+### 2. Route Updated By:
+
+| HTTP REQUEST| ROUTES | DESCRIPTION |
+| :---        | :----   |          :--- |
+| GET         | /books       |The route for get all books   |
+| GET         | /books/{id}        |The route to get a book by given id |
+| POST        | /books        |  The route to create a new book |
+| PUT         | /books/{id}        | The route to update a book by given id |
+| DELETE      | /books/{id}        | The route to delete a book|
+### 2. Route Updated By:
 
 
 ### Updated Signin_Signup_Signout ROUTES
@@ -43,3 +53,5 @@
 | GET           | /events/{id} | The route to get a event      |
 | PUT           | /events/{id} | The route to update event     |
 | DELETE        | /events/{id} | The route to delete event     | 
+
+
