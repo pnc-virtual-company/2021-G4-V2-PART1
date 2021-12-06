@@ -1,7 +1,7 @@
 <template>
   <div>
     <Menu></Menu>
-  <event-form></event-form>
+    <event-form></event-form>
   </div>
 </template>
 

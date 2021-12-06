@@ -43,56 +43,52 @@
 import json from '../myevent/json/countries.json';
   export default {                           
     data() {
-      
-            return {
-              list_Location:json,
-              list_Contries:[],
-              list_Cites:[],
-              Countries:[],
-              title: '',
-              description: '',
-              departuredate: '',
-              arrivaldate: '',
-              location:'',
-              category:'',
-              city:'',
-              country:''
-            };
-          },
-          methods: {
-            emits:['add-event'],
-            addEvent(){
-               let newEvent = {
-                 title: this.title,
-                 description: this.description,
-                 departuredate: this.departuredate,
-                 arrivaldate: this.arrivaldate,
-                 location: this.location,
-                 category: this.category,
-               } 
-               this.$emits('add-event',newEvent)   
-
-            },
-            getLocation(){
-                let countries = this.list_Location
-                for(let key in countries){
-                  this.list_Contries.push(key)
-                }
-            },
-            getcity(){
-              let countries = this.list_Location;
-              for(let country in countries){
-                if(country===this.country){
-                  this.list_Cites = countries[country]
-                }
-              }
-            }
-          },
-          mounted() {
-            this.getLocation();
-          },
-          
-
+      return {
+        list_Location:json,
+        list_Contries:[],
+        list_Cites:[],
+        Countries:[],
+        title: '',
+        description: '',
+        departuredate: '',
+        arrivaldate: '',
+        location:'',
+        category:'',
+        city:'',
+        country:''
+      };
+    },
+    methods: {
+      emits:['add-event'],
+      addEvent(){
+          let newEvent = {
+            title: this.title,
+            description: this.description,
+            departuredate: this.departuredate,
+            arrivaldate: this.arrivaldate,
+            location: this.location,
+            category: this.category,
+          } 
+          this.$emits('add-event',newEvent)   
+      },
+      getLocation(){
+          let countries = this.list_Location
+          for(let key in countries){
+            this.list_Contries.push(key)
+          }
+      },
+      getcity(){
+        let countries = this.list_Location;
+        for(let country in countries){
+          if(country===this.country){
+            this.list_Cites = countries[country]
+          }
+        }
+      }
+    },
+    mounted() {
+      this.getLocation();
+    },
   };
 </script>
 <style>
@@ -148,11 +144,9 @@ import json from '../myevent/json/countries.json';
   }
   .Departure_Date{
     margin-right: 5px;
-
   }
   .Arrival_Date{
     margin-left: 5px;
-
   }
   .container-form textarea {
     height: 120px;
@@ -173,5 +167,4 @@ import json from '../myevent/json/countries.json';
   .select_group{
     display: grid;
   }
-  
 </style>
