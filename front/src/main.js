@@ -8,6 +8,7 @@ import Signup from './components/signin_signup/Signup.vue';
 import Myevent from './components/myevent/Myevent.vue';
 import Findevent from './components/findevent/Findevent.vue';
 import Categories from './components/categories/Categories.vue';
+import Eventform from './components/myevent/Eventform.vue';
 
 const router = createRouter({
     history:createWebHistory(),
@@ -39,11 +40,14 @@ const router = createRouter({
             {
                 path:"/categories",
                 component:Categories
-            }
+            },
         ],
     });
 
 const app = createApp(App)
+app.component('event-form',Eventform),
 app.use(router);
 app.mount('#app');
+
+
 
