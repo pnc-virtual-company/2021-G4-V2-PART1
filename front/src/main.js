@@ -11,6 +11,11 @@ import Categories from './components/categories/Categories.vue';
 import Eventform from './components/myevent/Eventform.vue';
 import Category_Card from './components/categories/Category_Card.vue'
 import Categoriesform from './components/categories/Categoriesform.vue'
+import Category_Card from './components/categories/Category_Card.vue';
+import event_card from './components/myevent/event_card.vue';
+import Eventform from './components/myevent/Eventform.vue';
+import Categoriesform from './components/categories/Categoriesform.vue'
+import Dialog from './components/dialog/Dialog.vue'
 
 const router = createRouter({
     history:createWebHistory(),
@@ -47,10 +52,14 @@ const router = createRouter({
     });
 
 const app = createApp(App)
-app.component('event-form',Eventform),
+
 app.use(router);
 app.component('category-card',Category_Card);
 app.component('category-form',Categoriesform);
+app.component('event-card',event_card)
+app.component('event-form',Eventform),
+app.mount('#app');
+app.component('dialog', Dialog);
 app.mount('#app');
 
 

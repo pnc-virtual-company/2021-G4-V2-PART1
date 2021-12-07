@@ -1,14 +1,17 @@
 <template>
     <section>
-        <router-view @signup="addUser"></router-view>
+        <router-view @categories='Categories' @signup="addUser"></router-view>
     </section>
 </template>
 
 <script>
 import axios from 'axios';
+// const URL = "http://eventme.com:3000/api/";
+const URL = "http://127.0.0.1:8000/api/";
 export default {
   data(){
     return {
+        categories:[],
       error: {
         firstnameError: '',
         lastnameError: '',
@@ -16,11 +19,14 @@ export default {
         passwordError: '',
         confirm_passwordError: ''
       },
-      isSignup: ''
+      isSignup: '',
     }
   },
   provide(){
     return {
+      userid: localStorage.getItem('id'),
+      username: localStorage.getItem('username'),
+      list_category:this.categories,
       error: this.error,
       isSignup: this.isSignup
     }
@@ -34,7 +40,7 @@ export default {
         password: password,
         password_confirmation: confirm_password
       }
-      axios.post('http://eventme.com:3000/api/signup', data)
+      axios.post(URL+'signup', data)
         .then((res) => {
           console.log(res.data);
           localStorage.setItem('username', firstname);
@@ -53,11 +59,21 @@ export default {
           }
         });
     },
+    Categories(Categories){
+      this.categories = Categories;
+    },
+    watch(){
+      console.log('yes')
+      this.Categories()
+    }
   }
 }
 </script>
 
 <style scoped>
+body{
+  background: #313736;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -24,6 +24,9 @@
 </template>
 
 <script>
+// const URL = "http://eventme.com:3000/api/";
+const URL = "http://127.0.0.1:8000/api/";
+
 import axios from 'axios';
 export default {
     data(){
@@ -42,7 +45,7 @@ export default {
                 email: this.email,
                 password: this.password
             }
-            axios.post('http://eventme.com:3000/api/signin', users)
+            axios.post(URL+'signin', users)
                 .then((res) => {
                     console.log(res.data.user);
                     localStorage.setItem('id', res.data.user.id);

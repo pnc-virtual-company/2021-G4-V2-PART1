@@ -7,8 +7,8 @@
             <div class="modal-content"> 
               <div class="modal-body">
                 <input type="text" placeholder="Name" v-model="categoryName"/>
-                <strong class="text-danger"> {{ errorAlert }} </strong>
-                <button class="buttonadd" role="button" data-bs-dismiss="modal" @click.prevent="emitCategories">+Add</button>
+                <strong class="text-danger text-center"> {{ errorAlert }} </strong>
+                <button class="buttonadd" role="button" data-bs-dismiss="modal" @click.prevent="addCategories">+Add</button>
               </div>
             </div>
           </div>
@@ -19,18 +19,20 @@
 
 <script>
 export default {
+    inject:['username','userid'],
     emits: ['categoryName'],
     props: ['errorAlert'],
     data(){
       return {
         categoryName: '',
-        userid: localStorage.getItem('id'),
-        username: localStorage.getItem('username')
+        // userid: localStorage.getItem('id'),
+        // username: localStorage.getItem('username')
       }
     },
     methods: {
-      emitCategories() {
+      addCategories() {
         this.$emit("categoryName", this.categoryName, this.userid);
+        this.categoryName = ''
       },
     },
 }
@@ -53,7 +55,7 @@ export default {
   }
   .modal-content{
     background-color: rgba(24, 22, 22, 0.507);
-    margin-top: 128%;
+    margin-top: 85%;
     border:solid 1px white;
   }
   .buttonadd {
