@@ -9,8 +9,8 @@
     <div class="category_title">
           <h1>CATEGORY</h1>
     </div>
-    <category-form @categoryName="addCategory" :errorAlert="error"></category-form> 
-    <category-card @edit_category="editCategory"  @delete_category="deleteCategory" :categories="categoryData" :name='category.name' :category='category'></category-card>
+    <category-form @categoryName="addCategory" :errorAlert="error" @search_category="searchCategory"></category-form> 
+    <category-card @edit_category="editCategory"  @delete_category="deleteCategory" @search_category="searchCategory" :categories="categoryData" :name='category.name' :category='category'></category-card>
   </div>
 </template>
 
@@ -25,7 +25,8 @@ export default {
       path:'categories',
       categoryData: [],
       error: '',
-      category:''
+      category:'',
+      // search_found: ''
     }
   },
   methods: {
@@ -63,11 +64,22 @@ export default {
     // ____________________Delete_Category____________________ //
     deleteCategory(id){
       console.log(id);
-      axios.delete(URL + 'categories/' + id).then(res => {
+      axios.delete(URL + this.path + '/' + id).then(res => {
         console.log(res.data);
         window.location.reload();
       });
-    }
+    },
+
+    // ____________________Search_Category____________________ //
+    searchCategory(name) {
+      if(name !== '') {
+        axios.get(URL + this.path + "/search/" + name).then(res => {
+            this.categoryData = res.data;
+        })
+      }else {
+        this.getCategories();
+      }
+    },
   },
   mounted() {
     this.getCategories();

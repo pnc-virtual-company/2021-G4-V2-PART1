@@ -47,7 +47,8 @@ export default {
                     console.log(res.data.user);
                     localStorage.setItem('id', res.data.user.id);
                     localStorage.setItem('username', res.data.user.firstname);
-                    this.$router.push('/menu');
+                    // this.$router.push('/menu');
+                    this.$router.push('/categories');
                 })
                 .catch(error => {
                     this.message_error = error.response.data.message;
@@ -72,6 +73,7 @@ export default {
         margin: auto;
         margin-top: 130px;
         font-family: 'Arial';
+        box-shadow: 1px 1px 4px 4px white;
     }
     .signin-form h1{
         font-weight: bold;

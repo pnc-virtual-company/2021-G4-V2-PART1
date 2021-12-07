@@ -88,6 +88,17 @@ class CategoryController extends Controller
         }
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function search($name)
+    {
+        return Category::where('name','like', '%'. $name . '%')->get();
+    }
+
     // ___________________Join users and categories___________________ //
 
     // public function getUsername()

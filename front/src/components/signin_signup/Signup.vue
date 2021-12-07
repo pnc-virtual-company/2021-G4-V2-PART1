@@ -69,6 +69,7 @@ export default {
         margin: auto;
         margin-top: 130px;
         font-family: 'Arial';
+        box-shadow: 1px 1px 4px 4px white;
     }
     .signup-form h1{
         font-weight: bold;
