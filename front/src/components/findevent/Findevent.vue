@@ -1,7 +1,7 @@
 <template>
   <div>
     <Menu></Menu>
-  <h1>find Event</h1>
+    
   </div>
 </template>
 

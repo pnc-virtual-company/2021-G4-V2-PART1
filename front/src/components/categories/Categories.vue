@@ -47,19 +47,9 @@ export default {
     foundError(){
       this.$emit('error', this.error);
     },
-    getCategory(){
-      axios.get(URL + 'categories')
-        .then(res => {
-            this.categoryData = res.data;
-            this.$emit('categories',this.categoryData)
-        });
-    },
-    getUsername(){
-
-    }
   },
   mounted() {
-    this.getCategory();
+
   },
 };
 </script>

@@ -11,6 +11,7 @@ import Categories from './components/categories/Categories.vue';
 import Category_Card from './components/categories/Category_Card.vue';
 import Categoriesform from './components/categories/Categoriesform.vue';
 import event_card from './components/myevent/event_card.vue';
+import Eventform from './components/myevent/Eventform.vue';
 const router = createRouter({
     history:createWebHistory(),
     routes: [
@@ -41,15 +42,15 @@ const router = createRouter({
             {
                 path:"/categories",
                 component:Categories
-            }
+            },
         ],
     });
 
 const app = createApp(App)
+
 app.use(router);
 app.component('category-card',Category_Card);
 app.component('category-form',Categoriesform);
 app.component('event-card',event_card)
+app.component('event-form',Eventform),
 app.mount('#app');
-
-

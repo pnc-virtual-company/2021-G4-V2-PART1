@@ -118,10 +118,8 @@ export default {
             departure:'10/12/2021',
             arrival:'01/01/2022',
             location:['Phnom Penh','Cambodia'],
-
         }
     }
-
 }
 </script>
 
@@ -132,6 +130,7 @@ export default {
     padding: 10px;
     border-radius: 20px;
     border: 2px solid rgb(255, 255, 255);
+    margin-top: 100px;
 }
 
 .cate-card{

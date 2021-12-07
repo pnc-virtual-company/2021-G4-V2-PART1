@@ -6,6 +6,7 @@
 
 <script>
 import axios from 'axios';
+// const URL = "http://eventme.com:3000/api/";
 const URL = "http://127.0.0.1:8000/api/";
 export default {
   data(){
@@ -23,6 +24,8 @@ export default {
   },
   provide(){
     return {
+      userid: localStorage.getItem('id'),
+      username: localStorage.getItem('username'),
       list_category:this.categories,
       error: this.error,
       isSignup: this.isSignup
@@ -57,10 +60,12 @@ export default {
         });
     },
     Categories(Categories){
-      console.log(Categories);
       this.categories = Categories;
+    },
+    watch(){
+      console.log('yes')
+      this.Categories()
     }
-
   }
 }
 </script>

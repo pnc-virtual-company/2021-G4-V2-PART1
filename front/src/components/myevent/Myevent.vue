@@ -9,13 +9,13 @@
         <div class="event_title">
           <h1>My Event</h1>
     </div>
+    <event-form></event-form>
     <event-card></event-card>
   </div>
 </template>
 
 <script>
-import Menu from '../menu/Menu.vue'
-// import Event_card from './event_card.vue';
+import Menu from '../menu/Menu.vue';
 export default {
   components:{ Menu}, 
 };
@@ -50,6 +50,11 @@ h1{
   color: white;
   font-weight: bold;
   font-size: 4rem;
+}
+event-form{
+  display: flex;
+  justify-content: end;
+
 }
 </style>
 
