@@ -15,7 +15,6 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
         return Event::latest()->get();
     }
 
@@ -27,9 +26,12 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => "required|min:5",
+            'description' => "required|min:50",
+        ]);
+
         $Event = new Event();
-        
         $Event->category_id = $request->category_id;
         $Event->user_id = $request->user_id;
         $Event->title = $request->title;
@@ -38,8 +40,6 @@ class EventController extends Controller
         $Event->arrivalDate = $request->arrivalDate;
         $Event->location = $request->location;
         $Event->categoryType = $request->categoryType;
-        $Event->body = $request->body;
-       
 
         $Event->save();
         return response()->json(['message' => 'create'], 201);
@@ -53,7 +53,6 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
         return Event::findOrFail($id);
     }
 
@@ -66,7 +65,11 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => "required|min:5",
+            'description' => "required|min:50",
+        ]);
+        
         $Event = Event::findOrFail($id);
         $Event->category_id = $request->category_id;
         $Event->user_id = $request->user_id;
@@ -76,7 +79,6 @@ class EventController extends Controller
         $Event->arrivalDate = $request->arrivalDate;
         $Event->location = $request->location;
         $Event->categoryType = $request->categoryType;
-        $Event->body = $request->body;
 
         $Event->save();
 
@@ -91,10 +93,10 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
         return Event::destroy($id);
         // return reponse()->json(['message'=>'ID NOT EXIST'], 404);
     }
 }
+
 
 
