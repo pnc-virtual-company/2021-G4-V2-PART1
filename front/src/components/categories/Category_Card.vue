@@ -7,37 +7,17 @@
                 <span v-else> Created By : You </span>
             </div>
             <div class="group_button" v-show="category.user_id == userid && username != 'Guest'">
-                <button class="btn category-btn" type="button" data-bs-toggle="modal" data-bs-target="#deleteCategory"  @click="deleteCategoryAction(category.id)">Delete</button>
-                <button class="btn category-btn" type="button" data-bs-toggle="modal" data-bs-target="#editcategory" @click='editCategory(category.id)'>Edit</button>
+                <button class="category-btn">Delete</button>
+                <button class="btn category-btn" type="button" data-bs-toggle="modal" data-bs-target="#editcategory">Edit</button>
             </div>
         </div>
-        <!-- Update -->
         <div class="wrapper">
             <div class="modal fade" id="editcategory">
                 <div class="modal-dialog">
                     <div class="modal-content"> 
                         <div class="modal-body">
-                            <input type="text" v-model="cate_title" placeholder="Name"/>
-                            <button class="buttonadd" role="button" data-bs-dismiss="modal" @click='updateCategory'>Update</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Delete -->
-        <div class="wrapper delete">
-            <div class="modal fade delete delete_modal" id="deleteCategory">
-                <div class="modal-dialog">
-                    <div class="modal-content"> 
-                        <div class="modal-body modal_delete">
-                            <h4>Delete a category ?</h4>
-                            <hr />
-                            <strong>Are you sure you want to delete this category ?</strong>
-                            <hr />
-                            <div class="cancel_delete">
-                                <button class="button_cancel" role="button" data-bs-dismiss="modal">Cancel</button>
-                                <button class="button_delete" role="button" data-bs-dismiss="modal" @click="deleteCategory(delete_id)">Delete</button>
-                            </div>
+                            <input type="text" placeholder="Name"/>
+                            <button class="buttonadd" role="button" data-bs-dismiss="modal">Update</button>
                         </div>
                     </div>
                 </div>
@@ -48,41 +28,12 @@
 
 <script>
     export default {
-        emits: ['edit_category', 'delete_category'],
         props: ['categories'],
         data(){
             return{
-                cate_title:'',
-                category:'',
                 username: localStorage.getItem('username'),
-                userid: localStorage.getItem('id'),
-                showDialog: false,
-                delete_id: null,
+                userid: localStorage.getItem('id')
             }
-        },
-        methods: {
-            // Edit and Update__________________________ //
-            editCategory(id){
-                for (let category of this.categories){
-                    if(category.id === id){
-                        this.category = category
-                        this.cate_title = category.name
-                    }
-                }
-            },
-            updateCategory(){
-                this.category.name = this.cate_title;
-                console.log(this.category.name)
-                this.$emit('edit_category', this.category)
-            },
-
-            // Delete____________________________________ //
-            deleteCategoryAction(id){
-                this.delete_id = id;
-            },
-            deleteCategory(id){
-                this.$emit("delete_category", id);
-            },
         }
     }
 </script>
@@ -182,7 +133,7 @@
     }
     .modal-content{
         background-color: rgba(24, 22, 22, 0.507);
-        margin-top: 85%;
+        margin-top: 128%;
         border:solid 1px white;
     }
     .buttonadd {
@@ -211,45 +162,5 @@
     strong{
         font-size: 10px;
         text-align: center;
-    }
-    .delete_modal{
-        width: 300px;
-        margin: auto;
-    }
-    .modal_delete{
-        color: white;
-    }
-    .modal_delete hr {
-        color: white;
-    }
-    .delete{
-        width: 20%;
-        overflow: hidden;
-    }
-    .cancel_delete{
-        display: flex;
-        justify-content: center;
-    }
-    .cancel_delete button{
-        margin: 10px;
-        margin-bottom: 0;
-    }
-    .button_cancel{
-        background: #f7a223;
-        border-radius: 5px;
-        padding: 7px;
-        border: none;
-        text-align: center;
-        font-weight: bold;
-        color: white;
-    }
-    .button_delete{
-        background: #f7a223;
-        border-radius: 5px;
-        padding: 7px;
-        border: none;
-        text-align: center;
-        font-weight: bold;
-        color: white;
     }
 </style>

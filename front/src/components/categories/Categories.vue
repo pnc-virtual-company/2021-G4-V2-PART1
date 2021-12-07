@@ -10,7 +10,7 @@
           <h1>CATEGORY</h1>
     </div>
     <category-form @categoryName="addCategory" :errorAlert="error"></category-form> 
-    <category-card @edit_category="editCategory"  @delete_category="deleteCategory" :categories="categoryData" :name='category.name' :category='category'></category-card>
+    <category-card :categories="categoryData"></category-card>
   </div>
 </template>
 
@@ -23,55 +23,33 @@ export default {
   components:{ Menu }, 
   data(){
     return{
-      path:'categories',
       categoryData: [],
-      error: '',
-      category:''
+      error: ''
     }
   },
   methods: {
-    // __________________Create_Category_______________________ //
     addCategory(name, id){
       console.log('yes')
       let data = {
         name: name,
         user_id: id
       }
-      axios.post(URL +this.path, data)
+      axios.post(URL + 'categories', data)
         .then(res => {
             console.log(res.data);
-            this.getCategories();
+            this.getCategory();
         })
         .catch(error => {
+            console.log(error.response.data.message);
             this.error = error.response.data.message;
         });
     },
-  },
-    // ____________________Get_Category_______________________ //
-    getCategories(){
-      axios.get(URL + this.path)
-        .then(res => {
-            this.categoryData = res.data;
-        });
+    foundError(){
+      this.$emit('error', this.error);
     },
-
-    // ____________________Edit_Category______________________ //
-    editCategory(category){
-      axios.put(URL + this.path +'/' + category.id, category).then(res => {
-        console.log(res.data)
-      });
-    },
-
-    // ____________________Delete_Category____________________ //
-    deleteCategory(id){
-      console.log(id);
-      axios.delete(URL + 'categories/' + id).then(res => {
-        console.log(res.data);
-        window.location.reload();
-      });
   },
   mounted() {
-    this.getCategories();
+
   },
 };
 </script>
