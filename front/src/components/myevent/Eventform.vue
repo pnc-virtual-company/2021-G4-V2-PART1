@@ -179,11 +179,9 @@ const URL = "http://127.0.0.1:8000/api/";
   }
   .Departure_Date{
     margin-right: 5px;
-
   }
   .Arrival_Date{
     margin-left: 5px;
-
   }
   .container-form textarea {
     height: 120px;

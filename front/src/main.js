@@ -9,9 +9,11 @@ import Myevent from './components/myevent/Myevent.vue';
 import Findevent from './components/findevent/Findevent.vue';
 import Categories from './components/categories/Categories.vue';
 import Category_Card from './components/categories/Category_Card.vue';
-import Categoriesform from './components/categories/Categoriesform.vue';
 import event_card from './components/myevent/event_card.vue';
 import Eventform from './components/myevent/Eventform.vue';
+import Categoriesform from './components/categories/Categoriesform.vue'
+import Dialog from './components/dialog/Dialog.vue'
+
 const router = createRouter({
     history:createWebHistory(),
     routes: [
@@ -54,3 +56,8 @@ app.component('category-form',Categoriesform);
 app.component('event-card',event_card)
 app.component('event-form',Eventform),
 app.mount('#app');
+app.component('dialog', Dialog);
+app.mount('#app');
+
+
+

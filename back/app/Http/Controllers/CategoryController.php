@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
+
 class CategoryController extends Controller
 {
     /**
@@ -12,7 +13,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
         return Category::join('users', 'categories.user_id', '=', 'users.id')->orderBy('categories.id', 'desc')->get(['users.firstname', 'categories.name', 'categories.user_id', 'categories.id']);
     }
 
@@ -24,7 +24,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $request->validate([
             'name' => 'required|unique:categories|min:3|max:30',
         ]);
@@ -45,7 +44,6 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
         return Category::findOrFail($id);
     }
 
@@ -58,7 +56,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $category=Category::findOrFail($id);
         $category->user_id=$request->user_id;
         $category->name=$request->name;
@@ -79,7 +76,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
         $isDeleted = Category::destroy($id);
         if($isDeleted){
             return response()->json(['message' => 'deleted'],200);
