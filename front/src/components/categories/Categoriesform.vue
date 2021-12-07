@@ -5,7 +5,10 @@
       <i class="fas fa-search" @click="searchCategory"></i>
     </div>
     <div class="wrapper" v-if="username != 'Guest'">
-        <button class="btn" id="add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+Add Categories</button>
+        <div class="sort_add">
+          <button class="btn" id="sort" @click="sortCategory">Sort</button>
+          <button class="btn" id="add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+Add Categories</button>
+        </div>
         <div class="modal fade" id="staticBackdrop">
           <div class="modal-dialog">
             <div class="modal-content"> 
@@ -23,25 +26,33 @@
 
 <script>
 export default {
-    emits: ['categoryName', 'search_category'],
+    emits: ['categoryName', 'search_category', 'sort_category'],
     props: ['errorAlert'],
     data(){
       return {
         categoryName: '',
         userid: localStorage.getItem('id'),
         username: localStorage.getItem('username'),
-        search: ''
+        search: '',
       }
     },
     methods: {
+      // Add______________________________________ //
       addCategories() {
         this.$emit("categoryName", this.categoryName, this.userid);
         this.categoryName = ''
       },
+
       // Search___________________________________ //
       searchCategory() {
-          this.$emit('search_category', this.search)
+          this.$emit('search_category', this.search);
       },
+
+      // Sort_____________________________________ //
+      sortCategory() {
+        this.$emit('sort_category');
+        console.log('Yes');
+      }
     },
 }
 </script>
@@ -80,6 +91,20 @@ export default {
     cursor: pointer;
     color: black;
   }
+  .sort_add{
+    display: flex;
+    justify-content: space-between;
+  }
+  .sort_add .btn {
+    background: #f7a223;
+    float:right;
+    font-weight: bold;
+    height: 50px;
+    border-radius: 10px;
+  }
+  .sort_add button{
+    margin: 30px;
+  }
   .wrapper>.btn {
     background: #f7a223;
     float:right;
@@ -99,10 +124,19 @@ export default {
     margin-top: 85%;
     border:solid 1px white;
   }
-  #add{
+  .sort_add #add{
     color: white;
+    margin-right: 5%;
   }
-  #add:hover{
+  .sort_add #add:hover{
+    color: black;
+  }
+  .sort_add #sort{
+    color: white;
+    margin-left: 5%;
+    width: 7%;
+  }
+  .sort_add #sort:hover{
     color: black;
   }
   .buttonadd {

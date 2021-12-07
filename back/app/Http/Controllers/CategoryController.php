@@ -17,6 +17,17 @@ class CategoryController extends Controller
     }
 
     /**
+     * Sort list.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sort()
+    {
+        // 
+        return Category::orderBy('name', 'ASC')->get();
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

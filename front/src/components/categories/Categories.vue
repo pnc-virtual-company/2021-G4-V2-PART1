@@ -9,8 +9,8 @@
     <div class="category_title">
           <h1>CATEGORY</h1>
     </div>
-    <category-form @categoryName="addCategory" :errorAlert="error" @search_category="searchCategory"></category-form> 
-    <category-card @edit_category="editCategory"  @delete_category="deleteCategory" @search_category="searchCategory" :categories="categoryData" :name='category.name' :category='category'></category-card>
+    <category-form @categoryName="addCategory" :errorAlert="error" @search_category="searchCategory" @sort_category="sort"></category-form> 
+    <category-card @edit_category="editCategory"  @delete_category="deleteCategory" :categories="categoryData" :name='category.name' :category='category'></category-card>
   </div>
 </template>
 
@@ -80,6 +80,14 @@ export default {
         this.getCategories();
       }
     },
+
+    // ___________________Sort_Category______________________ //
+    sort(){
+      console.log('sorted');
+      axios.get(URL + this.path + '/sort/name').then(res => {
+        this.categoryData = res.data;
+      });
+    }
   },
   mounted() {
     this.getCategories();

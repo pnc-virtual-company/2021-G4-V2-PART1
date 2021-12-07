@@ -32,3 +32,4 @@ Route::get('/categories/{id}',[CategoryController::class, 'show']);
 Route::put('/categories/{id}',[CategoryController::class, 'update']);
 Route::delete('/categories/{id}',[CategoryController::class, 'destroy']);
 Route::get('/categories/search/{categoryName}',[CategoryController::class, 'search']);
+Route::get('/categories/sort/name',[CategoryController::class, 'sort']);
