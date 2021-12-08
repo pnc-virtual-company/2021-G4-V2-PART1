@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div class="category-card" v-for="(category, index) of categories" :key="index">
+        <div class="category-card" v-for="(category, index) of list_category" :key="index">
             <div class="category_title">
                 <h3>{{ category.name }}</h3>
                 <span v-if="category.user_id != userid"> Created By : {{ category.firstname }} </span>
@@ -28,7 +28,7 @@
 
 <script>
     export default {
-        props: ['categories'],
+        props: ['list_category'],
         data(){
             return{
                 username: localStorage.getItem('username'),

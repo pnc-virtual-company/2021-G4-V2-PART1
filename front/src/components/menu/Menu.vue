@@ -30,14 +30,14 @@ export default {
             userid: ''
         }
     },
-    mounted() {
-        this.username = localStorage.getItem('username');
-        this.userid = localStorage.getItem('id');
-    },
     methods: {
         signOut(){
             localStorage.clear();
         }
+    },
+        mounted() {
+        this.username = localStorage.getItem('username');
+        this.userid = localStorage.getItem('id');
     }
 };
 </script>

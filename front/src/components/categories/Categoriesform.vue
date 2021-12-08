@@ -19,21 +19,20 @@
 
 <script>
 export default {
-    inject:['username','userid'],
     emits: ['categoryName'],
     props: ['errorAlert'],
     data(){
       return {
         categoryName: '',
-        // userid: localStorage.getItem('id'),
-        // username: localStorage.getItem('username')
+        userid: localStorage.getItem('id'),
+        username: localStorage.getItem('username')
       }
     },
     methods: {
       addCategories() {
         this.$emit("categoryName", this.categoryName, this.userid);
-        this.categoryName = ''
-      },
+        this.categoryName = '';
+      }
     },
 }
 </script>

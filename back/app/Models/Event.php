@@ -16,9 +16,11 @@ class Event extends Model
         'description',
         'departureDate',
         'arrivalDate',
-        'location',
-        'categoryType'
+        'imagename',
+        'country',
+        'city',
     ];
+    protected $hidden = ['created_at', 'updated_at'];
     
     public function user()
     {

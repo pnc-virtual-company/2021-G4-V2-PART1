@@ -47,7 +47,6 @@ export default {
             }
             axios.post(URL+'signin', users)
                 .then((res) => {
-                    console.log(res.data.user);
                     localStorage.setItem('id', res.data.user.id);
                     localStorage.setItem('username', res.data.user.firstname);
                     this.$router.push('/menu');

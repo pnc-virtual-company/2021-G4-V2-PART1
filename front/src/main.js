@@ -55,9 +55,9 @@ app.component('category-card',Category_Card);
 app.component('category-form',Categoriesform);
 app.component('event-card',event_card)
 app.component('event-form',Eventform),
-app.mount('#app');
 app.component('dialog', Dialog);
 app.mount('#app');
+
 
 
 

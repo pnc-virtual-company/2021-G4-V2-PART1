@@ -29,7 +29,6 @@ export default {
   },
   methods: {
     addCategory(name, id){
-      console.log('yes')
       let data = {
         name: name,
         user_id: id
@@ -47,9 +46,12 @@ export default {
     foundError(){
       this.$emit('error', this.error);
     },
-  },
-  mounted() {
-
+    getCategory(){
+      axios.get(URL + 'categories')
+      .then(res => {
+          this.list_category = res.data;     
+        });
+    },
   },
 };
 </script>

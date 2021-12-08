@@ -15,7 +15,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        return Event::latest()->get();
+        // return Event::with('users')->latest()->get();
+        return Event::join('users','users.id','=','events.user_id')->join('categories','categories.id','=','events.category_id')->select('events.*','users.firstname','categories.name')->latest()->get();
     }
 
     /**
@@ -29,7 +30,10 @@ class EventController extends Controller
         $request->validate([
             'title' => "required|min:5",
             'description' => "required|min:50",
+            'imagename'=>'nullable|image|mimes:jpg,jpeg,png|max:1999',
         ]);
+
+        $request->file('imagename')->store('public/EventImages');
 
         $Event = new Event();
         $Event->category_id = $request->category_id;
@@ -38,8 +42,9 @@ class EventController extends Controller
         $Event->description = $request->description;
         $Event->departureDate = $request->departureDate;
         $Event->arrivalDate = $request->arrivalDate;
-        $Event->location = $request->location;
-        $Event->categoryType = $request->categoryType;
+        $Event->city = $request->city;
+        $Event->country = $request->country;
+        $Event->imagename = $request->file('imagename')->hashName();
 
         $Event->save();
         return response()->json(['message' => 'create'], 201);

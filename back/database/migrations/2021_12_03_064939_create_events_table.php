@@ -22,9 +22,9 @@ class CreateEventsTable extends Migration
             $table->text('description');
             $table->datetime('departureDate');
             $table->datetime('arrivalDate');
-            $table->string('location');
-            $table->string('categoryType');
-
+            $table->string('country');
+            $table->string('city');
+            $table->string('imagename');
             $table->timestamps();
         });
     }

@@ -8,7 +8,7 @@
                 <div class="container">  
             <form class="container-form" action="">
                 <div>
-                  <input id="title" placeholder="Title" v-model="title" type="text">
+                  <input id="title" placeholder='title' v-model="title" type="text">
                 </div>
 
                 <div>
@@ -17,20 +17,20 @@
               <div class="date">
                 <div class="Departure_Date" >
                   <label id='label' for="Departure_Date">Departure Date</label>
-                  <input id="Departure_Date" v-model="departuredate" type="date">
+                  <input id="Departure_Date" v-model="departuredate" type="datetime-local">
                 </div>
                 <div class="Arrival_Date">
                   <label id='label' for="Arrival_Date">Arrival Date</label>
-                  <input id="Arrival Date" v-model="arrivaldate" type="date">
+                  <input id="Arrival Date" v-model="arrivaldate" type="datetime-local">
                 </div>
               </div>
                 <div >
                   <div class='label'>
                   </div>
-                  <select v-model="category" class="category">
-                   
+                  <select v-model="category_id" class="category">
                     <option disabled value="">Category Type</option>
-                    <option v-for="(category, index) in list_category" :key="index" value="Er Deepak Bhusan">{{category.name}}</option>
+                    
+                    <option v-for="(category, index) in list_category" :key="index" :value="category.id">{{category.name}}</option>
                   </select>   
                     <select  @change="getcity" v-model="country" class='country'>
                       <option disabled value="">Country</option>
@@ -40,9 +40,10 @@
                       <option disabled value="">City</option>
                       <option v-for="(city,index) in list_Cites" :key="index" :value="city">{{city}}</option>
                     </select>
+                    <input @change='addEventImg' type="file" placeholder="">
                 </div>
                 <div>
-                  <button @click.prevent="addEvent" type="add">+Add</button>
+                  <button @click.prevent="addEvent" data-bs-dismiss="modal" type="add">+Add</button>
                 </div>
             </form>
         </div>
@@ -62,10 +63,11 @@ import axios from 'axios';
 // const URL = "http://eventme.com:3000/api/";
 const URL = "http://127.0.0.1:8000/api/";
   export default {    
-    inject:['username'],
     emits:['add-event'],                       
     data() {
             return {
+              username:localStorage.getItem('username'),
+              userid:localStorage.getItem('id'),
               list_Location:json,
               list_Contries:[],
               list_category:[],
@@ -75,23 +77,28 @@ const URL = "http://127.0.0.1:8000/api/";
               description: '',
               departuredate: '',
               arrivaldate: '',
-              location:'',
-              category:'',
+              country:'',
               city:'',
-              country:''
+              category_id:'',
+              imageName:[]
             };
           },
           methods: {
+            addEventImg(event){
+              this.imageName = event.target.files[0];
+            },
             addEvent(){
-               let newEvent = {
-                 title: this.title,
-                 description: this.description,
-                 departuredate: this.departuredate,
-                 arrivaldate: this.arrivaldate,
-                 location: this.location,
-                 category: this.category,
-               } 
-               this.$emits('add-event',newEvent)   
+              let newevent = new FormData();
+              newevent.append('title',this.title);
+              newevent.append('description',this.description);
+              newevent.append('departureDate',this.departuredate);
+              newevent.append('arrivalDate',this.arrivaldate);
+              newevent.append('city',this.city);
+              newevent.append('country',this.country);
+              newevent.append('category_id',this.category_id);
+              newevent.append('imagename',this.imageName);
+              newevent.append('user_id',this.userid);
+               this.$emit('add-event',newevent)   
             },
             getLocation(){
                 let countries = this.list_Location
@@ -208,6 +215,7 @@ const URL = "http://127.0.0.1:8000/api/";
     font-weight: bold;
     height: 50px;
     width: 10%;
+    margin-right: 3.5%;
     border-radius: 10px;
   }
   

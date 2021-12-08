@@ -1,6 +1,7 @@
 <template>
     <section>
-        <router-view @categories='Categories' @signup="addUser"></router-view>
+      <!-- @categories='Categories' -->
+        <router-view  @signup="addUser"></router-view>
     </section>
 </template>
 
@@ -24,9 +25,9 @@ export default {
   },
   provide(){
     return {
-      userid: localStorage.getItem('id'),
-      username: localStorage.getItem('username'),
-      list_category:this.categories,
+      // userid: localStorage.getItem('id'),
+      // username: localStorage.getItem('username'),
+      // list_category:this.categories,
       error: this.error,
       isSignup: this.isSignup
     }
@@ -41,6 +42,7 @@ export default {
         password_confirmation: confirm_password
       }
       axios.post(URL+'signup', data)
+
         .then((res) => {
           console.log(res.data);
           localStorage.setItem('username', firstname);
@@ -48,7 +50,7 @@ export default {
           this.isSignup = this.$router.push('/');
         })
         .catch(error => {
-          console.log(error.response.status)
+          console.log(error)
           if (error.response.status === 422) {
             this.error.firstnameError = error.response.data.errors.firstname;
             this.error.lastnameError = error.response.data.errors.lastname;
@@ -59,9 +61,9 @@ export default {
           }
         });
     },
-    Categories(Categories){
-      this.categories = Categories;
-    },
+    // Categories(Categories){
+    //   this.categories = Categories;
+    // },
     watch(){
       console.log('yes')
       this.Categories()
