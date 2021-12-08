@@ -51,7 +51,6 @@ export default {
                     localStorage.setItem('username', res.data.user.firstname);
                     this.$router.push('/myevent');
                     this.$emit('isNotHidden', true);
-                    // this.$router.push('/categories');
                 })
                 .catch(error => {
                     this.message_error = error.response.data.message;
