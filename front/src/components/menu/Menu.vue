@@ -24,24 +24,27 @@
 
 <script>
 export default {
+    emits: ['isNotHidden'],
     data(){
         return {
             username: '',
-            userid: ''
+            userid: '',
+        }
+    },
+    methods: {
+        // ________________Signout________________ //
+        signOut(){
+            localStorage.clear();
+            this.$emit('isNotHidden', false);
         }
     },
     mounted() {
+        // _______________Get username and id__________________ //
         this.username = localStorage.getItem('username');
         this.userid = localStorage.getItem('id');
     },
-    methods: {
-        signOut(){
-            localStorage.clear();
-        }
-    }
 };
 </script>
-
 
 <style scoped>
     nav{
@@ -52,7 +55,7 @@ export default {
     .nav-link:hover{
         background: orange;
     }
-    .active{
+    .router-link-active {
         background: orange;
     }
 </style>

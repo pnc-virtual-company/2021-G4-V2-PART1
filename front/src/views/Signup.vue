@@ -15,21 +15,21 @@
             </div>
             <div class="devide">
                 <input type="text" id="left" placeholder="Firstname" required v-model="firstname"/>
-                <strong class="text-danger" v-if="error.firstnameError"> {{error.firstnameError[0]}} </strong>
+                <p class="text-danger" v-if="error.firstnameError"> {{error.firstnameError[0]}} </p>
                 <input type="text" id="right" placeholder="Lastname" v-model="lastname"/>
-                <strong class="text-danger" v-if="error.lastnameError"> {{error.lastnameError[0]}} </strong>
+                <p class="text-danger" v-if="error.lastnameError"> {{error.lastnameError[0]}} </p>
             </div>
             <div>
                 <input type="email" placeholder="Email" required v-model="email"/>
-                <strong class="text-danger" v-if="error.emailError"> {{error.emailError[0]}} </strong>
+                <p class="text-danger" v-if="error.emailError"> {{error.emailError[0]}} </p>
             </div>
             <div>
                 <input type="password" placeholder="Password" required v-model="password"/>
-                <strong class="text-danger" v-if="error.passwordError"> {{error.passwordError[0]}} </strong>
+                <p class="text-danger" v-if="error.passwordError"> {{error.passwordError[0]}} </p>
             </div>
             <div>
                 <input type="password" placeholder="Confirm Password" required v-model="confirm_password"/>
-                <strong class="text-danger" v-if="error.confirm_passwordError"> {{error.confirm_passwordError[1]}} </strong>
+                <p class="text-danger" v-if="error.confirm_passwordError"> {{error.confirm_passwordError[1]}} </p>
             </div>
             <button id="signup-btn" @click.prevent="signUp"><router-link to="/" class="sign-up-btn"> Sign up </router-link></button>
         </form>
@@ -160,5 +160,9 @@ export default {
     }
     #signup-btn{
         background:#FFA800;
+    }
+    p{
+        font-size: 12px;
+        text-align: center;
     }
 </style>
