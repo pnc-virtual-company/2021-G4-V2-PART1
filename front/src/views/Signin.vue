@@ -9,14 +9,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <button><router-link class="sign_in_as_guest" to="/myevent" @click="signInAsGuest"> without account? </router-link></button>
+                <button> <router-link class="sign_in_as_guest" to="/myevent" @click="signInAsGuest"> without account? </router-link></button>
                 <div id="text"><b> or</b></div>
                 <hr id="hr" />
             </div>
             <div class="form-group">
                 <input type="email" placeholder="Email" v-model="email" required/>
                 <input type="password" placeholder="Password" v-model="password" required/>
-                <strong class="text-danger"> {{message_error}} </strong>
+                <p class="text-danger"> {{ message_error }} </p>
             </div>
             <button id='signin-btn'><router-link to="/" @click="signIn" id="sign-in-btn"> Sign In </router-link></button>
         </form>
@@ -24,8 +24,9 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from '../axios-http.js'
 export default {
+    emits: ['signin', 'isNotHidden'],
     data(){
         return{
             username: '',
@@ -36,18 +37,20 @@ export default {
         }
     },
     methods: {
+        // ___________________Sign_in_________________________ //
         signIn(e){
             e.preventDefault();
             let users = {
                 email: this.email,
                 password: this.password
             }
-            axios.post('http://eventme.com:3000/api/signin', users)
+            axios.post('signin', users)
                 .then((res) => {
-                    console.log(res.data.user);
                     localStorage.setItem('id', res.data.user.id);
                     localStorage.setItem('username', res.data.user.firstname);
-                    this.$router.push('/menu');
+                    this.$router.push('/myevent');
+                    this.$emit('isNotHidden', true);
+                    localStorage.setItem('isNotHidden', true);
                 })
                 .catch(error => {
                     this.message_error = error.response.data.message;
@@ -55,7 +58,11 @@ export default {
         },
         signInAsGuest(){
             localStorage.setItem('username', 'Guest');
-        }
+            this.$emit('isNotHidden', true);
+        },
+    },
+    mounted(){
+        
     }
 };
 </script>
@@ -72,6 +79,7 @@ export default {
         margin: auto;
         margin-top: 130px;
         font-family: 'Arial';
+        box-shadow: 1px 1px 4px 4px white;
     }
     .signin-form h1{
         font-weight: bold;
@@ -138,5 +146,9 @@ export default {
     }
     #signin-btn{
         background:#FFA800;
+    }
+    p{
+        text-align: center;
+        font-size: 12px;
     }
 </style>

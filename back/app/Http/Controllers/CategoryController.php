@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
+
 class CategoryController extends Controller
 {
     /**
@@ -12,8 +13,18 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
         return Category::join('users', 'categories.user_id', '=', 'users.id')->orderBy('categories.id', 'desc')->get(['users.firstname', 'categories.name', 'categories.user_id', 'categories.id']);
+    }
+
+    /**
+     * Sort list.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sort()
+    {
+        // 
+        return Category::orderBy('name', 'ASC')->get();
     }
 
     /**
@@ -24,7 +35,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $request->validate([
             'name' => 'required|unique:categories|min:3|max:30',
         ]);
@@ -45,7 +55,6 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
         return Category::findOrFail($id);
     }
 
@@ -58,7 +67,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
         $category=Category::findOrFail($id);
         $category->user_id=$request->user_id;
         $category->name=$request->name;
@@ -79,13 +87,23 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
         $isDeleted = Category::destroy($id);
         if($isDeleted){
             return response()->json(['message' => 'deleted'],200);
         }else{
             return response()->json(['message' => 'ID NOT FOUND'],404);
         }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function search($name)
+    {
+        return Category::where('name','like', '%'. $name . '%')->get();
     }
 
     // ___________________Join users and categories___________________ //

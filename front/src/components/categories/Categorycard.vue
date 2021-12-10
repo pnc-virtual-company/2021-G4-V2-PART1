@@ -114,9 +114,6 @@
     }
     .category-card:hover{
         margin-left: 4%;
-        box-shadow: 0px 3px 18px 4px orange;
-        -webkit-box-shadow: 0px 3px 18px 4px orange;
-        -moz-box-shadow: 0px 3px 18px 4px orange;
     }
     .category-card:hover .group_button{
         margin: 0;
@@ -163,8 +160,6 @@
         color:orange;
         font-size: 10px;
     }
-
-    /* Edit modal */
     .btn {
         background: #f7a223;
         float:right;
@@ -232,23 +227,28 @@
     .cancel_delete button{
         margin: 10px;
         margin-bottom: 0;
+        background: black;
+        border: 1px solid orange;
+        padding: 8px;
     }
     .button_cancel{
-        background: #f7a223;
         border-radius: 5px;
+        border: 2px solid white;
         padding: 7px;
         border: none;
         text-align: center;
-        font-weight: bold;
         color: white;
     }
     .button_delete{
-        background: #f7a223;
         border-radius: 5px;
         padding: 7px;
         border: none;
         text-align: center;
-        font-weight: bold;
         color: white;
+    }
+    .button_cancel:hover, .button_delete:hover{
+        background: orange;
+        color: white;
+        border: 1px solid black;
     }
 </style>

@@ -1,14 +1,20 @@
 <template>
     <section>
-        <router-view @signup="addUser"></router-view>
+        <navbar v-if="isNotHidden" @isNotHidden="navHidden"></navbar>
+        <router-view @signup="addUser" @isNotHidden="navHidden"></router-view>
     </section>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from './axios-http.js'
+import Menu from './components/menu/Menu.vue';
 export default {
+  components: {
+    'navbar':Menu,
+  },
   data(){
     return {
+        categories:[],
       error: {
         firstnameError: '',
         lastnameError: '',
@@ -17,15 +23,24 @@ export default {
         confirm_passwordError: ''
       },
       isSignup: '',
+      isNotHidden: false,
     }
   },
   provide(){
     return {
+      // userid: localStorage.getItem('id'),
+      // username: localStorage.getItem('username'),
+      // list_category:this.categories,
       error: this.error,
-      isSignup: this.isSignup
+      isSignup: this.isSignup,
     }
   },
   methods: {
+    navHidden(isHidden){
+      console.log(isHidden);
+      this.isNotHidden = isHidden;
+    },
+    // _____________________Add new user to database_________________________ //
     addUser(firstname, lastname, email, password, confirm_password){
       let data = {
         firstname: firstname,
@@ -34,7 +49,7 @@ export default {
         password: password,
         password_confirmation: confirm_password
       }
-      axios.post('http://eventme.com:3000/api/signup', data)
+      axios.post('signup', data)
         .then((res) => {
           console.log(res.data);
           localStorage.setItem('username', firstname);
@@ -42,7 +57,7 @@ export default {
           this.isSignup = this.$router.push('/');
         })
         .catch(error => {
-          console.log(error.response.status)
+          console.log(error)
           if (error.response.status === 422) {
             this.error.firstnameError = error.response.data.errors.firstname;
             this.error.lastnameError = error.response.data.errors.lastname;
@@ -53,14 +68,17 @@ export default {
           }
         });
     },
+    // Categories(Categories){
+    //   this.categories = Categories;
+    // },
+  },
+  mounted(){
+    this.isNotHidden = localStorage.getItem('isNotHidden');
   }
 }
 </script>
 
 <style scoped>
-body{
-  background: #313736;
-}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
