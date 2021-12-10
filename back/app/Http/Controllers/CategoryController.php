@@ -17,6 +17,17 @@ class CategoryController extends Controller
     }
 
     /**
+     * Sort list.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sort()
+    {
+        // 
+        return Category::orderBy('name', 'ASC')->get();
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -82,6 +93,17 @@ class CategoryController extends Controller
         }else{
             return response()->json(['message' => 'ID NOT FOUND'],404);
         }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function search($name)
+    {
+        return Category::where('name','like', '%'. $name . '%')->get();
     }
 
     // ___________________Join users and categories___________________ //

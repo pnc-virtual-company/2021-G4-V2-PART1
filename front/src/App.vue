@@ -1,15 +1,17 @@
 <template>
     <section>
-      <!-- @categories='Categories' -->
-        <router-view  @signup="addUser"></router-view>
+        <navbar v-if="isNotHidden" @isNotHidden="navHidden"></navbar>
+        <router-view @signup="addUser" @isNotHidden="navHidden"></router-view>
     </section>
 </template>
 
 <script>
-import axios from 'axios';
-// const URL = "http://eventme.com:3000/api/";
-const URL = "http://127.0.0.1:8000/api/";
+import axios from './axios-http.js'
+import Menu from './components/menu/Menu.vue';
 export default {
+  components: {
+    'navbar':Menu,
+  },
   data(){
     return {
         categories:[],
@@ -20,7 +22,8 @@ export default {
         passwordError: '',
         confirm_passwordError: ''
       },
-      isSignup: ''
+      isSignup: '',
+      isNotHidden: false,
     }
   },
   provide(){
@@ -29,10 +32,15 @@ export default {
       // username: localStorage.getItem('username'),
       // list_category:this.categories,
       error: this.error,
-      isSignup: this.isSignup
+      isSignup: this.isSignup,
     }
   },
   methods: {
+    navHidden(isHidden){
+      console.log(isHidden);
+      this.isNotHidden = isHidden;
+    },
+    // _____________________Add new user to database_________________________ //
     addUser(firstname, lastname, email, password, confirm_password){
       let data = {
         firstname: firstname,
@@ -41,8 +49,7 @@ export default {
         password: password,
         password_confirmation: confirm_password
       }
-      axios.post(URL+'signup', data)
-
+      axios.post('signup', data)
         .then((res) => {
           console.log(res.data);
           localStorage.setItem('username', firstname);
@@ -64,10 +71,9 @@ export default {
     // Categories(Categories){
     //   this.categories = Categories;
     // },
-    watch(){
-      console.log('yes')
-      this.Categories()
-    }
+  },
+  mounted(){
+    this.isNotHidden = localStorage.getItem('isNotHidden');
   }
 }
 </script>

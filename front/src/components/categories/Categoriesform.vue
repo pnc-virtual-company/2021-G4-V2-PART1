@@ -1,7 +1,14 @@
 <template>
   <header>
+    <div class="search">
+      <input type="search" class="search_input" placeholder="Search ..." v-model="search">
+      <i class="fas fa-search" @click="searchCategory"></i>
+    </div>
     <div class="wrapper" v-if="username != 'Guest'">
-        <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+Add Categories</button>
+        <div class="sort_add">
+          <button class="btn" id="sort" @click="sortCategory">Sort</button>
+          <button class="btn" id="add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+Add Categories</button>
+        </div>
         <div class="modal fade" id="staticBackdrop">
           <div class="modal-dialog">
             <div class="modal-content"> 
@@ -19,33 +26,93 @@
 
 <script>
 export default {
-    emits: ['categoryName'],
+    emits: ['categoryName', 'search_category', 'sort_category'],
     props: ['errorAlert'],
     data(){
       return {
         categoryName: '',
         userid: localStorage.getItem('id'),
-        username: localStorage.getItem('username')
+        username: localStorage.getItem('username'),
+        search: '',
       }
     },
     methods: {
+      // Add______________________________________ //
       addCategories() {
         this.$emit("categoryName", this.categoryName, this.userid);
-        this.categoryName = '';
+        this.categoryName = ''
+      },
+
+      // Search___________________________________ //
+      searchCategory() {
+          this.$emit('search_category', this.search);
+      },
+
+      // Sort_____________________________________ //
+      sortCategory() {
+        this.$emit('sort_category');
+        console.log('Yes');
       }
     },
 }
 </script>
 
 <style scoped>
-  .btn {
+  .search{
+    display: flex;
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 40px;
+    color: white;
+  }
+  .search_input{
+    height: 40px;
+    border-radius: 7px;
+    text-align: center;
+    border: 2px solid orange;
+    background: #313736;
+    color: orange;
+  }
+  .search_input::placeholder{
+    color: white;
+  }
+  i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: orange;
+    height: 40px;
+    width: 60px;
+    color: white;
+    border-radius: 7px;
+    margin-left: 5px;
+  }
+  i:hover{
+    cursor: pointer;
+    color: black;
+  }
+  .sort_add{
+    display: flex;
+    justify-content: space-between;
+  }
+  .sort_add .btn {
     background: #f7a223;
     float:right;
     font-weight: bold;
     height: 50px;
     border-radius: 10px;
   }
-  button{
+  .sort_add button{
+    margin: 30px;
+  }
+  .wrapper>.btn {
+    background: #f7a223;
+    float:right;
+    font-weight: bold;
+    height: 50px;
+    border-radius: 10px;
+  }
+  .wrapper>button{
     margin: 30px;
   }
   .modal{
@@ -56,6 +123,21 @@ export default {
     background-color: rgba(24, 22, 22, 0.507);
     margin-top: 85%;
     border:solid 1px white;
+  }
+  .sort_add #add{
+    color: white;
+    margin-right: 5%;
+  }
+  .sort_add #add:hover{
+    color: black;
+  }
+  .sort_add #sort{
+    color: white;
+    margin-left: 5%;
+    width: 7%;
+  }
+  .sort_add #sort:hover{
+    color: black;
   }
   .buttonadd {
     background: #f7a223;

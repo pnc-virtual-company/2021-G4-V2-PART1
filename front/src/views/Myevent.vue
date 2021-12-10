@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Menu></Menu>
     <div class="background">
       <div class="title1">
           <h2>Welcome To Cambodia</h2>
@@ -11,46 +10,35 @@
     </div>
     <div class="event_view">
       <event-form @add-event='add_Event'></event-form>
-    <!-- <div class="card_events"> -->
-      <event-card 
-      @delete_Event='deleteEvent'
-        v-for="(event,index) in allEvents" 
-        :key='index' 
-        :eventId='event.id' 
-        :userId='event.user_id' 
-        :cateId='event.category_id'
-        :title='event.title'
-        :description='event.description'
-        :departureDate='event.departureDate'
-        :arrivalDate='event.arrivalDate'
-        :country='event.country'
-        :city='event.city'
-        :img='event.imagename'
-        :firstName='event.firstname'
-        :categoryName='event.name'
-        :event='event'
-      ></event-card>
+      <event-card @delete_Event='deleteEvent' @update-event='updateEvent' :allEvents='allEvents'></event-card>
     </div>
-  <!-- </div> -->
     </div>
 </template>
 
 <script>
-import axios from 'axios';
-import Menu from '../menu/Menu.vue';
-const URL = "http://127.0.0.1:8000/api/";
+import event_card from '../components/myevent/event_card.vue'
+import Eventform from '../components/myevent/Eventform.vue'
+import axios from '../axios-http.js'
 export default {
-  components:{ Menu}, 
+  components:{ 
+    'event-form': Eventform,
+    'event-card': event_card
+  }, 
   data(){
     return {
       allEvents:[],
     }
   },
   methods: {
+    getEvents(){
+      axios.get('events')
+      .then(res=>{
+        this.allEvents = res.data;
+      })
+    },
     add_Event(new_event){
-      console.log('yes')
       let data = new_event;
-      axios.post(URL + 'events', data)
+      axios.post('events', data)
         .then(res => {
             console.log(res.data);
             this.getEvents();
@@ -59,18 +47,23 @@ export default {
             console.log(error.response.data.message);
             this.error = error.response.data.message;
         });
-      
     },
-    getEvents(){
-      axios.get(URL+'events')
-      .then(res=>{
-        this.allEvents = res.data;
-      })
-      
+    updateEvent(update_event,id){
+      let data = update_event;
+      console.log(data);
+      axios.put('events/'+id, data)
+        .then(res => {
+            console.log(res.data);
+            this.getEvents();
+        })
+        .catch(error => {
+            console.log(error.response.data.message);
+            this.error = error.response.data.message;
+        });
     },
     deleteEvent(id){
           console.log(id);
-          axios.delete(URL+'events/'+ id).then(res => {
+          axios.delete('events/'+ id).then(res => {
             this.allEvents.push(res.data);
             this.getEvents();
           });
@@ -85,7 +78,7 @@ export default {
 .background{
   width: 100%;
   height:550px;
-  background-image: url("../../assets/category_bg.jpg");
+  background-image: url("../assets/category_bg.jpg");
   display: flex;
   justify-content: center;
   align-items: center;
