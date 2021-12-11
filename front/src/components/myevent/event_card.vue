@@ -253,7 +253,6 @@ export default {
         oldArrivalDate:'',
         oldDepartureDate:'',
         eventid:"",
-        // userid:localStorage.getItem('id'),
         userid:'',
         category_id:"",
         title: "",
