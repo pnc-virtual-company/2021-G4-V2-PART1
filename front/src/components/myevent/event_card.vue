@@ -1,7 +1,7 @@
 <template>
   <div class="container_card">
-    {{allEvents}}
     <div v-for="(event, index) of allEvents" :key="index">
+      <div >
       <div class="event-card"  v-show="event.firstname === username">
         <div class="card-img">
           <img class="img" :src="this.pathImage + event.imagename" alt="" />
@@ -88,10 +88,6 @@
               Delete
             </button>
           </div>
-          <!-- <div class="group_btn guest" >
-            <button class="button">Join</button>
-            <button class="button">Exit</button>
-          </div> -->
         </div>
       </div>
     </div>
@@ -229,6 +225,7 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 </template>
 
@@ -250,7 +247,7 @@ export default {
         delete_id: null,
         startDate: this.dateFormat(this.departureDate),
         endDate: this.dateFormat(this.arrivalDate),
-        pathImage: "http://eventme.com:3000//storage/EventImages/",
+        pathImage: "http://127.0.0.1:8000/storage/EventImages/",
         oldArrivalDate:'',
         oldDepartureDate:'',
         eventid:"",

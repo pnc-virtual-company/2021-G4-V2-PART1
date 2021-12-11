@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
-use App\Http\Resources\EventResource;
+// use App\Http\Resources\EventResource;
 
 class EventController extends Controller
 {
@@ -20,8 +20,8 @@ class EventController extends Controller
         // return Event::with('users', 'join')->get();
         // return Event::all();
 
-        // return Event::join('users','users.id','=','events.user_id')->join('categories','categories.id','=','events.category_id')->select('events.*','users.firstname','categories.name')->latest()->get();
         return Event::join('users','users.id','=','events.user_id')->join('categories','categories.id','=','events.category_id')->select('events.*','users.firstname','categories.name')->latest()->get();
+        // return Event::join('users','users.id','=','events.user_id')->select('events.*','users.firstname',)->latest()->get();
     }
 
     /**

@@ -133,6 +133,7 @@ export default {
             console.log(this.imageName)
     },
     addEvent() {
+      console.log( this.userid)
       let newevent = new FormData();
       newevent.append("title", this.title);
       newevent.append("description", this.description);
@@ -153,7 +154,7 @@ export default {
       this.arrivaldate='';
       this.country='';
       this.city='';
-      this.imageName='';
+      this.imageName=null;
     },
     getLocation() {
       let countries = this.list_Location;
