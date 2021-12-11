@@ -13,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Category::join('users', 'categories.user_id', '=', 'users.id')->orderBy('categories.id', 'desc')->get(['users.firstname', 'categories.name', 'categories.user_id', 'categories.id']);
+        // return Category::join('users', 'categories.user_id', '=', 'users.id')->orderBy('categories.id', 'desc')->get(['users.firstname', 'categories.name', 'categories.user_id', 'categories.id']);
+        return Category::with('user')->latest()->get();
     }
 
     /**

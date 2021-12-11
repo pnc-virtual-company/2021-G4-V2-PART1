@@ -1,7 +1,8 @@
 <template>
   <div class="container_card">
     <div v-for="(event, index) of allEvents" :key="index">
-      <div class="event-card" v-show="event.firstname === username">
+      <div >
+      <div class="event-card"  v-show="event.firstname === username">
         <div class="card-img">
           <img class="img" :src="this.pathImage + event.imagename" alt="" />
         </div>
@@ -16,14 +17,14 @@
             </div>
             <div class="date">
               <div>
-                <span class="orange">Start Date: </span>
+                <span class="orange">Departure: </span>
                 <span id="small_space"></span>
-                <span>{{ event.departureDate }}</span>
+                <span>{{ event.departureDate }} XX</span>
               </div>
               <div>
-                <span class="orange">End Date:</span>
+                <span class="orange">Arrival:</span>
                 <span id="small_space"></span>
-                <span>{{ event.arrivalDate }}</span>
+                <span>{{ event.arrivalDate }} XX</span>
               </div>
             </div>
             <div class="location">
@@ -35,20 +36,21 @@
               <div>
                 <span class="orange">Members:</span>
                 <span id="small_space"></span>
-                <span>2 </span>
+                <span>15 </span>
                 <span class="orange"> People.</span>
               </div>
             </div>
             <div class="progress_bar d-flex">
               <div class="member">
-                <div class="profile">
-                  <img
-                    src="https://www.directive.com/images/easyblog_shared/July_2018/7-4-18/b2ap3_large_totw_network_profile_400.jpg"
-                    alt="profile"
+              <div class="profile">
+                <img
+                  src="https://www.directive.com/images/easyblog_shared/July_2018/7-4-18/b2ap3_large_totw_network_profile_400.jpg"
+                  alt="profile"
                   />
-                </div>
+                
               </div>
-              <div class="progress m-2 w-100 mt-4" style="height: 5px">
+            </div>
+            <div class="progress m-2 w-100 mt-4" style="height: 5px">
                 <div
                   class="progress-bar bg-info"
                   role="progressbar"
@@ -56,8 +58,9 @@
                   aria-valuenow="25"
                   aria-valuemin="0"
                   aria-valuemax="100"
-                ></div>
-              </div>
+                >
+                </div>
+            </div>
             </div>
           </div>
         </div>
@@ -94,7 +97,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-body modal_delete">
-              <h4>Delete an Event ?</h4>
+              <h4>Delete a category ?</h4>
               <hr />
               <strong>Are you sure you want to delete this event ?</strong>
               <hr />
@@ -146,11 +149,9 @@
                 </div>
                 <div class="edit_date">
                   <div class="edit_Departure_Date">
-                    <label id="label" for="Departure_Date"
-                      >Old Departure Date:</label
-                    >
+                    <label id="label" for="Departure_Date">Old Departure Date:</label>
                     <div>
-                      <span>Date :</span> <span>{{ oldDepartureDate }}</span>
+                        <span>Date :</span> <span>{{oldDepartureDate}}</span>
                     </div>
                     <input
                       id="Departure_Date"
@@ -159,11 +160,9 @@
                     />
                   </div>
                   <div class="edit_Arrival_Date">
-                    <label id="label" for="Arrival_Date"
-                      >Old Arrival Date:</label
-                    >
+                    <label id="label" for="Arrival_Date">Old Arrival Date:</label>
                     <div>
-                      <span>Date :</span> <span>{{ oldArrivalDate }}</span>
+                        <span>Date :</span> <span>{{oldArrivalDate}}</span>
                     </div>
                     <input
                       id="Arrival Date"
@@ -226,6 +225,7 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 </template>
 
@@ -246,7 +246,7 @@ export default {
       delete_id: null,
       startDate: this.dateFormat(this.departureDate),
       endDate: this.dateFormat(this.arrivalDate),
-      pathImage: "http://127.0.0.1:8000/storage/EventImages/",
+      pathImage: "http://eventme.com:3000/storage/EventImages/",
       oldArrivalDate: "",
       oldDepartureDate: "",
       eventid: "",

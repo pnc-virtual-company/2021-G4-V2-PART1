@@ -45,6 +45,9 @@ export default {
       .then(res=>{
         this.allEvents = res.data;
       })
+      .catch(error => {
+        console.log(error.response.data.message);
+      })
     },
     add_Event(new_event){
       let data = new_event;

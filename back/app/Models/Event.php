@@ -20,6 +20,7 @@ class Event extends Model
         'country',
         'city',
     ];
+    
     protected $hidden = ['created_at', 'updated_at'];
     
     public function user()
@@ -30,5 +31,10 @@ class Event extends Model
     public function category()
     {
        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function join()
+    {
+        return $this->hasMany(Join::class);
     }
 }
