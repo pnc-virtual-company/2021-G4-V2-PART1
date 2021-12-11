@@ -27,6 +27,16 @@ export default {
   data(){
     return {
       allEvents:[],
+      event_error: {
+        title_error: '',
+        description_error: '',
+        arrivalDate_error: '',
+      }
+    }
+  },
+  provide(){
+    return {
+      eventError: this.event_error,
     }
   },
   methods: {
@@ -45,7 +55,11 @@ export default {
         })
         .catch(error => {
             console.log(error.response.data.message);
-            this.error = error.response.data.message;
+            if (error.response.status === 422){
+              this.event_error.title_error = error.response.data.errors.title;
+              this.event_error.description_error = error.response.data.errors.description;
+              this.event_error.arrivalDate_error = error.response.data.errors.arrivalDate;
+            }
         });
     },
     updateEvent(update_event,id){
@@ -58,7 +72,7 @@ export default {
         })
         .catch(error => {
             console.log(error.response.data.message);
-            this.error = error.response.data.message;
+            // this.error = error.response.data.message;
         });
     },
     deleteEvent(id){
@@ -74,6 +88,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .background{
   width: 100%;

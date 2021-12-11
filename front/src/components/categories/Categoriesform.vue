@@ -1,8 +1,8 @@
 <template>
   <header>
     <div class="search">
-      <input type="search" class="search_input" placeholder="Search ..." v-model="search">
-      <i class="fas fa-search" @click="searchCategory"></i>
+      <input type="search" class="search_input" placeholder="Search ..." v-model="search" @keyup="searchCategory">
+      <i class="fas fa-search"></i>
     </div>
     <div class="wrapper" v-if="username != 'Guest'">
         <div class="sort_add">

@@ -19,6 +19,7 @@ class EventController extends Controller
         // return EventResource::collection(Event::all());
 
         return Event::join('users','users.id','=','events.user_id')->join('categories','categories.id','=','events.category_id')->select('events.*','users.firstname','categories.name')->latest()->get();
+        // return Event::with('categories', 'users')->latest()->get();
     }
 
     /**
@@ -32,6 +33,11 @@ class EventController extends Controller
         $request->validate([
             'title' => "required|min:5",
             'description' => "required|min:50",
+            'departureDate' => "required|before:arrivalDate",
+            'arrivalDate' => "required|after:departureDate",
+            'city' => "required",
+            'country' => "required",
+            'category_id' => 'required',
             'imagename'=>'nullable|image|mimes:jpg,jpeg,png|max:1999',
         ]);
 
@@ -75,6 +81,8 @@ class EventController extends Controller
         $request->validate([
             'title' => "required|min:5",
             'description' => "required|min:50",
+            'departureDate' => "required|before:arrivalDate",
+            'arrivalDate' => "required|after:departureDate",
             'imagename'=>'nullable|image|mimes:jpg,jpeg,png|max:1999',
         ]);
 

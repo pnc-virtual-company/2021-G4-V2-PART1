@@ -14,7 +14,7 @@ export default {
   },
   data(){
     return {
-        categories:[],
+      categories:[],
       error: {
         firstnameError: '',
         lastnameError: '',
@@ -28,9 +28,6 @@ export default {
   },
   provide(){
     return {
-      // userid: localStorage.getItem('id'),
-      // username: localStorage.getItem('username'),
-      // list_category:this.categories,
       error: this.error,
       isSignup: this.isSignup,
     }
@@ -68,9 +65,6 @@ export default {
           }
         });
     },
-    // Categories(Categories){
-    //   this.categories = Categories;
-    // },
   },
   mounted(){
     this.isNotHidden = localStorage.getItem('isNotHidden');

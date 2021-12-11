@@ -29,7 +29,6 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
 });
 
 
-
 // Author
 Route::get('events', [EventController::class, 'index']);
 Route::post('events', [EventController::class, 'store']);

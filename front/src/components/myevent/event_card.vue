@@ -1,7 +1,7 @@
 <template>
   <div class="container_card">
     <div v-for="(event, index) of allEvents" :key="index">
-      <div class="event-card"  v-show="event.firstname === username">
+      <div class="event-card" v-show="event.firstname === username">
         <div class="card-img">
           <img class="img" :src="this.pathImage + event.imagename" alt="" />
         </div>
@@ -16,14 +16,14 @@
             </div>
             <div class="date">
               <div>
-                <span class="orange">Departure: </span>
+                <span class="orange">Start Date: </span>
                 <span id="small_space"></span>
-                <span>{{ event.departureDate }} XX</span>
+                <span>{{ event.departureDate }}</span>
               </div>
               <div>
-                <span class="orange">Arrival:</span>
+                <span class="orange">End Date:</span>
                 <span id="small_space"></span>
-                <span>{{ event.arrivalDate }} XX</span>
+                <span>{{ event.arrivalDate }}</span>
               </div>
             </div>
             <div class="location">
@@ -35,21 +35,20 @@
               <div>
                 <span class="orange">Members:</span>
                 <span id="small_space"></span>
-                <span>15 </span>
+                <span>2 </span>
                 <span class="orange"> People.</span>
               </div>
             </div>
             <div class="progress_bar d-flex">
               <div class="member">
-              <div class="profile">
-                <img
-                  src="https://www.directive.com/images/easyblog_shared/July_2018/7-4-18/b2ap3_large_totw_network_profile_400.jpg"
-                  alt="profile"
+                <div class="profile">
+                  <img
+                    src="https://www.directive.com/images/easyblog_shared/July_2018/7-4-18/b2ap3_large_totw_network_profile_400.jpg"
+                    alt="profile"
                   />
-                
+                </div>
               </div>
-            </div>
-            <div class="progress m-2 w-100 mt-4" style="height: 5px">
+              <div class="progress m-2 w-100 mt-4" style="height: 5px">
                 <div
                   class="progress-bar bg-info"
                   role="progressbar"
@@ -57,9 +56,8 @@
                   aria-valuenow="25"
                   aria-valuemin="0"
                   aria-valuemax="100"
-                >
-                </div>
-            </div>
+                ></div>
+              </div>
             </div>
           </div>
         </div>
@@ -87,10 +85,6 @@
               Delete
             </button>
           </div>
-          <!-- <div class="group_btn guest" >
-            <button class="button">Join</button>
-            <button class="button">Exit</button>
-          </div> -->
         </div>
       </div>
     </div>
@@ -100,7 +94,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-body modal_delete">
-              <h4>Delete a category ?</h4>
+              <h4>Delete an Event ?</h4>
               <hr />
               <strong>Are you sure you want to delete this event ?</strong>
               <hr />
@@ -152,9 +146,11 @@
                 </div>
                 <div class="edit_date">
                   <div class="edit_Departure_Date">
-                    <label id="label" for="Departure_Date">Old Departure Date:</label>
+                    <label id="label" for="Departure_Date"
+                      >Old Departure Date:</label
+                    >
                     <div>
-                        <span>Date :</span> <span>{{oldDepartureDate}}</span>
+                      <span>Date :</span> <span>{{ oldDepartureDate }}</span>
                     </div>
                     <input
                       id="Departure_Date"
@@ -163,9 +159,11 @@
                     />
                   </div>
                   <div class="edit_Arrival_Date">
-                    <label id="label" for="Arrival_Date">Old Arrival Date:</label>
+                    <label id="label" for="Arrival_Date"
+                      >Old Arrival Date:</label
+                    >
                     <div>
-                        <span>Date :</span> <span>{{oldArrivalDate}}</span>
+                      <span>Date :</span> <span>{{ oldArrivalDate }}</span>
                     </div>
                     <input
                       id="Arrival Date"
@@ -237,33 +235,31 @@ import json from "../myevent/json/countries.json";
 import axios from "../../axios-http.js";
 export default {
   props: ["allEvents"],
-  // props:['eventId','userId','cateId','title','description','departureDate','arrivalDate','country','city','img','firstName','categoryName','event','key'],
   data() {
     return {
-        list_Location: json,
-        username: "",
-        list_Contries: [],
-        list_category: [],
-        list_Cites: [],
-        editEvent: [],
-        delete_id: null,
-        startDate: this.dateFormat(this.departureDate),
-        endDate: this.dateFormat(this.arrivalDate),
-        pathImage: "http://127.0.0.1:8000/storage/EventImages/",
-        oldArrivalDate:'',
-        oldDepartureDate:'',
-        eventid:"",
-        // userid:localStorage.getItem('id'),
-        userid:'',
-        category_id:"",
-        title: "",
-        description: "",
-        categoryType: "",
-        departuredate: "",
-        arrivaldate: "",
-        country: "",
-        city: "",
-        imageName:""
+      list_Location: json,
+      username: "",
+      list_Contries: [],
+      list_category: [],
+      list_Cites: [],
+      editEvent: [],
+      delete_id: null,
+      startDate: this.dateFormat(this.departureDate),
+      endDate: this.dateFormat(this.arrivalDate),
+      pathImage: "http://127.0.0.1:8000/storage/EventImages/",
+      oldArrivalDate: "",
+      oldDepartureDate: "",
+      eventid: "",
+      userid: "",
+      category_id: "",
+      title: "",
+      description: "",
+      categoryType: "",
+      departuredate: "",
+      arrivaldate: "",
+      country: "",
+      city: "",
+      imageName: "",
     };
   },
   methods: {
@@ -271,55 +267,53 @@ export default {
       return moment(date).format("YYYY-MM-DD hh:mm:ss");
     },
     // Delete on category card
-    getEvent(id
-    ) {
-        console.log(id);
-        let editEvent=[]
-        for (let event of this.allEvents) {
-            if(event.id===id){
-                    editEvent=event
-                    console.log(event)
-            }
+    getEvent(id) {
+      console.log(id);
+      let editEvent = [];
+      for (let event of this.allEvents) {
+        if (event.id === id) {
+          editEvent = event;
+          console.log(event);
         }
-        this.eventid=editEvent.id;
-        this.userid=editEvent.user_id;
-        this.category_id=editEvent.category_id;
-        this.title=editEvent.title
-        this.description=editEvent.description;
-        this.oldDepartureDate=editEvent.departureDate;
-        this.oldArrivalDate=editEvent.arrivalDate;
-        this.country=editEvent.country;
-        this.city=editEvent.city;
-        this.getcity(this.country);
+      }
+      this.eventid = editEvent.id;
+      this.userid = editEvent.user_id;
+      this.category_id = editEvent.category_id;
+      this.title = editEvent.title;
+      this.description = editEvent.description;
+      this.oldDepartureDate = editEvent.departureDate;
+      this.oldArrivalDate = editEvent.arrivalDate;
+      this.country = editEvent.country;
+      this.city = editEvent.city;
+      this.getcity(this.country);
     },
     addEventImg(event) {
       this.imageName = event.target.files[0];
     },
-    updateEvent(){
-        console.log('yes')
-        // console.log(this.editEvent)
-        let newevent = new FormData();
-        newevent.append("title", this.title);
-        newevent.append("description", this.description);
-        newevent.append("departureDate", this.departuredate);
-        newevent.append("arrivalDate", this.arrivaldate);
-        newevent.append("city", this.city);
-        newevent.append("country", this.country);
-        newevent.append("category_id", this.category_id);
-        newevent.append("imagename", this.imageName);
-        newevent.append("user_id", this.userid);
-        console.log(newevent);
-        this.$emit("update-event",newevent,this.eventid);
+    updateEvent() {
+      console.log("yes");
+      let newevent = new FormData();
+      newevent.append("title", this.title);
+      newevent.append("description", this.description);
+      newevent.append("departureDate", this.departuredate);
+      newevent.append("arrivalDate", this.arrivaldate);
+      newevent.append("city", this.city);
+      newevent.append("country", this.country);
+      newevent.append("category_id", this.category_id);
+      newevent.append("imagename", this.imageName);
+      newevent.append("user_id", this.userid);
+      console.log(newevent);
+      this.$emit("update-event", newevent, this.eventid);
 
-      this.userid='';
-      this.category_id='';
-      this.title='';
-      this.description='';
-      this.departuredate='';
-      this.arrivaldate='';
-      this.country='';
-      this.city='';
-      this.imageName='';
+      this.userid = "";
+      this.category_id = "";
+      this.title = "";
+      this.description = "";
+      this.departuredate = "";
+      this.arrivaldate = "";
+      this.country = "";
+      this.city = "";
+      this.imageName = "";
     },
     deleteEventAction(id) {
       console.log(id);
@@ -362,9 +356,9 @@ export default {
 <style scoped>
 .container_card {
   margin: 10px 70px;
-  /* border:solid 2px rgb(255, 255, 255); */
+  /* /border: solid 2px rgb(255, 255, 255); */
   border: solid 2px orange;
-  border-radius:20px;
+  border-radius: 20px;
 }
 .event-card {
   color: white;
@@ -397,7 +391,6 @@ export default {
   border-left: 3px solid orange;
   width: 15%;
 }
-/* ----------- */
 .category-header,
 .location {
   display: flex;
@@ -415,7 +408,6 @@ export default {
 }
 .member {
   margin-top: 10px;
-
 }
 
 img {
@@ -467,7 +459,7 @@ button {
 }
 .button:hover {
   background: orange;
-  border: 2px solid black;
+  border: 2px solid white;
   color: black;
   font-weight: bold;
   padding: 12px;
@@ -494,15 +486,14 @@ button {
   background: rgba(0, 0, 0, 0.428);
 }
 .modal-content {
-    background: rgba(255, 255, 255, 0);
-    border: 1px solid orange;
+  background: rgba(255, 255, 255, 0);
+  border: 1px solid orange;
   color: white;
 }
 .modal-body {
   text-align: center;
 }
 
-/* Edit style */
 .edit-container-form {
   background: #0000009f;
   padding: 15px;
@@ -524,7 +515,7 @@ button {
   border: solid 1px black;
 }
 .location {
-    width: 98.5%;
+  width: 98.5%;
   border-radius: 5px;
   background: rgba(48, 47, 47, 0.61);
   margin: 5px;
