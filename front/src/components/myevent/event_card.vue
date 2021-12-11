@@ -2,14 +2,14 @@
   <div class="container_card">
     <div v-for="(event, index) of allEvents" :key="index">
       <div >
-      <div class="event-card"  v-show="event.firstname === username">
+      <div class="event-card" v-show="event.user.firstname === username">
         <div class="card-img">
           <img class="img" :src="this.pathImage + event.imagename" alt="" />
         </div>
         <div class="main-card">
           <div class="category-header">
             <h1 class="orange">{{ event.title }}</h1>
-            <h2 class="orange">{{ event.name }}</h2>
+            <h2 class="orange">{{ event.category.name }}</h2>
           </div>
           <div class="card-body">
             <div class="description">
@@ -17,14 +17,14 @@
             </div>
             <div class="date">
               <div>
-                <span class="orange">Departure: </span>
+                <span class="orange">Start Date: </span>
                 <span id="small_space"></span>
-                <span>{{ event.departureDate }} XX</span>
+                <span>{{ event.departureDate }}</span>
               </div>
               <div>
-                <span class="orange">Arrival:</span>
+                <span class="orange">End Date:</span>
                 <span id="small_space"></span>
-                <span>{{ event.arrivalDate }} XX</span>
+                <span>{{ event.arrivalDate }}</span>
               </div>
             </div>
             <div class="location">
@@ -66,7 +66,7 @@
         </div>
         <div class="card-btn">
           <div class="card-btn-top">
-            <h2 id="username" class="orange">{{ event.firstname }}</h2>
+            <h2 id="username" class="orange">{{ event.user.firstname }}</h2>
           </div>
           <div class="group_btn owner">
             <button
@@ -238,7 +238,7 @@ export default {
   data() {
     return {
       list_Location: json,
-      username: "",
+      username: localStorage.getItem('username'),
       list_Contries: [],
       list_category: [],
       list_Cites: [],

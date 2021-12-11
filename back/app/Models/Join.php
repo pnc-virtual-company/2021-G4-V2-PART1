@@ -11,6 +11,11 @@ class Join extends Model
 
     protected $fillable = ['user_id', 'event_id', 'user_role'];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function event()
     {
         return $this->belongsTo(Event::class);

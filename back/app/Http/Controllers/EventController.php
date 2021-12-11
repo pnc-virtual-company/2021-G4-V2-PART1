@@ -16,12 +16,13 @@ class EventController extends Controller
      */
     public function index()
     {
+        return Event::with('category:name,id','user:firstname,id')->latest()->get();
+        
         // return EventResource::collection(Event::all());
         // return Event::all();
-
         // return Event::join('users','users.id','=','events.user_id')->join('categories','categories.id','=','events.category_id')->select('events.*','users.firstname','categories.name')->latest()->get();
         // return Event::with('category', 'join')->latest()->get();
-        return Event::all();
+        // return Event::latest()->get();
     }
 
     /**
