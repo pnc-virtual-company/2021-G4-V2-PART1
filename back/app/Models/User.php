@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Category::class);
     }
+
+    public function join(){
+        return $this->hasMany(Join::class);
+    }
 };

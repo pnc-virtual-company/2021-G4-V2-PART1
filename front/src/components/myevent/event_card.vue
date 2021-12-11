@@ -1,5 +1,6 @@
 <template>
   <div class="container_card">
+    {{allEvents}}
     <div v-for="(event, index) of allEvents" :key="index">
       <div class="event-card"  v-show="event.firstname === username">
         <div class="card-img">
@@ -249,7 +250,7 @@ export default {
         delete_id: null,
         startDate: this.dateFormat(this.departureDate),
         endDate: this.dateFormat(this.arrivalDate),
-        pathImage: "http://127.0.0.1:8000/storage/EventImages/",
+        pathImage: "http://eventme.com:3000//storage/EventImages/",
         oldArrivalDate:'',
         oldDepartureDate:'',
         eventid:"",
