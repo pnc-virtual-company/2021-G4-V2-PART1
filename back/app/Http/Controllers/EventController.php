@@ -17,11 +17,11 @@ class EventController extends Controller
     public function index()
     {
         // return EventResource::collection(Event::all());
-        // return Event::with('users', 'join')->get();
         // return Event::all();
 
-        return Event::join('users','users.id','=','events.user_id')->join('categories','categories.id','=','events.category_id')->select('events.*','users.firstname','categories.name')->latest()->get();
-        // return Event::join('users','users.id','=','events.user_id')->select('events.*','users.firstname',)->latest()->get();
+        // return Event::join('users','users.id','=','events.user_id')->join('categories','categories.id','=','events.category_id')->select('events.*','users.firstname','categories.name')->latest()->get();
+        return Event::with('category:name,id','user:firstname,id')->latest()->get();
+        // return Event::all();
     }
 
     /**
@@ -35,6 +35,11 @@ class EventController extends Controller
         $request->validate([
             'title' => "required|min:5",
             'description' => "required|min:50",
+            'departureDate' => "required|before:arrivalDate",
+            'arrivalDate' => "required|after:departureDate",
+            'city' => "required",
+            'country' => "required",
+            'category_id' => 'required',
             'imagename'=>'nullable|image|mimes:jpg,jpeg,png|max:1999',
         ]);
 
@@ -78,6 +83,8 @@ class EventController extends Controller
         $request->validate([
             'title' => "required|min:5",
             'description' => "required|min:50",
+            'departureDate' => "required|before:arrivalDate",
+            'arrivalDate' => "required|after:departureDate",
             'imagename'=>'nullable|image|mimes:jpg,jpeg,png|max:1999',
         ]);
 

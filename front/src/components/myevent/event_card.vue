@@ -1,15 +1,16 @@
 <template>
   <div class="container_card">
-    <div v-for="(event, index) of allEvents" :key="index">
-      <div >
-      <div class="event-card"  v-show="event.firstname === username">
+    <!-- {{allEvents}} -->
+    <div >
+      <div v-for="(event, index) of allEvents" :key="index">
+      <div class="event-card"  v-show="event.user.firstname === username">
         <div class="card-img">
           <img class="img" :src="this.pathImage + event.imagename" alt="" />
         </div>
         <div class="main-card">
           <div class="category-header">
             <h1 class="orange">{{ event.title }}</h1>
-            <h2 class="orange">{{ event.name }}</h2>
+            <h2 class="orange">{{ event.category.name }}</h2>
           </div>
           <div class="card-body">
             <div class="description">
@@ -66,7 +67,7 @@
         </div>
         <div class="card-btn">
           <div class="card-btn-top">
-            <h2 id="username" class="orange">{{ event.firstname }}</h2>
+            <h2 id="username" class="orange">{{ event.user.firstname }}</h2>
           </div>
           <div class="group_btn owner">
             <button
@@ -235,11 +236,10 @@ import json from "../myevent/json/countries.json";
 import axios from "../../axios-http.js";
 export default {
   props: ["allEvents"],
-  // props:['eventId','userId','cateId','title','description','departureDate','arrivalDate','country','city','img','firstName','categoryName','event','key'],
   data() {
     return {
         list_Location: json,
-        username: "",
+        username:localStorage.getItem("username"),
         list_Contries: [],
         list_category: [],
         list_Cites: [],
@@ -251,7 +251,7 @@ export default {
         oldArrivalDate:'',
         oldDepartureDate:'',
         eventid:"",
-        userid:'',
+        userid:localStorage.getItem('id'),
         category_id:"",
         title: "",
         description: "",
@@ -268,55 +268,53 @@ export default {
       return moment(date).format("YYYY-MM-DD hh:mm:ss");
     },
     // Delete on category card
-    getEvent(id
-    ) {
-        console.log(id);
-        let editEvent=[]
-        for (let event of this.allEvents) {
-            if(event.id===id){
-                    editEvent=event
-                    console.log(event)
-            }
+    getEvent(id) {
+      console.log(id);
+      let editEvent = [];
+      for (let event of this.allEvents) {
+        if (event.id === id) {
+          editEvent = event;
+          console.log(event);
         }
-        this.eventid=editEvent.id;
-        this.userid=editEvent.user_id;
-        this.category_id=editEvent.category_id;
-        this.title=editEvent.title
-        this.description=editEvent.description;
-        this.oldDepartureDate=editEvent.departureDate;
-        this.oldArrivalDate=editEvent.arrivalDate;
-        this.country=editEvent.country;
-        this.city=editEvent.city;
-        this.getcity(this.country);
+      }
+      this.eventid = editEvent.id;
+      this.userid = editEvent.user_id;
+      this.category_id = editEvent.category_id;
+      this.title = editEvent.title;
+      this.description = editEvent.description;
+      this.oldDepartureDate = editEvent.departureDate;
+      this.oldArrivalDate = editEvent.arrivalDate;
+      this.country = editEvent.country;
+      this.city = editEvent.city;
+      this.getcity(this.country);
     },
     addEventImg(event) {
       this.imageName = event.target.files[0];
     },
-    updateEvent(){
-        console.log('yes')
-        // console.log(this.editEvent)
-        let newevent = new FormData();
-        newevent.append("title", this.title);
-        newevent.append("description", this.description);
-        newevent.append("departureDate", this.departuredate);
-        newevent.append("arrivalDate", this.arrivaldate);
-        newevent.append("city", this.city);
-        newevent.append("country", this.country);
-        newevent.append("category_id", this.category_id);
-        newevent.append("imagename", this.imageName);
-        newevent.append("user_id", this.userid);
-        console.log(newevent);
-        this.$emit("update-event",newevent,this.eventid);
+    updateEvent() {
+      console.log("yes");
+      let newevent = new FormData();
+      newevent.append("title", this.title);
+      newevent.append("description", this.description);
+      newevent.append("departureDate", this.departuredate);
+      newevent.append("arrivalDate", this.arrivaldate);
+      newevent.append("city", this.city);
+      newevent.append("country", this.country);
+      newevent.append("category_id", this.category_id);
+      newevent.append("imagename", this.imageName);
+      newevent.append("user_id", this.userid);
+      console.log(newevent);
+      this.$emit("update-event", newevent, this.eventid);
 
-      this.userid='';
-      this.category_id='';
-      this.title='';
-      this.description='';
-      this.departuredate='';
-      this.arrivaldate='';
-      this.country='';
-      this.city='';
-      this.imageName='';
+      this.userid = "";
+      this.category_id = "";
+      this.title = "";
+      this.description = "";
+      this.departuredate = "";
+      this.arrivaldate = "";
+      this.country = "";
+      this.city = "";
+      this.imageName = "";
     },
     deleteEventAction(id) {
       console.log(id);
@@ -359,9 +357,9 @@ export default {
 <style scoped>
 .container_card {
   margin: 10px 70px;
-  /* border:solid 2px rgb(255, 255, 255); */
+  /* /border: solid 2px rgb(255, 255, 255); */
   border: solid 2px orange;
-  border-radius:20px;
+  border-radius: 20px;
 }
 .event-card {
   color: white;
@@ -394,7 +392,6 @@ export default {
   border-left: 3px solid orange;
   width: 15%;
 }
-/* ----------- */
 .category-header,
 .location {
   display: flex;
@@ -412,7 +409,6 @@ export default {
 }
 .member {
   margin-top: 10px;
-
 }
 
 img {
@@ -464,7 +460,7 @@ button {
 }
 .button:hover {
   background: orange;
-  border: 2px solid black;
+  border: 2px solid white;
   color: black;
   font-weight: bold;
   padding: 12px;
@@ -491,15 +487,14 @@ button {
   background: rgba(0, 0, 0, 0.428);
 }
 .modal-content {
-    background: rgba(255, 255, 255, 0);
-    border: 1px solid orange;
+  background: rgba(255, 255, 255, 0);
+  border: 1px solid orange;
   color: white;
 }
 .modal-body {
   text-align: center;
 }
 
-/* Edit style */
 .edit-container-form {
   background: #0000009f;
   padding: 15px;
@@ -521,7 +516,7 @@ button {
   border: solid 1px black;
 }
 .location {
-    width: 98.5%;
+  width: 98.5%;
   border-radius: 5px;
   background: rgba(48, 47, 47, 0.61);
   margin: 5px;

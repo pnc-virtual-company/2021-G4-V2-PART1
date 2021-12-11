@@ -21,6 +21,7 @@
                     v-model="title"
                     type="text"
                   />
+                  <span>{{this.eventError.title_error[0]}}</span>
                 </div>
 
                 <div>
@@ -30,6 +31,7 @@
                     v-model="description"
                     type="text"
                   ></textarea>
+                  <span>{{this.eventError.description_error[0]}}</span>
                 </div>
                 <div class="date">
                   <div class="Departure_Date">
@@ -51,6 +53,7 @@
                     />
                   </div>
                 </div>
+                <span>{{this.eventError.arrivalDate_error[0]}}</span>
                 <div>
                   <div class="label"></div>
                   <select v-model="category_id" class="category">
@@ -108,6 +111,7 @@ import json from "../myevent/json/countries.json";
 import axios from "../../axios-http.js";
 export default {
   emits: ["add-event"],
+  inject: ['eventError'],
   data() {
     return {
       username: localStorage.getItem("username"),
@@ -130,7 +134,6 @@ export default {
   methods: {
     addEventImg(event) {
       this.imageName = event.target.files[0];
-            console.log(this.imageName)
     },
     addEvent() {
       console.log( this.userid)
@@ -182,6 +185,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 * {
   box-sizing: border-box;
@@ -276,5 +280,11 @@ input {
 }
 .add_btn{
   text-align: center;
+}
+span{
+  font-size: 13px;
+  color: red;
+  display:flex;
+  justify-content: center;
 }
 </style>

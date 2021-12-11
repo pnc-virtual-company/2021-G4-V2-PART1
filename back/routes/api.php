@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\JoinController;
+use App\Http\Controllers\JoinEventController;
 
 
 /*
@@ -50,6 +50,6 @@ Route::get('/categories/sort/name',[CategoryController::class, 'sort']);
 
 
 // ________________________Join_________________________ //
-Route::get('/joinevent', [JoinController::class, 'index']);
-Route::post('/joinevent', [JoinController::class, 'store']);
-Route::delete('/joinevent/{id}', [JoinController::class, 'destroy']);
+Route::get('/joinevent', [JoinEventController::class, 'index']);
+Route::post('/joinevent', [JoinEventController::class, 'store']);
+Route::delete('/joinevent/{id}', [JoinEventController::class, 'destroy']);

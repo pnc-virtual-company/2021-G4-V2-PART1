@@ -3,19 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\JoinEvent;
 
-class JoinEventController extends Controller
+class JoinController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -24,31 +15,29 @@ class JoinEventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $join = new JoinEvent();
+
+        $join->user_id = $request->user_id;
+        $join->user_role = $request->user_role;
+        $join->event_id = $request->event_id;
+
+        $join->save();
+
+        return response()->json(["message"=> "joined successfully"], 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
-     * Update the specified resource in storage.
+     * Get resource from storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function index(Request $request)
     {
-        //
+        return JoinEvent::with('user', 'event')->get();
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -58,6 +47,13 @@ class JoinEventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $isDeleted = JoinEvent::destroy($id);
+
+        if($isDeleted){
+            return response()->json(['message' => 'quit'],200);
+        }else{
+            return response()->json(['message' => 'ID NOT FOUND'],404);
+        }
     }
+
 }
