@@ -50,5 +50,6 @@ Route::get('/categories/sort/name',[CategoryController::class, 'sort']);
 
 
 // ________________________Join_________________________ //
+Route::get('/joinevent', [JoinController::class, 'index']);
 Route::post('/joinevent', [JoinController::class, 'store']);
 Route::delete('/joinevent/{id}', [JoinController::class, 'destroy']);

@@ -20,6 +20,8 @@ class JoinController extends Controller
         $join->user_id = $request->user_id;
         $join->event_id = $request->event_id;
 
+        $join->save();
+
         return response()->json(["message"=> "joined successfully"], 201);
     }
 
