@@ -15,12 +15,11 @@ class EventController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         // return EventResource::collection(Event::all());
         // return Event::all();
-
         // return Event::join('users','users.id','=','events.user_id')->join('categories','categories.id','=','events.category_id')->select('events.*','users.firstname','categories.name')->latest()->get();
-        return Event::with('category:name,id','user:firstname,id')->latest()->get();
+        return Event::with('category:id,name','user:firstname,id','join')->latest()->get();
         // return Event::all();
     }
 
@@ -84,11 +83,8 @@ class EventController extends Controller
             'title' => "required|min:5",
             'description' => "required|min:50",
             'departureDate' => "required|before:arrivalDate",
-            'arrivalDate' => "required|after:departureDate",
-            'imagename'=>'nullable|image|mimes:jpg,jpeg,png|max:1999',
+            'arrivalDate' => "required|after:departureDate"
         ]);
-
-        $request->file('imagename')->store('public/EventImages');
 
         $Event = Event::findOrFail($id);
         $Event->category_id = $request->category_id;
@@ -99,9 +95,7 @@ class EventController extends Controller
         $Event->arrivalDate = $request->arrivalDate;
         $Event->city = $request->city;
         $Event->country = $request->country;
-
-        $Event->imagename = $request->file('imagename')->hashName();
-
+        
         $Event->save();
 
         return response()->json(['message' => 'update'], 200);

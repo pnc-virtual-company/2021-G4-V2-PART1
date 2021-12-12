@@ -33,4 +33,9 @@ class Event extends Model
        return $this->belongsTo(Category::class, 'category_id');
     }
 
+    public function join()
+    {
+       return $this->hasMany(join::class);
+    }
+
 }

@@ -1,9 +1,8 @@
 <template>
   <div class="container_card">
-    <!-- {{allEvents}} -->
-    <div >
-      <div v-for="(event, index) of allEvents" :key="index">
-      <div class="event-card"  v-show="event.user.firstname === username">
+    <div v-for="(event, index) of allEvents" :key="index">
+      <div >
+      <div class="event-card" v-show="event.user.firstname === username">
         <div class="card-img">
           <img class="img" :src="this.pathImage + event.imagename" alt="" />
         </div>
@@ -18,14 +17,14 @@
             </div>
             <div class="date">
               <div>
-                <span class="orange">Departure: </span>
+                <span class="orange">Start Date: </span>
                 <span id="small_space"></span>
-                <span>{{ event.departureDate }} XX</span>
+                <span>{{ event.departureDate }}</span>
               </div>
               <div>
-                <span class="orange">Arrival:</span>
+                <span class="orange">End Date:</span>
                 <span id="small_space"></span>
-                <span>{{ event.arrivalDate }} XX</span>
+                <span>{{ event.arrivalDate }}</span>
               </div>
             </div>
             <div class="location">
@@ -150,7 +149,7 @@
                 </div>
                 <div class="edit_date">
                   <div class="edit_Departure_Date">
-                    <label id="label" for="Departure_Date">Old Departure Date:</label>
+                    <label id="label" for="Departure_Date">Old Start Date:</label>
                     <div>
                         <span>Date :</span> <span>{{oldDepartureDate}}</span>
                     </div>
@@ -161,7 +160,7 @@
                     />
                   </div>
                   <div class="edit_Arrival_Date">
-                    <label id="label" for="Arrival_Date">Old Arrival Date:</label>
+                    <label id="label" for="Arrival_Date">Old End Date:</label>
                     <div>
                         <span>Date :</span> <span>{{oldArrivalDate}}</span>
                     </div>
@@ -209,7 +208,7 @@
                       {{ city }}
                     </option>
                   </select>
-                  <input @change="addEventImg" type="file" placeholder="" />
+                  <!-- <input @change="addEventImg" type="file" placeholder="" /> -->
                 </div>
                 <div class="edit_button">
                   <button
@@ -270,41 +269,38 @@ export default {
     // Delete on category card
     getEvent(id) {
       console.log(id);
-      let editEvent = [];
       for (let event of this.allEvents) {
         if (event.id === id) {
-          editEvent = event;
-          console.log(event);
+          this.editEvent = event;
+          console.log(event)
         }
       }
-      this.eventid = editEvent.id;
-      this.userid = editEvent.user_id;
-      this.category_id = editEvent.category_id;
-      this.title = editEvent.title;
-      this.description = editEvent.description;
-      this.oldDepartureDate = editEvent.departureDate;
-      this.oldArrivalDate = editEvent.arrivalDate;
-      this.country = editEvent.country;
-      this.city = editEvent.city;
+      console.log(this.editEvent);
+
+      this.eventid = this.editEvent.id;
+      this.userid = this.editEvent.user_id;
+      this.category_id = this.editEvent.category_id;
+      this.title = this.editEvent.title;
+      this.description = this.editEvent.description;
+      this.oldDepartureDate = this.editEvent.departureDate;
+      this.oldArrivalDate = this.editEvent.arrivalDate;
+      this.country = this.editEvent.country;
+      this.city = this.editEvent.city;
       this.getcity(this.country);
     },
     addEventImg(event) {
       this.imageName = event.target.files[0];
     },
     updateEvent() {
-      console.log("yes");
-      let newevent = new FormData();
-      newevent.append("title", this.title);
-      newevent.append("description", this.description);
-      newevent.append("departureDate", this.departuredate);
-      newevent.append("arrivalDate", this.arrivaldate);
-      newevent.append("city", this.city);
-      newevent.append("country", this.country);
-      newevent.append("category_id", this.category_id);
-      newevent.append("imagename", this.imageName);
-      newevent.append("user_id", this.userid);
-      console.log(newevent);
-      this.$emit("update-event", newevent, this.eventid);
+      this.editEvent.title = this.title;
+      this.editEvent.description = this.description;
+      this.editEvent.departureDate = this.departuredate;
+      this.editEvent.arrivalDate = this.arrivaldate;
+      this.editEvent.city = this.city;
+      this.editEvent.country = this.country;
+      this.editEvent.category_id= this.category_id;
+      console.log(this.editEvent);
+      this.$emit("update-event", this.editEvent, this.eventid);
 
       this.userid = "";
       this.category_id = "";
