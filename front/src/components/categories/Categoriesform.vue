@@ -26,8 +26,11 @@
 
 <script>
 export default {
+
     emits: ['categoryName', 'search_category', 'sort_category'],
+
     props: ['errorAlert'],
+
     data(){
       return {
         categoryName: '',
@@ -37,21 +40,20 @@ export default {
       }
     },
     methods: {
-      // Add______________________________________ //
+      // _________________Add___________________ //
       addCategories() {
         this.$emit("categoryName", this.categoryName, this.userid);
-        this.categoryName = ''
+        this.categoryName = '';
       },
 
-      // Search___________________________________ //
+      // _________________Search__________________ //
       searchCategory() {
           this.$emit('search_category', this.search);
       },
 
-      // Sort_____________________________________ //
+      // __________________Sort_______________ //
       sortCategory() {
         this.$emit('sort_category');
-        console.log('Yes');
       }
     },
 }
@@ -63,18 +65,18 @@ export default {
     width: 50%;
     margin-left: 25%;
     margin-top: 40px;
-    color: white;
+    
   }
   .search_input{
+    color: white;
     height: 40px;
     border-radius: 7px;
     text-align: center;
     border: 2px solid orange;
-    background: #313736;
-    color: orange;
+    background: rgba(0, 0, 0, 0.551);
   }
   .search_input::placeholder{
-    color: white;
+    color: rgb(255, 255, 255);
   }
   i{
     display: flex;

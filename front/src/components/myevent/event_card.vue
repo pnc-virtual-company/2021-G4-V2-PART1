@@ -196,7 +196,6 @@
                       {{ city }}
                     </option>
                   </select>
-                  <!-- <input @change="addEventImg" type="file" placeholder="" /> -->
                 </div>
                 <div class="edit_button">
                   <button
@@ -252,20 +251,18 @@ export default {
     };
   },
   methods: {
+    // ________________date format________________ //
     dateFormat(date) {
       return moment(date).format("YYYY-MM-DD hh:mm:ss");
     },
-    // Delete on category card
+    // ________________get one event________________ //
     getEvent(id) {
-      console.log(id);
       for (let event of this.allEvents) {
         if (event.id === id) {
           this.editEvent = event;
           console.log(event)
         }
       }
-      console.log(this.editEvent);
-
       this.eventid = this.editEvent.id;
       this.userid = this.editEvent.user_id;
       this.category_id = this.editEvent.category_id;
@@ -277,9 +274,11 @@ export default {
       this.city = this.editEvent.city;
       this.getcity(this.country);
     },
-    addEventImg(event) {
-      this.imageName = event.target.files[0];
+    // ________________edit event________________ //
+    editEventAction(id) {
+      this.getEvent(id);
     },
+    // ________________update event________________ //
     updateEvent() {
       this.editEvent.title = this.title;
       this.editEvent.description = this.description;
@@ -288,9 +287,8 @@ export default {
       this.editEvent.city = this.city;
       this.editEvent.country = this.country;
       this.editEvent.category_id= this.category_id;
-      console.log(this.editEvent);
+      //_________commit update event________________ //
       this.$emit("update-event", this.editEvent, this.eventid);
-
       this.userid = "";
       this.category_id = "";
       this.title = "";
@@ -301,6 +299,7 @@ export default {
       this.city = "";
       this.imageName = "";
     },
+    // ________________delete event________________ //
     deleteEventAction(id) {
       console.log(id);
       this.delete_id = id;
@@ -308,15 +307,14 @@ export default {
     deleteEvent(id) {
       this.$emit("delete_Event", id);
     },
-    editEventAction(id) {
-      this.getEvent(id);
-    },
+    // ________________get location________________ //
     getLocation() {
       let countries = this.list_Location;
       for (let country in countries) {
         this.list_Contries.push(country);
       }
     },
+    // ________________get city________________ //
     getcity(Country) {
       console.log('yes');
       let countries = this.list_Location;
@@ -326,11 +324,13 @@ export default {
         }
       }
     },
+    // ________________get category________________ //
     getCategory() {
       axios.get("categories").then((res) => {
         this.list_category = res.data;
       });
     },
+    // ________________get remaining________________ //
     getremain(listJoin){
       return 15-listJoin.length
       

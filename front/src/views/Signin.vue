@@ -57,6 +57,7 @@ export default {
                     this.message_error = error.response.data.message;
                 });
         },
+         // ___________________sign In As Guest______________________ //
         signInAsGuest(){
             localStorage.setItem('username', 'Guest');
             this.$emit('isNotHidden', true);

@@ -64,10 +64,12 @@ export default {
         }
     },
     methods: {
+         // ___________________set profile______________________ //
         setProfile(event) {
             this.img_pro = event.target.files[0];
             this.imageView = URL.createObjectURL(this.img_pro);
             },
+         // ___________________singup______________________ //
         signUp(){
             let newuser = new FormData();
             newuser.append('firstname',this.firstname);

@@ -60,22 +60,21 @@
             }
         },
         methods: {
-            // Edit and Update__________________________ //
+            // ______________________Edit and Update__________________________ //
             editCategory(id){
                 for (let category of this.categories){
                     if(category.id === id){
-                        this.category = category
-                        this.cate_title = category.name
+                        this.category = category;
+                        this.cate_title = category.name;
                     }
                 }
             },
             updateCategory(){
                 this.category.name = this.cate_title;
-                console.log(this.category.name)
-                this.$emit('edit_category', this.category)
+                this.$emit('edit_category', this.category);
             },
 
-            // Delete____________________________________ //
+            //_________________Delete____________________ //
             deleteCategoryAction(id){
                 this.delete_id = id;
             },
@@ -87,9 +86,7 @@
 </script>
 
 <style scoped>
-    body{
-        background: rgba(0, 0, 0, 0.493);
-    }
+
     .category-card{
         margin: 20px;
         height: 65px;
@@ -164,7 +161,7 @@
         background: #f7a223;
         float:right;
         font-weight: bold;
-        height: 50px;
+        /* height: 50px; */
         border-radius: 10px;
     }
     button{

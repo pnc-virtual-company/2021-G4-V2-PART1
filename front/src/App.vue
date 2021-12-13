@@ -6,12 +6,16 @@
 </template>
 
 <script>
-import axios from './axios-http.js'
+
+import axios from './axios-http.js';
 import Menu from './components/menu/Menu.vue';
+
 export default {
+
   components: {
     'navbar':Menu,
   },
+
   data(){
     return {
       categories:[],
@@ -26,21 +30,25 @@ export default {
       isNotHidden: false,
     }
   },
+
   provide(){
     return {
       error: this.error,
       isSignup: this.isSignup,
     }
   },
+
   methods: {
+
     navHidden(isHidden){
       console.log(isHidden);
       this.isNotHidden = isHidden;
     },
-    // _____________________Add new user to database_________________________ //
+
+    // ____________________Add new user to database________________________ //
     addUser(data){
       let userdata = data;
-      console.log(data.get('password','password_confirmation'));
+
       axios.post('signup', userdata)
         .then((res) => {
           console.log(res.data);
@@ -61,10 +69,11 @@ export default {
         });
     },
   },
+
   mounted(){
+
     this.isNotHidden = localStorage.getItem('isNotHidden');
-    // localStorage.clear();
-    // console.log('yes')
+    
   }
 }
 </script>

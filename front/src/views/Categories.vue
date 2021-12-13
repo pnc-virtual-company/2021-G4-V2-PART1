@@ -2,7 +2,7 @@
   <div>
     <div class="background">
       <div class="title1">
-          <h2>Welcome To Cambodia</h2>
+          <h2>Welcome To Event me!</h2>
       </div>
     </div>
     <div class="category_title">
@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import Categorycard from '../components/categories/Categorycard.vue'
-import Categoriesform from '../components/categories/Categoriesform.vue'
-import axios from '../axios-http.js'
+import Categorycard from '../components/categories/Categorycard.vue';
+import Categoriesform from '../components/categories/Categoriesform.vue';
+import axios from '../axios-http.js';
 export default {
   components:{ 
     'category-form': Categoriesform,
@@ -31,6 +31,7 @@ export default {
     }
   },
   methods: {
+    // ____________________Add new category to database________________________ //
     addCategory(name, id){
       let data = {
         name: name,
@@ -58,7 +59,7 @@ export default {
     // ____________________Edit_Category______________________ //
     editCategory(category){
       axios.put(this.path + '/' + category.id, category).then(res => {
-        console.log(res.data)
+        console.log(res.data);
       });
     },
 

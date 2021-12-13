@@ -106,12 +106,16 @@
     </div>
   </div>
 </template>
+
 <script>
+
 import json from "../myevent/json/countries.json";
 import axios from "../../axios-http.js";
+
 export default {
   emits: ["add-event"],
   inject: ['eventError'],
+
   data() {
     return {
       username: localStorage.getItem("username"),
@@ -132,6 +136,7 @@ export default {
     };
   },
   methods: {
+    // ________________add event Img________________ //
     addEventImg(event) {
       this.imageName = event.target.files[0];
     },
@@ -162,12 +167,14 @@ export default {
       this.city='';
       this.imageName=null;
     },
+    // ________________get location________________ //
     getLocation() {
       let countries = this.list_Location;
       for (let key in countries) {
         this.list_Contries.push(key);
       }
     },
+    // _______________get city________________ //
     getcity() {
       let countries = this.list_Location;
       for (let country in countries) {
@@ -176,6 +183,7 @@ export default {
         }
       }
     },
+    // ________________get category________________ //
     getCategory() {
       axios.get("categories").then((res) => {
         this.list_category = res.data;

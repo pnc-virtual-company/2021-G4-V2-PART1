@@ -6,7 +6,6 @@ import Signup from '../views/Signup.vue';
 import Myevent from '../views/Myevent.vue';
 import Findevent from '../views/Findevent.vue';
 import Categories from '../views/Categories.vue';
-// import Dialog from './components/dialog/Dialog.vue'
 
 const routes =  [
     {
@@ -43,4 +42,5 @@ const router = createRouter({
     history:createWebHistory(),
         routes
     });
+    
 export default router

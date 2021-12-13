@@ -1,43 +1,34 @@
 <template>
   <div class="event_container">
-  <!-- <div class="search">
-            <div v-if="!loading">
-              <input type="search" class="search_input" placeholder="Search ..." v-model="search" >
-            </div>
-            <i @click="searchEvent" class="fas fa-search"></i>
-        </div> -->
-        <div class="select-group">
-            <select class="filter_category" @change="SortEvent('category_id',category)" v-model="category">
-                <option disabled value="">Categories</option>
-                <option
-                      v-for="(category, index) in list_category"
-                      :key="index"
-                      :value="category.id"
-                    >
-                      {{ category.name }}
-                    </option>
-            </select>
-            <select  class="filter_country" @change="SortEvent('country',country)" v-model="country">
-                <option disabled value="">Countries</option>
-                <option
-                      v-for="(country, index) in list_Contries"
-                      :key="index"
-                      :value="country"
-                    >
-                      {{ country }}
-                    </option>
-            </select>
-            <select class="filter_city" @change="SortEvent('city',city)" v-model="city">
-                <option disabled value="">Cities</option>
-                <option
-                      v-for="(city, index) in list_Cites"
-                      :key="index"
-                      :value="city"
-                    >
-                      {{ city }}
-                    </option>
-            </select>
-        </div>
+    <div class="select-group">
+      <select class="filter_category" @change="SortEvent('category_id',category)" v-model="category">
+        <option disabled value="">Categories</option>
+        <option
+        v-for="(category, index) in list_category"
+        :key="index"
+        :value="category.id">
+              {{ category.name }}
+        </option>
+      </select>
+      <select  class="filter_country" @change="SortEvent('country',country)" v-model="country">
+        <option disabled value="">Countries</option>
+        <option
+        v-for="(country, index) in list_Contries"
+        :key="index"
+        :value="country">
+              {{ country }}
+        </option>
+      </select>
+      <select class="filter_city" @change="SortEvent('city',city)" v-model="city">
+        <option disabled value="">Cities</option>
+        <option
+        v-for="(city, index) in list_Cites"
+        :key="index"
+        :value="city">
+              {{ city }}
+      </option>
+      </select>
+    </div>
   <div class="container_card">
     <div v-for="(event, index) of  ListEvents" :key="index">
       <div class="event-card" v-show="event.user.firstname != username" >
@@ -55,12 +46,12 @@
             </div>
             <div class="date">
               <div>
-                <span class="orange">Departure: </span>
+                <span class="orange">Start Date: </span>
                 <span id="small_space"></span>
                 <span> {{event.departureDate}} XX</span>
               </div>
               <div>
-                <span class="orange">Arrival:</span>
+                <span class="orange">End Date:</span>
                 <span id="small_space"></span>
                 <span>{{event.arrivalDate}} XX</span>
               </div>
@@ -115,15 +106,19 @@
   </div>
 </div>
 </template>
+
 <script>
+
 import json from "../myevent/json/countries.json";
-import axios from '../../axios-http.js'
+import axios from '../../axios-http.js';
+
 export default {
+
   emits: ['join-event'],
+
   data() {
     return {
       Events:[],
-      loading: false,
       list_Location: json,
       list_Contries: [],
       list_category: [],
@@ -132,16 +127,12 @@ export default {
       country: '',
       category: '',
       city: '',
-      search: '',
       bgProgress:'',
       widthProgress:0,
-      List_Joins:[],
       ListEvents : null,
-      username:localStorage.getItem("username"),
       user_id:localStorage.getItem("id"),
       UserProfile:localStorage.getItem("imgname"),
       pathImage: "http://127.0.0.1:8000/storage/EventImages/",
-      pathImagePro: "http://127.0.0.1:8000/storage/UserProfile/",
     };
   },
   computed:{
@@ -150,6 +141,7 @@ export default {
     }
   },
   watch:{
+    // ________________get list city speicify by a country________________ //
     country(){
       let countries = this.list_Location;
         for (let country in countries) {
@@ -162,27 +154,20 @@ export default {
 
   },
   methods: {
+    // ________________location from file json________________ //
     getLocation() {
         let countries = this.list_Location;
         for (let key in countries) {
             this.list_Contries.push(key);
         }
     },
-    getcity() {
-        console.log('yes');
-        let countries = this.list_Location;
-        for (let country in countries) {
-            if (country === this.country) {
-                this.list_Cites = countries[country];
-            }
-        }
-    },
+    // ________________get category________________ //
     getCategory() {
         axios.get("categories").then((res) => {
             this.list_category = res.data;
         });
     },
-    
+    // ________________get event list________________ //
     getEventList(){
         axios.get('events')
         .then(res=>{
@@ -193,51 +178,35 @@ export default {
         .catch(error => {
           console.log(error.response.data.message);
         })
-        return this.ListEvents
+        return this.ListEvents;
     },
-    // searchEvent() {
-    //   this.loading = false;
-    //     if (this.search != '') {
-    //       console.log(this.search)
-    //       axios.get("events/search/" + this.search).then(res => {
-    //           this.ListEvents = res.data;
-    //           console.log(this.ListEvents);
-    //           this.loading = true;
-    //       })
-    //     }
-    //           console.log(this.ListEvents);
-
-    //   },
+    // ________________sort event________________ //
     SortEvent(typeofsort,key){
       let listSort = [];
       if(typeofsort === 'category_id'){
-        console.log('cate_id')
         for( let event of this.Events){
-          console.log(event.category_id === key)
-          console.log(event.category_id)
-            console.log(key)
-          if(event.category_id === key){
-            
-            listSort.push(event)
+          if(event.category_id === key){   
+            listSort.push(event);
           }
         }
       }
       else if(typeofsort === 'country'){
         for( let event of this.Events){
           if(event.country == key){
-            listSort.push(event)
+            listSort.push(event);
           }
         }
       }
       else{
         for( let event of this.Events){
           if(event.city == key){
-            listSort.push(event)
+            listSort.push(event);
           }
         }
       }
       this.ListEvents = listSort
     },
+    // ________________join event________________ //
     JoinEvent(event_id){
       let Join={
         'event_id':event_id,
@@ -247,13 +216,14 @@ export default {
       }
         axios.post('joinevent',Join)
         .then(res=>{
-          this.getremain(res.data)
-          this.getEventList()
+          this.getremain(res.data);
+          this.getEventList();
         })
         .catch(error => {
           console.log(error.response.data.message);
         })
     },
+    // ________________quit event________________ //
     QuitEvent(event_id){
       for(let join of this.List_Joins){ 
         if(join.user_id == this.user_id && join.event_id == event_id){
@@ -269,16 +239,16 @@ export default {
       }
       
     },
-
+    // ________________validate btn________________ //
     isJoin(event_id){
       for(let join of this.List_Joins){ 
         if(join.user_id == this.user_id && join.event_id == event_id){
-          return true
+          return true;
         }
       }
-      return false
+      return false;
     },
-
+    // ________________get list join________________ //
     getListJoin(){
       axios.get('joinevent')
         .then(res=>{
@@ -288,6 +258,7 @@ export default {
           console.log(error.response.data.message);
         })
     },
+    // ________________set remain________________ //
     getremain(listJoin){
       if(listJoin.length<=3){
         this.bgProgress = 'blue';
@@ -305,11 +276,12 @@ export default {
         this.bgProgress = 'red';
       }
       this.widthProgress= listJoin.length*6.66;
-      return 15-listJoin.length
+      return 15-listJoin.length;
       
     },
   },
   mounted() {
+
     this.getListJoin();
     this.getEventList();
     this.getLocation();
@@ -416,7 +388,7 @@ img {
   margin: 0px 10px;
 }
 .description {
-  height: 90px;
+  height: auto;
   margin: 10px 0px;
 }
 .group_btn {

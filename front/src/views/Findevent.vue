@@ -2,40 +2,37 @@
     <div>
       <div class="background">
         <div class="title1">
-            <h2>Welcome To Cambodia</h2>
+            <h2>Welcome To Event me!</h2>
         </div>
       </div>
-          <div class="event_title">
-            <h1>Explore Event</h1>
+      <div class="event_title">
+        <h1>Explore Event</h1>
       </div>
     <find-event-card @join-event='JoinEvent'></find-event-card>
-    <!--  -->
     </div>
 </template>
 
 <script>
-// import filter_events from '../components/findevent/filter_events.vue';
+
 import find_event_card from '../components/findevent/find_event_card.vue';
+
 export default {
- 
   components: {
-      // 'filter-event': filter_events,
       'find-event-card': find_event_card
     },
+
     data(){
       return {
         allEvents:[]
       }
     },
+
     provide(){
       return{
         List_events:this.allEvents
       }
     },
-    methods: {
-    },
-    mounted() {
-    }
+
 };
 </script>
 
