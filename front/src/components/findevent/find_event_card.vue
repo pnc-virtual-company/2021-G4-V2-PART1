@@ -1,11 +1,5 @@
 <template>
   <div class="event_container">
-  <!-- <div class="search">
-            <div v-if="!loading">
-              <input type="search" class="search_input" placeholder="Search ..." v-model="search" >
-            </div>
-            <i @click="searchEvent" class="fas fa-search"></i>
-        </div> -->
         <div class="select-group">
             <select class="filter_category" @change="SortEvent('category_id',category)" v-model="category">
                 <option disabled value="">Categories</option>
@@ -55,14 +49,14 @@
             </div>
             <div class="date">
               <div>
-                <span class="orange">Departure: </span>
+                <span class="orange">Start Date: </span>
                 <span id="small_space"></span>
-                <span> {{event.departureDate}} XX</span>
+                <span> {{event.departureDate}}</span>
               </div>
               <div>
-                <span class="orange">Arrival:</span>
+                <span class="orange">End Date:</span>
                 <span id="small_space"></span>
-                <span>{{event.arrivalDate}} XX</span>
+                <span>{{event.arrivalDate}}</span>
               </div>
             </div>
             <div class="location">
@@ -182,7 +176,6 @@ export default {
             this.list_category = res.data;
         });
     },
-    
     getEventList(){
         axios.get('events')
         .then(res=>{
@@ -195,19 +188,6 @@ export default {
         })
         return this.ListEvents
     },
-    // searchEvent() {
-    //   this.loading = false;
-    //     if (this.search != '') {
-    //       console.log(this.search)
-    //       axios.get("events/search/" + this.search).then(res => {
-    //           this.ListEvents = res.data;
-    //           console.log(this.ListEvents);
-    //           this.loading = true;
-    //       })
-    //     }
-    //           console.log(this.ListEvents);
-
-    //   },
     SortEvent(typeofsort,key){
       let listSort = [];
       if(typeofsort === 'category_id'){
@@ -267,9 +247,7 @@ export default {
           })
         }
       }
-      
     },
-
     isJoin(event_id){
       for(let join of this.List_Joins){ 
         if(join.user_id == this.user_id && join.event_id == event_id){
@@ -278,7 +256,6 @@ export default {
       }
       return false
     },
-
     getListJoin(){
       axios.get('joinevent')
         .then(res=>{
@@ -339,6 +316,9 @@ export default {
   width: 35%;
   padding: 10px;
 }
+.card-img:hover{
+  cursor: pointer;
+}
 .img {
   width: 100%;
   height: 310px;
@@ -383,7 +363,6 @@ export default {
 }
 .member {
   margin-top: 10px;
-
 }
 img {
   background: white;
@@ -435,6 +414,14 @@ button {
   margin: 10px 7px;
   background: rgba(0, 0, 0, 0.796);
   border: 1px solid orange;
+}
+button:hover{
+  background: orange;
+  border: 2px solid white;
+  color: black;
+  font-weight: bold;
+  padding: 12px;
+  margin: 8px 0px;
 }
 .select-group{
     display: flex;

@@ -14,7 +14,6 @@
 </template>
 
 <script>
-// import filter_events from '../components/findevent/filter_events.vue';
 import find_event_card from '../components/findevent/find_event_card.vue';
 export default {
  

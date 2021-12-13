@@ -149,7 +149,6 @@ event-form{
   display: flex;
   justify-content: center;
   height: 200px;
-
 }
 .card_events{
   padding: 0px;
@@ -160,6 +159,5 @@ event-form{
 .event_view{
   display: grid;
 }
-
 </style>
 
