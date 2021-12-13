@@ -48,12 +48,12 @@
               <div>
                 <span class="orange">Start Date: </span>
                 <span id="small_space"></span>
-                <span> {{event.departureDate}} XX</span>
+                <span> {{event.departureDate}}</span>
               </div>
               <div>
                 <span class="orange">End Date:</span>
                 <span id="small_space"></span>
-                <span>{{event.arrivalDate}} XX</span>
+                <span>{{event.arrivalDate}}</span>
               </div>
             </div>
             <div class="location">
@@ -237,7 +237,6 @@ export default {
           })
         }
       }
-      
     },
     // ________________validate btn________________ //
     isJoin(event_id){
@@ -311,6 +310,9 @@ export default {
   width: 35%;
   padding: 10px;
 }
+.card-img:hover{
+  cursor: pointer;
+}
 .img {
   width: 100%;
   height: 310px;
@@ -355,7 +357,6 @@ export default {
 }
 .member {
   margin-top: 10px;
-
 }
 img {
   background: white;
@@ -407,6 +408,14 @@ button {
   margin: 10px 7px;
   background: rgba(0, 0, 0, 0.796);
   border: 1px solid orange;
+}
+button:hover{
+  background: orange;
+  border: 2px solid white;
+  color: black;
+  font-weight: bold;
+  padding: 12px;
+  margin: 8px 0px;
 }
 .select-group{
     display: flex;

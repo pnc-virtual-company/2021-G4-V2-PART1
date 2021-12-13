@@ -73,7 +73,7 @@ export default {
 <style scoped>
     .signin-form{
         border: 1px solid black;
-        background: #313736c0;
+        background: #141616c0;
         width: 300px;
         height: 100%;
         padding: 20px;

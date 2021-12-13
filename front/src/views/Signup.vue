@@ -88,7 +88,7 @@ export default {
 <style scoped>
     .signup-form{
         border: 1px solid black;
-        background: #313736c0;
+        background: #1b1e1ec0;
         width: 350px;
         height: 100%;
         padding: 20px;

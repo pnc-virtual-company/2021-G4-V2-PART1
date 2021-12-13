@@ -370,6 +370,7 @@ export default {
   height: 310px;
   background: rgb(221, 205, 205);
   border-radius: 10px;
+  border: 1px solid orange;
 }
 .main-card {
   padding: 10px;
