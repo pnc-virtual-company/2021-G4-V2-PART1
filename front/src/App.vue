@@ -38,18 +38,13 @@ export default {
       this.isNotHidden = isHidden;
     },
     // _____________________Add new user to database_________________________ //
-    addUser(firstname, lastname, email, password, confirm_password){
-      let data = {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password,
-        password_confirmation: confirm_password
-      }
-      axios.post('signup', data)
+    addUser(data){
+      let userdata = data;
+      console.log(data.get('password','password_confirmation'));
+      axios.post('signup', userdata)
         .then((res) => {
           console.log(res.data);
-          localStorage.setItem('username', firstname);
+          localStorage.setItem('username', userdata.firstname);
           localStorage.setItem('id', res.data.user.id);
           this.isSignup = this.$router.push('/');
         })
@@ -68,6 +63,8 @@ export default {
   },
   mounted(){
     this.isNotHidden = localStorage.getItem('isNotHidden');
+    // localStorage.clear();
+    // console.log('yes')
   }
 }
 </script>

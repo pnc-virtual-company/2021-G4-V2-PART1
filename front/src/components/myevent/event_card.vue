@@ -1,7 +1,6 @@
 <template>
   <div class="container_card">
     <div v-for="(event, index) of allEvents" :key="index">
-      <div >
       <div class="event-card" v-show="event.user.firstname === username">
         <div class="card-img">
           <img class="img" :src="this.pathImage + event.imagename" alt="" />
@@ -34,32 +33,21 @@
               </div>
               <span id="space"> | </span>
               <div>
-                <span class="orange">Members:</span>
+                <span class="orange">Members Remain:</span>
                 <span id="small_space"></span>
-                <span>15 </span>
+                <span>{{getremain(event.join)}} </span>
                 <span class="orange"> People.</span>
               </div>
             </div>
-            <div class="progress_bar d-flex">
-              <div class="member">
-              <div class="profile">
+              <div class="member"  >
+              <div class="member" v-for="(join,index) of event.join" :key='index' >
+              <div class="profile" >
+
                 <img
-                  src="https://www.directive.com/images/easyblog_shared/July_2018/7-4-18/b2ap3_large_totw_network_profile_400.jpg"
+                  :src="this.pathImagePro+join.profile_path"
                   alt="profile"
                   />
-                
               </div>
-            </div>
-            <div class="progress m-2 w-100 mt-4" style="height: 5px">
-                <div
-                  class="progress-bar bg-info"
-                  role="progressbar"
-                  style="width: 6.66%"
-                  aria-valuenow="25"
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                >
-                </div>
             </div>
             </div>
           </div>
@@ -90,7 +78,7 @@
           </div>
         </div>
       </div>
-    </div>
+
     <!-- #delete comfirm -->
     <div class="wrapper delete">
       <div class="modal fade delete delete_modal" id="deleteEvent">
@@ -185,7 +173,7 @@
                     </option>
                   </select>
                   <select
-                    @change="getcity"
+                    @change="getcity(country)"
                     v-model="country"
                     class="edit-country"
                   >
@@ -247,6 +235,7 @@ export default {
         startDate: this.dateFormat(this.departureDate),
         endDate: this.dateFormat(this.arrivalDate),
         pathImage: "http://127.0.0.1:8000/storage/EventImages/",
+        pathImagePro: "http://127.0.0.1:8000/storage/UserProfile/",
         oldArrivalDate:'',
         oldDepartureDate:'',
         eventid:"",
@@ -329,6 +318,7 @@ export default {
       }
     },
     getcity(Country) {
+      console.log('yes');
       let countries = this.list_Location;
       for (let country in countries) {
         if (country === Country) {
@@ -340,6 +330,10 @@ export default {
       axios.get("categories").then((res) => {
         this.list_category = res.data;
       });
+    },
+    getremain(listJoin){
+      return 15-listJoin.length
+      
     },
   },
   mounted() {
@@ -353,7 +347,6 @@ export default {
 <style scoped>
 .container_card {
   margin: 10px 70px;
-  /* /border: solid 2px rgb(255, 255, 255); */
   border: solid 2px orange;
   border-radius: 20px;
 }
@@ -404,7 +397,8 @@ export default {
   color: orange;
 }
 .member {
-  margin-top: 10px;
+  display: flex;
+  margin-top:5px 10px;
 }
 
 img {
@@ -427,12 +421,9 @@ img {
   margin: 0px 10px;
 }
 .description {
-  margin: 10px 0px;
+  height: 90px;
 }
 .location,
-.date {
-  margin: 20px 0px;
-}
 #username {
   margin: 0;
   text-align: center;

@@ -46,6 +46,7 @@ export default {
             }
             axios.post('signin', users)
                 .then((res) => {
+                    localStorage.setItem('imgname', res.data.user.imageprofile);
                     localStorage.setItem('id', res.data.user.id);
                     localStorage.setItem('username', res.data.user.firstname);
                     this.$router.push('/myevent');

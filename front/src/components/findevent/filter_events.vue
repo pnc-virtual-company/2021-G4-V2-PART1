@@ -1,5 +1,9 @@
 <template>
     <section>
+        <div class="search">
+            <input type="search" class="search_input" placeholder="Search ..." v-model="search" @keyup="searchEvent">
+            <i class="fas fa-search"></i>
+        </div>
         <div class="select-group">
             <select class="filter_category" v-model="category">
                 <option disabled value="">Categories</option>
@@ -39,6 +43,7 @@
 import json from "../myevent/json/countries.json";
 import axios from "../../axios-http.js";
 export default{
+    emits: ['search_event'],
     data(){
         return {
             list_Location: json,
@@ -48,7 +53,8 @@ export default{
             Countries: [],
             country: '',
             category: '',
-            city: ''
+            city: '',
+            search: ''
         }
     },
     methods: {
@@ -72,6 +78,9 @@ export default{
                 this.list_category = res.data;
             });
         },
+        searchEvent() {
+            this.$emit('search_event', this.search);
+        },
     },
     mounted(){
         this.getLocation();
@@ -81,6 +90,40 @@ export default{
 </script>
 
 <style scoped>
+.search{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+    color: white;
+  }
+  .search_input{
+    height: 40px;
+    width: 50%;
+    border-radius: 7px;
+    text-align: center;
+    border: 2px solid orange;
+    background: #313736;
+    outline: orange;
+    color: orange;
+  }
+  .search_input::placeholder{
+    color: white;
+  }
+  i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: orange;
+    height: 40px;
+    width: 50px;
+    color: white;
+    border-radius: 7px;
+    margin-left: 5px;
+  }
+  i:hover{
+    cursor: pointer;
+    color: black;
+  }
     .select-group{
         display: flex;
         justify-content: space-evenly;

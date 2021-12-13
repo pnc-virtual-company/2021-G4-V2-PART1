@@ -19,7 +19,8 @@ class EventController extends Controller
         // return EventResource::collection(Event::all());
         // return Event::all();
         // return Event::join('users','users.id','=','events.user_id')->join('categories','categories.id','=','events.category_id')->select('events.*','users.firstname','categories.name')->latest()->get();
-        return Event::with('category:id,name','user:firstname,id','join')->latest()->get();
+        // return Event::with('category:id,name','user:firstname,id','join:id,user_id,event_id,imageprofile')->latest()->get();
+        return Event::with('category','user','join')->latest()->get();
         // return Event::all();
     }
 
@@ -32,8 +33,8 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => "required|min:5",
-            'description' => "required|min:50",
+            'title' => "required",
+            'description' => "required",
             'departureDate' => "required|before:arrivalDate",
             'arrivalDate' => "required|after:departureDate",
             'city' => "required",
@@ -56,7 +57,7 @@ class EventController extends Controller
         $Event->imagename = $request->file('imagename')->hashName();
 
         $Event->save();
-        return response()->json(['message' => 'create'], 201);
+        return response()->json(['message' => 'create','data'=>$Event], 201);
     }
 
     /**
@@ -80,8 +81,8 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => "required|min:5",
-            'description' => "required|min:50",
+            'title' => "required",
+            'description' => "required",
             'departureDate' => "required|before:arrivalDate",
             'arrivalDate' => "required|after:departureDate"
         ]);
@@ -109,14 +110,18 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        // $event = Event::findOrFail($id);
-        // $destionation = 'public/EventImages'.$event->imagename;
-        // if(File::exists($destionation)){
-        //     File::delete($destionation);
-        // }
-        // $event->delete();
-
-        // return  redirect()->back()->with('status','event Image deleted.');
         return Event::destroy($id);
+    }
+
+
+    /**
+     * Search the specified resource from storage.
+     *
+     * @param  str  $title
+     * @return \Illuminate\Http\Response
+     */
+    public function search($title)
+    {
+        return Event::where('title','like', '%'. $title . '%')->get();
     }
 }

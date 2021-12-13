@@ -106,6 +106,8 @@ export default {
   align-items: center;
 }
 .category_title{
+  position:sticky;
+  top: 77px;
   background: #000;
   padding:10px;
   display: flex;

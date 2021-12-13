@@ -87,13 +87,13 @@
                       {{ city }}
                     </option>
                   </select>
-                  <input @change="addEventImg" type="file" placeholder="" />
+                  <input @change="addEventImg" @change.prevent="addEvent" type="file" placeholder="" />
                 </div>
                 <div class="add_btn">
                   <button
-                    @click.prevent="addEvent"
                     data-bs-dismiss="modal"
                     type="add"
+                    @click='clearForm'
                   >
                     +Add
                   </button>
@@ -149,6 +149,9 @@ export default {
       newevent.append("user_id", this.userid);
       this.$emit("add-event", newevent);
 
+    },
+    clearForm(){
+      
       this.userid='';
       this.category_id='';
       this.title='';

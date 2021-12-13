@@ -26,6 +26,9 @@ export default {
   }, 
   data(){
     return {
+      UserProfile:localStorage.getItem("imgname"),
+      user_id:localStorage.getItem("id"),
+      newEvent_id:'',
       allEvents:[],
       event_error: {
         title_error: '',
@@ -51,10 +54,27 @@ export default {
     },
     add_Event(new_event){
       let data = new_event;
+      
       axios.post('events', data)
         .then(res => {
             console.log(res.data);
+            this.newEvent_id = res.data.data.id;
+            console.log(this.newEvent_id);
             this.getEvents();
+            let Join={
+              'event_id':this.newEvent_id,
+              'user_id':this.user_id,
+              'user_role':'creator',
+              'profile_path':this.UserProfile
+            }
+            axios.post('joinevent',Join)
+              .then(res=>{
+                console.log(res.data)
+              })
+              .catch(error => {
+                console.log(error.response.data.message);
+              })
+
         })
         .catch(error => {
             console.log(error.response.data.message);
@@ -75,7 +95,6 @@ export default {
         })
         .catch(error => {
             console.log(error.response.data.message);
-            // this.error = error.response.data.message;
         });
     },
     deleteEvent(id){
@@ -85,6 +104,7 @@ export default {
             this.getEvents();
           });
         },
+        
   },
   mounted() {
     this.getEvents();
@@ -102,6 +122,8 @@ export default {
   align-items: center;
 }
 .event_title{
+  position:sticky;
+  top: 77px;
   background: #000;
   padding:10px;
   display: flex;

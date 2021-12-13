@@ -1,6 +1,7 @@
 <template>
     <nav class="navbar  navbar-light border border-dark" style='background:#242C2B'>
         <div class='nav justify-content-start w-25'>
+            <img id="pro_img" :src="this.imgpath+this.imgname" alt="">
             <h1 style='color:orange;font-weight: bold;'>{{ username }}</h1>
         </div>
         <ul class="nav justify-content-end w-75 p-1" >
@@ -29,6 +30,8 @@ export default {
         return {
             username: '',
             userid: '',
+            imgpath:'http://127.0.0.1:8000/storage/UserProfile/',
+            imgname:localStorage.getItem('imgname'),
         }
     },
     methods: {
@@ -61,5 +64,15 @@ export default {
     }
     .router-link-active {
         background: orange;
+    }
+    #pro_img{
+        border: 2px solid rgb(255, 255, 255);
+        margin: 0;
+        padding: 2px;
+        margin-left: 20px;
+        width: 60px;
+        height: 60px;
+        border-radius: 50px;
+        margin-right: 20px;
     }
 </style>

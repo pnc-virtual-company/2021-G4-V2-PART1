@@ -1,12 +1,17 @@
 <template>
     <div class="signup-form">
         <form class="sign-in-form" action="#">
-            <div>
-                <h1>Sign Up</h1>
-                <div id="intro-text">
-                <span>Already have account?
-                    <router-link class="link" to="/signin">Sign in</router-link>
-                </span>
+            <div class="header">
+                <div id='header-left'>
+                    <h1>Sign Up</h1>
+                    <div id="intro-text">
+                        <span>Already have account?
+                            <router-link class="link" to="/signin">Sign in</router-link>
+                        </span>
+                    </div>
+                </div>
+                <div id='header-right'>
+                    <img id="pro_img" :src="imageView" alt="">
                 </div>
             </div>
             <div id="text"><b> or</b></div>
@@ -31,6 +36,12 @@
                 <input type="password" placeholder="Confirm Password" required v-model="confirm_password"/>
                 <p class="text-danger" v-if="error.confirm_passwordError"> {{error.confirm_passwordError[1]}} </p>
             </div>
+            <div class="choose-file d-flex ml-2">
+              <label for="photo">
+                  <i class="fa fa-image text-warning  m-2" style="font-size: 26px; " aria-hidden="true"></i>
+              </label>
+                <input id="photo" class="d-none" type="file" name='file' @change="setProfile" accept="image/*">
+            </div>
             <button id="signup-btn" @click.prevent="signUp"><router-link to="/" class="sign-up-btn"> Sign up </router-link></button>
         </form>
     </div>
@@ -47,11 +58,25 @@ export default {
             email: '',
             password: '',
             confirm_password: '',
+            img_pro:'',
+            file_name:'',
+            imageView: 'https://icons-for-free.com/iconfiles/png/512/human+male+profile+user+icon-1320196240448793481.png',
         }
     },
     methods: {
+        setProfile(event) {
+            this.img_pro = event.target.files[0];
+            this.imageView = URL.createObjectURL(this.img_pro);
+            },
         signUp(){
-            this.$emit('signup', this.firstname, this.lastname, this.email, this.password, this.confirm_password);
+            let newuser = new FormData();
+            newuser.append('firstname',this.firstname);
+            newuser.append('lastname',this.lastname);
+            newuser.append('email',this.email);
+            newuser.append('password',this.password);
+            newuser.append('password_confirmation',this.confirm_password);
+            newuser.append('imageprofile',this.img_pro);
+            this.$emit('signup',newuser);
         }
     },
 };
@@ -74,6 +99,22 @@ export default {
     .signup-form h1{
         font-weight: bold;
         color: white;
+    }
+    .header{
+        display: flex;
+    }
+    #header-left{
+        width: 70%;
+    }
+    #header-right{
+        width: 30%;
+    }
+    #pro_img{
+        border: 2px solid rgb(255, 255, 255);
+        margin-left: 20px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50px;
     }
     span{
         color: white;
