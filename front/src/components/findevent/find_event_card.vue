@@ -31,6 +31,7 @@
     </div>
   <div class="container_card">
     <div v-for="(event, index) of  ListEvents" :key="index">
+      
       <div class="event-card" v-show="event.user.firstname != username" >
         <div class="card-img">
           <img class="img" :src="this.pathImage+event.imagename" alt="photo" />
@@ -131,6 +132,7 @@ export default {
       widthProgress:0,
       ListEvents : null,
       user_id:localStorage.getItem("id"),
+      username:localStorage.getItem("username"),
       UserProfile:localStorage.getItem("imgname"),
       pathImage: "http://127.0.0.1:8000/storage/EventImages/",
     };
@@ -153,21 +155,153 @@ export default {
     }
 
   },
+  // methods: {
+  //   // ________________location from file json________________ //
+  //   getLocation() {
+  //       let countries = this.list_Location;
+  //       for (let key in countries) {
+  //           this.list_Contries.push(key);
+  //       }
+  //   },
+  //   // ________________get category________________ //
+  //   getCategory() {
+  //       axios.get("categories").then((res) => {
+  //           this.list_category = res.data;
+  //       });
+  //   },
+  //   // ________________get event list________________ //
+  //   getEventList(){
+  //       axios.get('events')
+  //       .then(res=>{
+  //         this.ListEvents= res.data;
+  //         this.Events = res.data;
+  //         this.getListJoin()
+  //       })
+  //       .catch(error => {
+  //         console.log(error.response.data.message);
+  //       })
+  //       return this.ListEvents;
+  //   },
+  //   // ________________sort event________________ //
+  //   SortEvent(typeofsort,key){
+  //     let listSort = [];
+  //     if(typeofsort === 'category_id'){
+  //       for( let event of this.Events){
+  //         if(event.category_id === key){   
+  //           listSort.push(event);
+  //         }
+  //       }
+  //     }
+  //     else if(typeofsort === 'country'){
+  //       for( let event of this.Events){
+  //         if(event.country == key){
+  //           listSort.push(event);
+  //         }
+  //       }
+  //     }
+  //     else{
+  //       for( let event of this.Events){
+  //         if(event.city == key){
+  //           listSort.push(event);
+  //         }
+  //       }
+  //     }
+  //     this.ListEvents = listSort
+  //   },
+  //   // ________________join event________________ //
+  //   JoinEvent(event_id){
+  //     let Join={
+  //       'event_id':event_id,
+  //       'user_id':this.user_id,
+  //       'user_role':'member',
+  //       'profile_path':this.UserProfile
+  //     }
+  //       axios.post('joinevent',Join)
+  //       .then(res=>{
+  //         this.getremain(res.data);
+  //         this.getEventList();
+  //       })
+  //       .catch(error => {
+  //         console.log(error.response.data.message);
+  //       })
+  //   },
+  //   // ________________quit event________________ //
+  //   QuitEvent(event_id){
+  //     for(let join of this.List_Joins){ 
+  //       if(join.user_id == this.user_id && join.event_id == event_id){
+  //         axios.delete('joinevent/'+join.id)
+  //         .then(res=>{
+  //           this.List_Joins = res.data;
+  //           this.getEventList()
+  //         })
+  //         .catch(error => {
+  //           console.log(error);
+  //         })
+  //       }
+  //     }
+  //   },
+  //   // ________________validate btn________________ //
+  //   isJoin(event_id){
+  //     for(let join of this.List_Joins){ 
+  //       if(join.user_id == this.user_id && join.event_id == event_id){
+  //         return true;
+  //       }
+  //     }
+  //     return false;
+  //   },
+  //   // ________________get list join________________ //
+  //   getListJoin(){
+  //     axios.get('joinevent')
+  //       .then(res=>{
+  //         this.List_Joins = res.data;
+  //       })
+  //       .catch(error => {
+  //         console.log(error.response.data.message);
+  //       })
+  //   },
+  //   // ________________set remain________________ //
+  //   getremain(listJoin){
+  //     if(listJoin.length<=3){
+  //       this.bgProgress = 'blue';
+  //     }
+  //     else if(listJoin.length>3 && listJoin.length<=6){
+  //       this.bgProgress = 'green';
+  //     }
+  //     else if(listJoin.length>6 && listJoin.length<=9){
+  //       this.bgProgress = 'yellow';
+  //     }
+  //     else if(listJoin.length>9 && listJoin.length<=12){
+  //       this.bgProgress = 'orange';
+  //     }
+  //     else{
+  //       this.bgProgress = 'red';
+  //     }
+  //     this.widthProgress= listJoin.length*6.66;
+  //     return 15-listJoin.length;
+      
+  //   },
+  // },
   methods: {
-    // ________________location from file json________________ //
     getLocation() {
         let countries = this.list_Location;
         for (let key in countries) {
             this.list_Contries.push(key);
         }
     },
-    // ________________get category________________ //
+    getcity() {
+        console.log('yes');
+        let countries = this.list_Location;
+        for (let country in countries) {
+            if (country === this.country) {
+                this.list_Cites = countries[country];
+            }
+        }
+    },
     getCategory() {
         axios.get("categories").then((res) => {
             this.list_category = res.data;
         });
     },
-    // ________________get event list________________ //
     getEventList(){
         axios.get('events')
         .then(res=>{
@@ -178,35 +312,38 @@ export default {
         .catch(error => {
           console.log(error.response.data.message);
         })
-        return this.ListEvents;
+        return this.ListEvents
     },
-    // ________________sort event________________ //
     SortEvent(typeofsort,key){
       let listSort = [];
       if(typeofsort === 'category_id'){
+        console.log('cate_id')
         for( let event of this.Events){
-          if(event.category_id === key){   
-            listSort.push(event);
+          console.log(event.category_id === key)
+          console.log(event.category_id)
+            console.log(key)
+          if(event.category_id === key){
+            
+            listSort.push(event)
           }
         }
       }
       else if(typeofsort === 'country'){
         for( let event of this.Events){
           if(event.country == key){
-            listSort.push(event);
+            listSort.push(event)
           }
         }
       }
       else{
         for( let event of this.Events){
           if(event.city == key){
-            listSort.push(event);
+            listSort.push(event)
           }
         }
       }
       this.ListEvents = listSort
     },
-    // ________________join event________________ //
     JoinEvent(event_id){
       let Join={
         'event_id':event_id,
@@ -216,14 +353,13 @@ export default {
       }
         axios.post('joinevent',Join)
         .then(res=>{
-          this.getremain(res.data);
-          this.getEventList();
+          this.getremain(res.data)
+          this.getEventList()
         })
         .catch(error => {
           console.log(error.response.data.message);
         })
     },
-    // ________________quit event________________ //
     QuitEvent(event_id){
       for(let join of this.List_Joins){ 
         if(join.user_id == this.user_id && join.event_id == event_id){
@@ -238,16 +374,14 @@ export default {
         }
       }
     },
-    // ________________validate btn________________ //
     isJoin(event_id){
       for(let join of this.List_Joins){ 
         if(join.user_id == this.user_id && join.event_id == event_id){
-          return true;
+          return true
         }
       }
-      return false;
+      return false
     },
-    // ________________get list join________________ //
     getListJoin(){
       axios.get('joinevent')
         .then(res=>{
@@ -257,7 +391,6 @@ export default {
           console.log(error.response.data.message);
         })
     },
-    // ________________set remain________________ //
     getremain(listJoin){
       if(listJoin.length<=3){
         this.bgProgress = 'blue';
@@ -275,7 +408,7 @@ export default {
         this.bgProgress = 'red';
       }
       this.widthProgress= listJoin.length*6.66;
-      return 15-listJoin.length;
+      return 15-listJoin.length
       
     },
   },
