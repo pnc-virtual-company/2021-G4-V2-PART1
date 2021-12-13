@@ -8,7 +8,7 @@
         <div class="main-card">
           <div class="category-header">
             <h1 class="orange">{{ event.title }}</h1>
-            <h2 class="orange">{{ event.category.name }}</h2>
+            <h3 class="orange">{{ event.category.name }}</h3>
           </div>
           <div class="card-body">
             <div class="description">
@@ -27,12 +27,12 @@
               </div>
             </div>
             <div class="location">
-              <div>
+              <div  id='location_width'>
                 <span class="orange">Location: </span>
                 <span>{{ event.city }} , {{ event.country }}</span>
               </div>
               <span id="space"> | </span>
-              <div>
+              <div  id='location_width'>
                 <span class="orange">Members Remain:</span>
                 <span id="small_space"></span>
                 <span>{{getremain(event.join)}} </span>
@@ -385,9 +385,11 @@ export default {
 .location {
   display: flex;
 }
-.category-header h1,
-.category-header h2 {
+.category-header h1 {
   margin: 0;
+}
+.category-header h3{
+  margin-top: 6px;
 }
 .category-header {
   justify-content: space-between;
@@ -509,6 +511,9 @@ button {
   margin: 5px;
   padding: 10px;
   border: solid 1px black;
+}
+#location_width{
+  width: 49%;;
 }
 ::placeholder {
   text-align: center;

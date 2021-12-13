@@ -60,7 +60,7 @@ export default {
             confirm_password: '',
             img_pro:'',
             file_name:'',
-            imageView: 'https://icons-for-free.com/iconfiles/png/512/human+male+profile+user+icon-1320196240448793481.png',
+            imageView: 'https://icon-library.com/images/user-512_10381.png',
         }
     },
     methods: {

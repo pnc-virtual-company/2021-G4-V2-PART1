@@ -8,20 +8,18 @@
           <div class="event_title">
             <h1>Explore Event</h1>
       </div>
-    <filter-event @search_event="searchEvent"></filter-event>
-    <find-event-card @join-event='JoinEvent'  ></find-event-card>
-    <!-- :allEvents=allEvents -->
+    <find-event-card @join-event='JoinEvent'></find-event-card>
+    <!--  -->
     </div>
 </template>
 
 <script>
-import filter_events from '../components/findevent/filter_events.vue';
+// import filter_events from '../components/findevent/filter_events.vue';
 import find_event_card from '../components/findevent/find_event_card.vue';
-import axios from '../axios-http.js'
 export default {
  
   components: {
-      'filter-event': filter_events,
+      // 'filter-event': filter_events,
       'find-event-card': find_event_card
     },
     data(){
@@ -35,30 +33,8 @@ export default {
       }
     },
     methods: {
-      getEvents(){
-        axios.get('events')
-        .then(res=>{
-          this.allEvents = res.data;
-        })
-        .catch(error => {
-          console.log(error.response.data.message);
-        })
-      },
-      
-      searchEvent(title){
-        if (title != '') {
-          axios.get("events/search/" + title).then(res => {
-              // console.log(res.data);
-              this.allEvents = res.data;
-              console.log(this.allEvents);
-          })
-        } else {
-          this.getEvents();
-        }
-      }
     },
     mounted() {
-      this.getEvents();
     }
 };
 </script>

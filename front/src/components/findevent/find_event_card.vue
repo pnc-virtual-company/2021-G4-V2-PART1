@@ -1,6 +1,45 @@
 <template>
+  <div class="event_container">
+  <!-- <div class="search">
+            <div v-if="!loading">
+              <input type="search" class="search_input" placeholder="Search ..." v-model="search" >
+            </div>
+            <i @click="searchEvent" class="fas fa-search"></i>
+        </div> -->
+        <div class="select-group">
+            <select class="filter_category" @change="SortEvent('category_id',category)" v-model="category">
+                <option disabled value="">Categories</option>
+                <option
+                      v-for="(category, index) in list_category"
+                      :key="index"
+                      :value="category.id"
+                    >
+                      {{ category.name }}
+                    </option>
+            </select>
+            <select  class="filter_country" @change="SortEvent('country',country)" v-model="country">
+                <option disabled value="">Countries</option>
+                <option
+                      v-for="(country, index) in list_Contries"
+                      :key="index"
+                      :value="country"
+                    >
+                      {{ country }}
+                    </option>
+            </select>
+            <select class="filter_city" @change="SortEvent('city',city)" v-model="city">
+                <option disabled value="">Cities</option>
+                <option
+                      v-for="(city, index) in list_Cites"
+                      :key="index"
+                      :value="city"
+                    >
+                      {{ city }}
+                    </option>
+            </select>
+        </div>
   <div class="container_card">
-    <div v-for="(event, index) of ListEvents" :key="index">
+    <div v-for="(event, index) of  ListEvents" :key="index">
       <div class="event-card" v-show="event.user.firstname != username" >
         <div class="card-img">
           <img class="img" :src="this.pathImage+event.imagename" alt="photo" />
@@ -8,7 +47,7 @@
         <div class="main-card">
           <div class="category-header">
             <h1 class="orange">{{event.title}} </h1>
-            <h2 class="orange">{{event.category.name}}</h2>
+            <h3 class="orange">{{event.category.name}}</h3>
           </div>
           <div class="card-body">
             <div class="description">
@@ -27,12 +66,12 @@
               </div>
             </div>
             <div class="location">
-              <div>
+              <div id='location_width'>
                 <span class="orange">Location: </span>
                 <span>{{event.city}} , {{event.country}}</span>
               </div>
               <span id="space"> | </span>
-              <div>
+              <div  id='location_width'>
                 <span class="orange">Member Remain:</span>
                 <span id="small_space"></span>
                 <span>{{getremain(event.join)}}</span>
@@ -43,7 +82,7 @@
               <div class="member">
               <div class="profile" >
                 <img
-                  :src="this.pathImagePro+this.UserProfile"
+                  src="https://image.flaticon.com/icons/png/512/64/64572.png"
                   alt="profile"
                   />
               </div>
@@ -74,18 +113,30 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 <script>
+import json from "../myevent/json/countries.json";
 import axios from '../../axios-http.js'
 export default {
-  props:['allEvents'],
   emits: ['join-event'],
   data() {
     return {
+      Events:[],
+      loading: false,
+      list_Location: json,
+      list_Contries: [],
+      list_category: [],
+      list_Cites: [],
+      Countries: [],
+      country: '',
+      category: '',
+      city: '',
+      search: '',
       bgProgress:'',
       widthProgress:0,
       List_Joins:[],
-      ListEvents:null,
+      ListEvents : null,
       username:localStorage.getItem("username"),
       user_id:localStorage.getItem("id"),
       UserProfile:localStorage.getItem("imgname"),
@@ -98,17 +149,94 @@ export default {
       return{ width: this.widthProgress+'%', background: this.bgProgress}
     }
   },
+  watch:{
+    country(){
+      let countries = this.list_Location;
+        for (let country in countries) {
+            if (country === this.country) {
+                this.list_Cites = countries[country];
+            }
+        }
+
+    }
+
+  },
   methods: {
+    getLocation() {
+        let countries = this.list_Location;
+        for (let key in countries) {
+            this.list_Contries.push(key);
+        }
+    },
+    getcity() {
+        console.log('yes');
+        let countries = this.list_Location;
+        for (let country in countries) {
+            if (country === this.country) {
+                this.list_Cites = countries[country];
+            }
+        }
+    },
+    getCategory() {
+        axios.get("categories").then((res) => {
+            this.list_category = res.data;
+        });
+    },
+    
     getEventList(){
         axios.get('events')
         .then(res=>{
           this.ListEvents= res.data;
+          this.Events = res.data;
           this.getListJoin()
         })
         .catch(error => {
           console.log(error.response.data.message);
         })
         return this.ListEvents
+    },
+    // searchEvent() {
+    //   this.loading = false;
+    //     if (this.search != '') {
+    //       console.log(this.search)
+    //       axios.get("events/search/" + this.search).then(res => {
+    //           this.ListEvents = res.data;
+    //           console.log(this.ListEvents);
+    //           this.loading = true;
+    //       })
+    //     }
+    //           console.log(this.ListEvents);
+
+    //   },
+    SortEvent(typeofsort,key){
+      let listSort = [];
+      if(typeofsort === 'category_id'){
+        console.log('cate_id')
+        for( let event of this.Events){
+          console.log(event.category_id === key)
+          console.log(event.category_id)
+            console.log(key)
+          if(event.category_id === key){
+            
+            listSort.push(event)
+          }
+        }
+      }
+      else if(typeofsort === 'country'){
+        for( let event of this.Events){
+          if(event.country == key){
+            listSort.push(event)
+          }
+        }
+      }
+      else{
+        for( let event of this.Events){
+          if(event.city == key){
+            listSort.push(event)
+          }
+        }
+      }
+      this.ListEvents = listSort
     },
     JoinEvent(event_id){
       let Join={
@@ -184,7 +312,8 @@ export default {
   mounted() {
     this.getListJoin();
     this.getEventList();
-    // console.log(this.getEventList())
+    this.getLocation();
+    this.getCategory();
   },
 };
 </script>
@@ -226,13 +355,23 @@ export default {
   border-left: 3px solid orange;
   width: 15%;
 }
+#username {
+  margin: 0;
+  text-align: center;
+  padding: 0;
+}
+.card-btn-top {
+  height: 60%;
+}
 /* ----------- */
 .category-header,
 .location {
   display: flex;
 }
-.category-header h1,
-.category-header h2 {
+.category-header h3{
+  margin-top: 6px;
+}
+.category-header h1 {
   margin: 0;
 }
 .category-header {
@@ -246,19 +385,29 @@ export default {
   margin-top: 10px;
 
 }
-
 img {
+  background: white;
+  border: 1px solid orange;
   width: 32.5px;
   height: 32.5px;
   border-radius: 40px;
 }
 .profile {
   border-radius: 40px;
-  margin: 0px 5px;
-  background: rgb(255, 255, 255);
-  border: 1px solid orange;
+  /* margin: 0px 5px; */
   width: 32.5px;
   height: 32.5px;
+}
+.location{
+   width: 98.5%;
+  border-radius: 5px;
+  background: rgba(48, 47, 47, 0.61);
+  margin: 5px;
+  padding: 10px;
+  border: solid 1px black;
+}
+#location_width{
+  width: 49%;;
 }
 #space {
   margin: 0px 30px;
@@ -287,129 +436,28 @@ button {
   background: rgba(0, 0, 0, 0.796);
   border: 1px solid orange;
 }
-/* .location,
-.date {
-  margin: 20px 0px;
+.select-group{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
-#username {
-  margin: 0;
-  text-align: center;
-  padding: 0;
-}
-.card-btn-top {
-  height: 60%;
-}
-.group_btn {
-  height: 40%;
-  margin-top: 0px;
-  display: grid;
-}
-button {
-  color: white;
-  border-radius: 10px;
-  padding: 10px;
-  margin: 10px 7px;
-  background: rgba(0, 0, 0, 0.796);
-  border: 1px solid orange;
-}
-.button:hover {
-  background: orange;
-  border: 2px solid black;
-  color: black;
-  font-weight: bold;
-  padding: 12px;
-  margin: 8px 0px;
+.filter_category,.filter_country,.filter_city{
+    width: 20%;
+    height: 55px;
+    border-radius: 5px;
+    background: orange;
+    border: 1px solid white;
 }
 
-.cancel_delete {
-  display: flex;
-  justify-content: center;
+select{
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
 }
-.button_cancel,
-.button_delete {
-  width: 100px;
-  margin: 0px 20px;
-  padding: 10px;
+option{
+    background:rgb(214, 214, 214);
+    color:black
 }
-.button_cancel:hover,
-.button_delete:hover {
-  background: orange;
-  color: black;
-  border: 1px solid black;
-}
-.delete {
-  background: rgba(0, 0, 0, 0.428);
-}
-.modal-content {
-    background: rgba(255, 255, 255, 0);
-    border: 1px solid orange;
-  color: white;
-}
-.modal-body {
-  text-align: center;
-}
-.edit-container-form {
-  background: #0000009f;
-  padding: 15px;
-  border-radius: 10px;
-  margin-top: 0px;
-  border: solid 1px white;
-}
-.edit-container-form input,
-.edit-container-form textarea,
-.edit-category,
-.edit-country,
-.edit-city {
-  width: 98.5%;
-  border: none;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.61);
-  margin: 5px;
-  padding: 10px;
-  border: solid 1px black;
-}
-.location {
-    width: 98.5%;
-  border-radius: 5px;
-  background: rgba(48, 47, 47, 0.61);
-  margin: 5px;
-  padding: 10px;
-  border: solid 1px black;
-}
-::placeholder {
-  text-align: center;
-  color: rgb(0, 0, 0);
-}
-.edit_description textarea::placeholder {
-  text-align: center;
-}
-.edit_date {
-  display: flex;
-}
-.edit_label #label {
-  display: flex;
-  justify-content: center;
-  color: white;
-}
-.edit_Departure_Date,
-.edit_Arrival_Date {
-  width: 49%;
-}
-.edit_Departure_Date {
-  margin-right: 5px;
-}
-.edit_Arrival_Date {
-  margin-left: 5px;
-}
-
-.edit_button button {
-  font-size: 15px;
-  margin: 5px;
-  margin-top: 10px;
-  width: 40%;
-  height: 35px;
-  border-radius: 5px;
-  background: orange;
-  border: 1px solid black;
-}  */
 </style>
