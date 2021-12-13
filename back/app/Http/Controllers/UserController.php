@@ -16,7 +16,10 @@ class UserController extends Controller
             'lastname' => ['required', 'string', 'max:255'], 
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'imageprofile'=>'nullable|image|mimes:jpg,jpeg,png|max:1999',
         ]);
+
+        $request->file('imageprofile')->store('public/UserProfile');
 
         $user = new User();
 
@@ -24,14 +27,13 @@ class UserController extends Controller
         $user->lastname = $request->lastname;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->imageprofile = $request->file('imageprofile')->hashName();
 
         $user->save();
 
-        $token = $user->createToken('mytoken')->plainTextToken;
 
         return response()->json([
             'user' => $user,
-            'token' => $token
         ]);
     }
 
@@ -49,7 +51,7 @@ class UserController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)){
-            return response()->json(['message' => 'Bad signin'], 401);
+            return response()->json(['message' => 'Invalid email or password'], 401);
         }
 
         $token = $user->createToken('mytoken')->plainTextToken;
