@@ -35,14 +35,14 @@ export default {
         }
     },
     methods: {
-        // ________________Signout________________ //
+        // _______________Signout_______________ //
         signOut(){
             localStorage.clear();
             this.$emit('isNotHidden', false);
         }
     },
     mounted() {
-        // _______________Get username and id__________________ //
+        // ______________Get username and id_________________ //
         this.username = localStorage.getItem('username');
         this.userid = localStorage.getItem('id');
     },

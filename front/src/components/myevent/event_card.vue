@@ -355,7 +355,7 @@ export default {
   display: flex;
   justify-content: center;
   border: 2px solid rgb(0, 0, 0);
-  background: rgba(255, 255, 255, 0.183);
+  background: rgba(95, 99, 100, 0.612);
   height: auto;
   padding: 5px;
   border-radius: 20px;
@@ -424,7 +424,7 @@ img {
   margin: 0px 10px;
 }
 .description {
-  height: 90px;
+  height: auto;
 }
 .location,
 #username {

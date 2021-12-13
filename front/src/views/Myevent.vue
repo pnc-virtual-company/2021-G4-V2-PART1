@@ -2,24 +2,23 @@
   <div>
     <div class="background">
       <div class="title1">
-          <h2>Welcome To Event me!</h2>
+          <h2>Welcome To Cambodia</h2>
       </div>
     </div>
-    <div class="event_title">
-      <h1>My Event</h1>
+        <div class="event_title">
+          <h1>My Event</h1>
     </div>
     <div class="event_view">
-      <event-form @add-event='add_Event'></event-form>
+      <event-form @add-event.prevent='add_Event'></event-form>
       <event-card @delete_Event='deleteEvent' @update-event='updateEvent' :allEvents='allEvents'></event-card>
     </div>
     </div>
 </template>
 
 <script>
-
 import event_card from '../components/myevent/event_card.vue'
 import Eventform from '../components/myevent/Eventform.vue'
-import axios from '../axios-http.js';
+import axios from '../axios-http.js'
 export default {
   components:{ 
     'event-form': Eventform,
@@ -44,7 +43,6 @@ export default {
     }
   },
   methods: {
-     // ___________________get_event______________________ //
     getEvents(){
       axios.get('events')
       .then(res=>{
@@ -54,7 +52,6 @@ export default {
         console.log(error.response.data.message);
       })
     },
- // ___________________add_event______________________ //
     add_Event(new_event){
       let data = new_event;
       
@@ -72,7 +69,7 @@ export default {
             }
             axios.post('joinevent',Join)
               .then(res=>{
-                console.log(res.data);
+                console.log(res.data)
               })
               .catch(error => {
                 console.log(error.response.data.message);
@@ -88,7 +85,6 @@ export default {
             }
         });
     },
- // ___________________update event______________________ //
     updateEvent(update_event,id){
       let data = update_event;
       console.log(data);
@@ -101,7 +97,6 @@ export default {
             console.log(error.response.data.message);
         });
     },
- // ___________________delete event______________________ //
     deleteEvent(id){
           console.log(id);
           axios.delete('events/'+ id).then(res => {
