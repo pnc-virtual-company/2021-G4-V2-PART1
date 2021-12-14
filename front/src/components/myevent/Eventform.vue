@@ -148,10 +148,8 @@ export default {
       newevent.append("imagename", this.imageName);
       newevent.append("user_id", this.userid);
       this.$emit("add-event", newevent);
-
     },
     clearForm(){
-      
       this.userid='';
       this.category_id='';
       this.title='';

@@ -234,8 +234,8 @@ export default {
         delete_id: null,
         startDate: this.dateFormat(this.departureDate),
         endDate: this.dateFormat(this.arrivalDate),
-        pathImage: "http://127.0.0.1:8000/storage/EventImages/",
-        pathImagePro: "http://127.0.0.1:8000/storage/UserProfile/",
+        pathImage: "http://eventme.com:3000/storage/EventImages/",
+        pathImagePro: "http://eventme.com:3000/storage/UserProfile/",
         oldArrivalDate:'',
         oldDepartureDate:'',
         eventid:"",
@@ -318,7 +318,6 @@ export default {
       }
     },
     getcity(Country) {
-      console.log('yes');
       let countries = this.list_Location;
       for (let country in countries) {
         if (country === Country) {
@@ -333,7 +332,6 @@ export default {
     },
     getremain(listJoin){
       return 15-listJoin.length
-      
     },
   },
   mounted() {

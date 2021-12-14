@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <button> <router-link class="sign_in_as_guest" to="/myevent" @click="signInAsGuest"> without account? </router-link></button>
+                <button> <router-link class="sign_in_as_guest" to="/findevent" @click="signInAsGuest"> without account? </router-link></button>
                 <div id="text"><b> or</b></div>
                 <hr id="hr" />
             </div>
@@ -60,6 +60,7 @@ export default {
         signInAsGuest(){
             localStorage.setItem('username', 'Guest');
             this.$emit('isNotHidden', true);
+            localStorage.setItem('isNotHidden', true);
         },
     },
     mounted(){

@@ -8,17 +8,14 @@
           <div class="event_title">
             <h1>Explore Event</h1>
       </div>
-    <find-event-card @join-event='JoinEvent'></find-event-card>
-    <!--  -->
+    <find-event-card @isNotHidden='hideNavbar' @join-event='JoinEvent'></find-event-card>
     </div>
 </template>
 
 <script>
 import find_event_card from '../components/findevent/find_event_card.vue';
 export default {
- 
   components: {
-      // 'filter-event': filter_events,
       'find-event-card': find_event_card
     },
     data(){
@@ -32,6 +29,9 @@ export default {
       }
     },
     methods: {
+      hideNavbar(isdelete){
+        this.$emit('isdelete', isdelete);
+      }
     },
     mounted() {
     }

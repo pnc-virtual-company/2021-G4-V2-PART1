@@ -1,12 +1,13 @@
 <template>
     <nav class="navbar  navbar-light border border-dark" style='background:#242C2B'>
         <div class='nav justify-content-start w-25'>
-            <img id="pro_img" :src="this.imgpath+this.imgname" alt="">
+            <img id="pro_img" v-if="username != 'Guest'" :src="this.imgpath+this.imgname" alt="">
+            <img id="pro_img" v-else src="https://icon-library.com/images/user-512_10381.png" alt="">
             <h1 style='color:orange;font-weight: bold;'>{{ username }}</h1>
         </div>
         <ul class="nav justify-content-end w-75 p-1" >
             <div  class="d-flex parent-nav">
-                <li style="margin:0px 30px">
+                <li v-if="username != 'Guest'" style="margin:0px 30px">
                     <router-link class='nav-link text-light font-weight-bold' to="/myevent">My events</router-link>
                 </li>
                 <li style="margin:0px 30px">
@@ -30,7 +31,7 @@ export default {
         return {
             username: '',
             userid: '',
-            imgpath:'http://127.0.0.1:8000/storage/UserProfile/',
+            imgpath:'http://eventme.com:3000/storage/UserProfile/',
             imgname:localStorage.getItem('imgname'),
         }
     },

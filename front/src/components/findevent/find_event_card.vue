@@ -100,13 +100,49 @@
             <h2 id="username" class="orange">{{event.user.firstname}}</h2>
           </div>
           <div class="group_btn " >
-            <button v-if="isJoin(event.id)" @click='QuitEvent(event.id)' class="button">Quit</button>
-            <button v-else class="button" @click='JoinEvent(event.id)'>Join</button>
+            <div v-if="isJoin(event.id)">
+              <button  @click='QuitEvent(event.id)' class="button">Quit Event</button>
+            </div>
+            <div v-else>
+              <button  v-if="username!='Guest'" class="button" @click='JoinEvent(event.id)'>Join Event</button>
+              <button v-else class="button" data-bs-toggle="modal" data-bs-target="#deleteEvent" >Join Event</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="wrapper delete">
+      <div class="modal fade delete delete_modal" id="deleteEvent">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body modal_delete">
+              <h4>Create an account ?</h4>
+              <hr />
+              <strong>Have you had an account ?</strong>
+              <hr />
+              <div class="cancel_delete">
+                <button
+                  class="button_cancel"
+                  role="button"
+                  data-bs-dismiss="modal"
+                >
+                  Cancel
+                </button>
+                <button
+                  class="button_delete"
+                  role="button"
+                  data-bs-dismiss="modal"
+                  @click="createAccount"
+                >
+                  signIn | signUp
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 </template>
 <script>
@@ -134,8 +170,8 @@ export default {
       username:localStorage.getItem("username"),
       user_id:localStorage.getItem("id"),
       UserProfile:localStorage.getItem("imgname"),
-      pathImage: "http://127.0.0.1:8000/storage/EventImages/",
-      pathImagePro: "http://127.0.0.1:8000/storage/UserProfile/",
+      pathImage: "http://eventme.com:3000/storage/EventImages/",
+      pathImagePro: "http://eventme.com:3000/storage/UserProfile/",
     };
   },
   computed:{
@@ -154,6 +190,11 @@ export default {
     }
   },
   methods: {
+    createAccount(){
+      this.isSignup = this.$router.push('/');
+      localStorage.clear();
+      this.$emit('isNotHidden', false);
+    },
     getLocation() {
         let countries = this.list_Location;
         for (let key in countries) {
@@ -188,33 +229,27 @@ export default {
     },
     SortEvent(typeofsort,key){
       let listSort = [];
-      if(typeofsort === 'category_id'){
+      if (typeofsort === 'category_id'){
         console.log('cate_id')
-        for( let event of this.Events){
-          console.log(event.category_id === key)
-          console.log(event.category_id)
-            console.log(key)
+        for(let event of this.Events){
           if(event.category_id === key){
-            
-            listSort.push(event)
+            listSort.push(event);
           }
         }
-      }
-      else if(typeofsort === 'country'){
-        for( let event of this.Events){
+      } else if (typeofsort === 'country'){
+        for(let event of this.Events){
           if(event.country == key){
-            listSort.push(event)
+            listSort.push(event);
           }
         }
-      }
-      else{
-        for( let event of this.Events){
+      } else {
+        for(let event of this.Events){
           if(event.city == key){
-            listSort.push(event)
+            listSort.push(event);
           }
         }
       }
-      this.ListEvents = listSort
+      this.ListEvents = listSort;
     },
     JoinEvent(event_id){
       let Join={
@@ -293,6 +328,16 @@ export default {
 </script>
 
 <style scoped>
+.modal-content{
+  margin-top: 40%;
+  background: rgba(0, 0, 0, 0.652);
+  width: 60%;
+  margin-left: 20%;
+}
+.modal-body, h1, strong{
+  color: white;
+  text-align: center;
+}
 .container_card {
   margin: 10px 70px;
   border: solid 2px orange;
@@ -340,7 +385,6 @@ export default {
 .card-btn-top {
   height: 60%;
 }
-/* ----------- */
 .category-header,
 .location {
   display: flex;
@@ -370,12 +414,12 @@ img {
 }
 .profile {
   border-radius: 40px;
-  /* margin: 0px 5px; */
+  /* / margin: 0px 5px; / */
   width: 32.5px;
   height: 32.5px;
 }
 .location{
-   width: 98.5%;
+  width: 98.5%;
   border-radius: 5px;
   background: rgba(48, 47, 47, 0.61);
   margin: 5px;
@@ -392,33 +436,39 @@ img {
   margin: 0px 10px;
 }
 .description {
-  height: 90px;
+  height: auto;
   margin: 10px 0px;
 }
 .group_btn {
+  display: flex;
+  justify-content: center;
   height: 20%;
   margin-top: 0px;
-  display: grid;
+padding: 20px;
 }
 .card-btn-top {
-  height: 80%;
+  height: 70%;
 }
 button {
-  height: 50px;
+  height: 40px;
   color: white;
   border-radius: 10px;
-  padding: 10px;
-  margin: 10px 7px;
+  padding:1px 10px;
   background: rgba(0, 0, 0, 0.796);
   border: 1px solid orange;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 button:hover{
   background: orange;
   border: 2px solid white;
   color: black;
   font-weight: bold;
-  padding: 12px;
-  margin: 8px 0px;
+  padding:2px 12px;
+}
+.cancel_delete{
+  display: flex;
+  justify-content: center;
 }
 .select-group{
     display: flex;
@@ -433,7 +483,6 @@ button:hover{
     background: orange;
     border: 1px solid white;
 }
-
 select{
     text-align: center;
     color: white;

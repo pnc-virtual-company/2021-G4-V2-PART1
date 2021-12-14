@@ -1,7 +1,7 @@
 <template>
     <section>
         <navbar v-if="isNotHidden" @isNotHidden="navHidden"></navbar>
-        <router-view @signup="addUser" @isNotHidden="navHidden"></router-view>
+        <router-view @signup="addUser" @isNotHidden="navHidden" @isdelete='navHidden'></router-view>
     </section>
 </template>
 
